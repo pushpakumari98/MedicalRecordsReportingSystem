@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class PatientController {
-
     @Autowired
     private PatientService patientService;
     //localhost:8081/api/patient
