@@ -21,7 +21,7 @@ public class PatientController {
     //localhost:8081/api/patient
 
     //POST //GET//DELETE//PUT
-    @PostMapping("/patient") //data create create ho rha h
+    @PostMapping("/patient") //data create ho rha h
     public ResponseEntity savePatient(@Valid @RequestBody PatientRequest patient, BindingResult result)
     {
         if (result.hasErrors()) {
@@ -128,13 +128,27 @@ public class PatientController {
                 if(patient.getName()!=null && !patient.getName().equalsIgnoreCase(dbPatient.getName())){
                     dbPatient.setName(patient.getName());
                 }
-
+                if(patient.getPhone()!=null && !patient.getPhone().equalsIgnoreCase(dbPatient.getState())){
+                    dbPatient.setPhone(patient.getPhone());
+                }
                 if(patient.getAadhar()!=null && !patient.getAadhar().equalsIgnoreCase(dbPatient.getAadhar())){
                     dbPatient.setAadhar(patient.getAadhar());
                 }
-                //
-                //
-
+//                if(patient.getClass()!=null && !patient.getClass().equalsIgnoreCase(dbPatient.getClass())){
+//                    dbPatient.setClass(patient.getClass());
+//                }
+//                if(patient.getDob()!=null && !patient.getDob().equalsIgnoreCase(dbPatient.getDob())){
+//                    dbPatient.setDob(patient.getDob());
+//                }
+                if(patient.getCity()!=null && !patient.getCity().equalsIgnoreCase(dbPatient.getCity())){
+                    dbPatient.setCity(patient.getCity());
+                }
+                if(patient.getCountry()!=null && !patient.getCountry().equalsIgnoreCase(dbPatient.getCountry())){
+                    dbPatient.setCountry(patient.getCountry());
+                }
+                if(patient.getState()!=null && !patient.getState().equalsIgnoreCase(dbPatient.getState())){
+                    dbPatient.setState(patient.getState());
+                }
                 try{
                     Patient updatedPatient = patientService.savePatient(dbPatient);
                 }catch(Exception e){
@@ -145,7 +159,7 @@ public class PatientController {
             return ResponseEntity.badRequest().body("Something went wrong in update.");
         }
 
-        return ResponseEntity.badRequest().body("Patient Update Succesfully.");
+        return ResponseEntity.badRequest().body("Patient Updated Succesfully.");
     }
 
 
