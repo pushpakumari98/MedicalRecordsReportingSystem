@@ -1,6 +1,5 @@
 package com.hospital.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,6 +12,9 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class PatientRequest {
     @NotBlank(message = "Name is a mandatory field.")
     private String name;
