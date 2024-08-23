@@ -1,12 +1,29 @@
 package com.hospital.service;
 
 import com.hospital.entity.Doctor;
-import com.hospital.entity.Patient;
+
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface DoctorService {
 
-    public Patient saveDoctor(Doctor doctor);  //C
+
+
+    public Doctor saveDoctor(Doctor doctor);  //C
+
+    static List<Doctor> getAllDoctor() {
+        return null;
+    }
+
+    Optional<Doctor> getDoctorById(Long doctorId);
+
+    void deleteDoctorById(Long id);
+
+    Doctor findById(Long id);
+
+    Optional<Doctor> findByPhone(Long phone);
 
 }

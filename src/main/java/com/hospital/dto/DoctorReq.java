@@ -1,42 +1,44 @@
 package com.hospital.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class DoctorReq {
 
-    public String getName() {
-        return null;
-    }
+    @NotBlank(message = "Name is a mandatory field.")
+    private String name;
 
-    public Date getDob() {
-        return null;
-    }
+   // @NotNull(message = "Age is a mandatory field.")
+    private Integer age;
 
-    public Long getId() {
-        return null;
-    }
+   // @NotBlank(message = "Phone is a mandatory field.")
+   // @Size(min = 10, message = "Minimum 10 digits required")
+    private Long phone;
 
-    public Integer getAge() {
-        return null;
-    }
+  //  @NotNull(message="DOB is a mandatory field")
+    private Date dob;
 
-    public Long getPhone() {
-        return null;
-    }
+   // @NotBlank(message="Fill your city name to proceed")
+    private String city;
 
-    public String getCity() {
-        return null;
-    }
+   // @NotBlank(message="Fill your state name to proceed")
+    private String state;
 
-    public String getState() {
-        return null;
-    }
+   // @NotBlank(message="fill country name to proceed")
+    private String country;
 
-    public String getCountry() {
-        return null;
-    }
-
-    public String getSpecialist() {
-        return null;
-    }
+   // @NotNull(message ="It's mandatory field")
+    private String specialist;
 }

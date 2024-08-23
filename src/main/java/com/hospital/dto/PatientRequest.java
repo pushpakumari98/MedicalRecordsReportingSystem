@@ -22,18 +22,11 @@ public class PatientRequest {
     @NotNull(message = "Age is a mandatory field.")
     private Integer age;
     @NotBlank(message = "Phone is a mandatory field.")
-    @Size(min = 2, message = "Minimum 2 digits required")
+    @Size(min = 10, message = "Minimum 10 digits required")
     private String phone;
 
     @NotNull(message="DOB is a mandatory field")
     private Date dob;
-    @NotBlank(message="Fill your city name to proceed")
-    private String city;
-    @NotBlank(message="Fill your state name to proceed")
-    private String state;
-
-    @NotBlank(message="fill country name to proceed")
-    private String country;
 
     @NotBlank(message ="Aadhar is a mandatory input." )
     private String aadhar;

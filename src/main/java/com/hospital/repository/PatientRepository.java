@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
+
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     Optional<Patient> findByAadhar(String aadhar);  //select id, age,  from tbl_patient where aadhar = "";

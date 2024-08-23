@@ -36,9 +36,6 @@ public class PatientController {
             p.setAge(patient.getAge());
             p.setPhone(patient.getPhone());
             p.setDob(patient.getDob());
-            p.setCity(patient.getCity());
-            p.setState(patient.getState());
-            p.setCountry(patient.getCountry());
             p.setAadhar(patient.getAadhar());
             Patient createdPatient = null;
 
@@ -50,7 +47,10 @@ public class PatientController {
                 } else {
                     return ResponseEntity.badRequest().body("Patient already exist!! Your Patient Id is: " + patient1.getId());
                 }
-            } catch (Exception e) {
+            }catch  (NoSuchElementException e){
+                createdPatient = patientService.savePatient(p);
+            }
+            catch (Exception e) {
                 return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
             }
             return ResponseEntity.ok().body(createdPatient);
@@ -70,7 +70,7 @@ public class PatientController {
         }
 
         @GetMapping("/getpatient/{patientId}")
-        public ResponseEntity getPatientById (@RequestParam Long patientId){
+        public ResponseEntity getPatientById (@PathVariable Long patientId){
 
             System.out.println("patientId " + patientId);
             Patient patient = null;
@@ -113,7 +113,7 @@ public class PatientController {
             try {
                 Patient dbPatient = patientService.findByAadhar(aadhar);
                 if (dbPatient == null) {
-                    return ResponseEntity.badRequest().body("Patient does not exist!!Please Procced for registration.");
+                    return ResponseEntity.badRequest().body("Patient does not exist!!Please Proceed for registration.");
                 } else {
                     //patient
                     //dbPatient null
@@ -122,23 +122,11 @@ public class PatientController {
                     if (patient.getName() != null && !patient.getName().equalsIgnoreCase(dbPatient.getName())) {
                         dbPatient.setName(patient.getName());
                     }
-                    if (patient.getPhone() != null && !patient.getPhone().equalsIgnoreCase(dbPatient.getState())) {
-                        dbPatient.setPhone(patient.getPhone());
-                    }
                     if (patient.getAadhar() != null && !patient.getAadhar().equalsIgnoreCase(dbPatient.getAadhar())) {
                         dbPatient.setAadhar(patient.getAadhar());
                     }
                     if (patient.getDob() != null && patient.getDob().after(dbPatient.getDob()) || patient.getDob().before(patient.getDob())) {
                         dbPatient.setDob(patient.getDob());
-                    }
-                    if (patient.getCity() != null && !patient.getCity().equalsIgnoreCase(dbPatient.getCity())) {
-                        dbPatient.setCity(patient.getCity());
-                    }
-                    if (patient.getCountry() != null && !patient.getCountry().equalsIgnoreCase(dbPatient.getCountry())) {
-                        dbPatient.setCountry(patient.getCountry());
-                    }
-                    if (patient.getState() != null && !patient.getState().equalsIgnoreCase(dbPatient.getState())) {
-                        dbPatient.setState(patient.getState());
                     }
                     try {
                         Patient updatedPatient = patientService.savePatient(dbPatient);
@@ -149,7 +137,6 @@ public class PatientController {
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Something went wrong in update.");
             }
-
             return ResponseEntity.badRequest().body("Patient Updated Succesfully.");
         }
 }
