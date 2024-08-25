@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 public class AddressRequest {
 
-    @NotBlank
+    @NotBlank(message="This is a mandatory field")
     private String city;
 
-    @NotBlank
+    @NotBlank(message="This is mandatory field")
     private String state;
 
-    @NotBlank
+    @NotBlank(message="This is mandatory field")
     private String country;
 
     @NotNull(message = "Pin is a mandatory field.")

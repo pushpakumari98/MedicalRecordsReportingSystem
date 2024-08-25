@@ -128,6 +128,9 @@ public class PatientController {
                     if (patient.getDob() != null && patient.getDob().after(dbPatient.getDob()) || patient.getDob().before(patient.getDob())) {
                         dbPatient.setDob(patient.getDob());
                     }
+                    if (patient.getAge() != null) {
+                        dbPatient.setAge(patient.getAge());
+                    }
                     try {
                         Patient updatedPatient = patientService.savePatient(dbPatient);
                     } catch (Exception e) {
@@ -137,6 +140,6 @@ public class PatientController {
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Something went wrong in update.");
             }
-            return ResponseEntity.badRequest().body("Patient Updated Succesfully.");
+            return ResponseEntity.ok().body("Patient Updated Succesfully.");
         }
 }

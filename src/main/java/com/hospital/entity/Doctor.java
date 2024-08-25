@@ -37,5 +37,9 @@ public class Doctor {
 
     private String specialist;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
 
 }

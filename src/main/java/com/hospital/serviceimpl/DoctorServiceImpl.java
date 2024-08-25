@@ -28,7 +28,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Doctor findById(Long id) {
-        return null;
+        return doctorRepository.findById(id).get();
     }
 
     @Override
