@@ -29,12 +29,6 @@ public class Doctor {
 
     private Date dob;
 
-    private String city;
-
-    private String state;
-
-    private String country;
-
     private String specialist;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -1,5 +1,4 @@
 package com.hospital.controller;
-
 import com.hospital.dto.AddressRequest;
 import com.hospital.entity.Address;
 import com.hospital.entity.Doctor;
@@ -8,11 +7,9 @@ import com.hospital.repository.PatientRepository;
 import com.hospital.service.DoctorService;
 import com.hospital.service.PatientService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.NoSuchElementException;
 
 @RestController
@@ -20,23 +17,20 @@ import java.util.NoSuchElementException;
 public class AddressController {
     @Autowired
     PatientService patientService;
-
     @Autowired
     DoctorService doctorService;
-
     @Autowired
     PatientRepository patientRepository;
 
-
-    @PostMapping("/createaddress/{patientid}")
-    public ResponseEntity saveAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long patientid){
+    @PostMapping("/savePatientAddress/{patientid}")
+    public ResponseEntity savePatientAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long patientid) {
 
         //check if the patient is exist in the hospital or not
         //if not, return a valid message else procedd to save address
         Patient patient = null;
         try {
             patient = patientService.getPatientByPatientId(patientid);
-            if(patient==null){
+            if (patient == null) {
                 return ResponseEntity.ok().body("Patient Does not exist!");
             }
         } catch (NoSuchElementException e) {
@@ -48,7 +42,7 @@ public class AddressController {
 
             Address dbAddress = patient.getAddress();
             Address add = new Address();
-            if(dbAddress !=null){
+            if (dbAddress != null) {
                 add.setId(dbAddress.getId());
             }
             add.setState(addressRequest.getState());
@@ -66,14 +60,14 @@ public class AddressController {
     }
 
     @PostMapping("/createdocaddress/{doctorid}")
-    public ResponseEntity saveDoctorAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long doctorid){
+    public ResponseEntity saveDoctorAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long doctorid) {
 
         //check if the patient is exist in the hospital or not
         //if not, return a valid message else procedd to save address
         Doctor doctor = null;
         try {
             doctor = doctorService.findById(doctorid);
-            if(doctor==null){
+            if (doctor == null) {
                 return ResponseEntity.ok().body("Doctor Does not exist!");
             }
         } catch (NoSuchElementException e) {
@@ -98,4 +92,86 @@ public class AddressController {
         return ResponseEntity.ok().body("doctor saved sucessfully!!");
     }
 
+    @PutMapping("/updatePatientAddress/{patientid}")
+    public ResponseEntity updatePatientAddress(@RequestBody AddressRequest addressRequest, @PathVariable Long patientid) {
+
+        //check if the patient is exist in the hospital or not
+        //if not, return a valid message else proceed to save address
+        Patient patient = null;
+        try {
+            patient = patientService.getPatientByPatientId(patientid);
+            if (patient == null) {
+                return ResponseEntity.ok().body("Patient Does not exist!");
+            }
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok().body("Patient Does not exist!");
+        }
+
+        Address add = new Address();
+
+        Address address = patient.getAddress();
+        if (address == null) {
+            //createing new address
+            add.setState(addressRequest.getState());
+            add.setCountry(addressRequest.getCountry());
+            add.setCity(addressRequest.getCity());
+            add.setPin(addressRequest.getPin());
+            add.setAddType("Patient");
+            patient.setAddress(add);
+        } else if (address != null) {
+            //updating exiting address
+            add.setId(address.getId());
+            add.setState(addressRequest.getState());
+            add.setCountry(addressRequest.getCountry());
+            add.setCity(addressRequest.getCity());
+            add.setPin(addressRequest.getPin());
+            add.setAddType("Patient");
+            patient.setAddress(add);
+        }
+        patientService.savePatient(patient);  //
+
+        return ResponseEntity.ok().body("Address Updated sucessfully!!");
+    }
+
+    @PutMapping("/updateDoctorAddress/{doctorid}")
+    public ResponseEntity updateDoctorAddress(@RequestBody AddressRequest addressRequest, @PathVariable Long doctorid) {
+
+        try {
+            Doctor doctor = null;
+            doctor = doctorService.getDoctorById(doctorid);
+            if (doctor == null) {
+                return ResponseEntity.ok().body("Doctor Does not exist!");
+            }
+            Address address = doctor.getAddress();
+
+            // If the address exists, update it
+            if (address != null) {
+                address.setId(address.getId());
+                address.setState(addressRequest.getState());
+                address.setCountry(addressRequest.getCountry());
+                address.setCity(addressRequest.getCity());
+                address.setPin(addressRequest.getPin());
+                address.setAddType("Doctor");
+            } else {
+                // Otherwise, create a new address
+                address = new Address();
+                address.setState(addressRequest.getState());
+                address.setCountry(addressRequest.getCountry());
+                address.setCity(addressRequest.getCity());
+                address.setPin(addressRequest.getPin());
+                address.setAddType("Doctor");
+            }
+
+            // Associate the address with the doctor and save
+            doctor.setAddress(address);
+            doctorService.saveDoctor(doctor);
+
+            return ResponseEntity.ok().body("Doctor's address updated successfully!");
+
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok().body("Doctor does not exist!");
+        }
+    }
 }

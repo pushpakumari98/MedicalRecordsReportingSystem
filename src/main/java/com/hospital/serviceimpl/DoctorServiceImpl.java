@@ -4,6 +4,8 @@ import com.hospital.repository.DoctorRepository;
 import com.hospital.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +20,13 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Optional<Doctor> getDoctorById(Long id) {
-        return doctorRepository.findById(id);
+    public List<Doctor> getAllDoctor() {
+        return doctorRepository.findAll();
+    }
+
+    @Override
+    public Doctor getDoctorById(Long id) {
+        return doctorRepository.findById(id).get();
     }
     @Override
     public void deleteDoctorById(Long id) {

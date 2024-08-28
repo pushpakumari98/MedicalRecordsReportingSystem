@@ -37,16 +37,18 @@ public class DoctorController {
         d.setDob(doctor.getDob());
         d.setAge(doctor.getAge());
         d.setPhone(doctor.getPhone());
-        d.setCity(doctor.getCity());
-        d.setState(doctor.getState());
-        d.setCountry(doctor.getCountry());
         d.setSpecialist(doctor.getSpecialist());
 
         Doctor createdDoctor = null;
         try {
-            DoctorRepository doctorService = null;
-            Optional<Doctor> doctor1 = doctorService.findByPhone(doctor.getPhone());
-
+            Doctor doctor1 = doctorService.findByPhone(doctor.getPhone()).get();
+            if (doctor1 == null) {
+                createdDoctor = doctorService.saveDoctor(d);  //
+            } else {
+                return ResponseEntity.badRequest().body("Patient already exist!! Your Patient Id is: " + doctor1.getId());
+            }
+        }catch(NoSuchElementException e){
+            createdDoctor = doctorService.saveDoctor(d);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
         }
@@ -56,7 +58,7 @@ public class DoctorController {
     public ResponseEntity getAllDoctor () {
         List<Doctor> DoctorList = null;
         try {
-            DoctorList = DoctorService.getAllDoctor();
+            DoctorList = doctorService.getAllDoctor();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok().body("Something Went Wrong!");
@@ -67,7 +69,7 @@ public class DoctorController {
     public ResponseEntity getDoctorById (@PathVariable Long doctorId){
 
         System.out.println("doctorId " + doctorId);
-        Optional<Doctor> doctor = null;
+        Doctor doctor = null;
         try {
             doctor = doctorService.getDoctorById(doctorId);
         } catch (Exception e) {
@@ -83,10 +85,8 @@ public class DoctorController {
         Doctor doctor = null;
         System.out.println("doctorId " + doctorId);
         try {
-
-            DoctorController doctorService = null;
             try {
-                doctorService.getDoctorByDoctorId(doctorId);
+                Doctor doctor1 = doctorService.getDoctorById(doctorId);
 
             } catch (NoSuchElementException e) {
                 return ResponseEntity.ok().body("Doctor Does Not Exist!!!");
@@ -96,12 +96,9 @@ public class DoctorController {
             e.printStackTrace();
             return ResponseEntity.ok().body("Something Went Wrong!");
         }
-
         return ResponseEntity.ok().body("Doctor has been deleted successfully");
     }
 
-    private void getDoctorByDoctorId(Long doctorId) {
-    }
     @PutMapping("/updateDoctor/{phone}")
     public ResponseEntity<?> updateDoctor(@RequestBody DoctorReq doctorReq, @PathVariable Long phone, BindingResult result) {
         if (result.hasErrors()) {
@@ -112,7 +109,6 @@ public class DoctorController {
         }
 
         try {
-
             Optional<Doctor> dbDoctorOpt = doctorService.findByPhone(phone);
             if (dbDoctorOpt.isEmpty()) {
                 return ResponseEntity.badRequest().body("Doctor does not exist! Please proceed with registration.");
@@ -131,15 +127,6 @@ public class DoctorController {
             }
             if (doctorReq.getDob() != null) {
                 dbDoctor.setDob(doctorReq.getDob());
-            }
-            if (doctorReq.getCity() != null) {
-                dbDoctor.setCity(doctorReq.getCity());
-            }
-            if (doctorReq.getState() != null) {
-                dbDoctor.setState(doctorReq.getState());
-            }
-            if (doctorReq.getCountry() != null) {
-                dbDoctor.setCountry(doctorReq.getCountry());
             }
             if (doctorReq.getSpecialist() != null) {
                 dbDoctor.setSpecialist(doctorReq.getSpecialist());

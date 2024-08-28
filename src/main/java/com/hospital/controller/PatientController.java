@@ -1,7 +1,11 @@
 package com.hospital.controller;
 
 import com.hospital.dto.PatientRequest;
+import com.hospital.entity.Address;
+import com.hospital.entity.AddressHistory;
 import com.hospital.entity.Patient;
+import com.hospital.entity.PatientHistory;
+import com.hospital.service.PatientHistoryService;
 import com.hospital.service.PatientService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -18,6 +22,9 @@ import java.util.stream.Collectors;
 public class PatientController {
         @Autowired
         private PatientService patientService;
+
+        @Autowired
+        private PatientHistoryService patientHistoryService;
         //localhost:8081/api/patient
 
         //POST //GET//DELETE//PUT
@@ -43,7 +50,7 @@ public class PatientController {
                 Patient patient1 = patientService.findByAadhar(patient.getAadhar());
 
                 if (patient1 == null) {
-                    createdPatient = patientService.savePatient(p);
+                    createdPatient = patientService.savePatient(p);   //
                 } else {
                     return ResponseEntity.badRequest().body("Patient already exist!! Your Patient Id is: " + patient1.getId());
                 }
@@ -76,27 +83,60 @@ public class PatientController {
             Patient patient = null;
             try {
                 patient = patientService.getPatientByPatientId(patientId);
+            }catch (NoSuchElementException e){
+                return ResponseEntity.ok().body("Patient Does Not Exist!");
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.ok().body("Something Went Wrong!");
             }
-
             return ResponseEntity.ok().body(patient);
         }
 
         @DeleteMapping("/deletepatient/{patientId}")
+        @Transactional
         public ResponseEntity deletePatientById (@RequestParam Long patientId){
             Patient patient = null;
             System.out.println("patientId " + patientId);
             try {
-
+                Patient patient2 = null;
+                Address add = null;
                 try {
-                    patientService.getPatientByPatientId(patientId);
-
+                   patient2 = patientService.getPatientByPatientId(patientId);
+                   if(patient2.getAddress()!=null){
+                       add = patient2.getAddress();
+                   }
                 } catch (NoSuchElementException e) {
                     return ResponseEntity.ok().body("Patient Does Not Exist!!!");
                 }
-                patientService.deletePatientById(patientId);
+
+                if(patient2 == null){
+                    return ResponseEntity.ok().body("Patient Does Not Exist!!!");
+                }
+
+                PatientHistory patientHistory = new PatientHistory();
+                AddressHistory addHis = new AddressHistory();
+                patientHistory.setId(patient2.getId());
+                patientHistory.setName(patient2.getName());
+                patientHistory.setDob(patient2.getDob());
+                patientHistory.setAadhar(patient2.getAadhar());
+                patientHistory.setAge(patient2.getAge());
+                patientHistory.setPhone(patient2.getPhone());
+               if(add!=null){
+                   addHis.setId(add.getId());
+                   addHis.setCity(add.getCity());
+                   addHis.setAddType(add.getAddType());
+                   addHis.setCountry(add.getCountry());
+                   addHis.setState(add.getState());
+                   addHis.setPin(add.getPin());
+                   //
+               }
+                patientHistory.setAddress(addHis);
+
+                patientService.deletePatientById(patientId);  ///
+
+
+                patientHistoryService.saveDeletedPaitent(patientHistory);  //wro
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.ok().body("Something Went Wrong!");

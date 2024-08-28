@@ -30,15 +30,6 @@ public class DoctorReq {
   //  @NotNull(message="DOB is a mandatory field")
     private Date dob;
 
-   // @NotBlank(message="Fill your city name to proceed")
-    private String city;
-
-   // @NotBlank(message="Fill your state name to proceed")
-    private String state;
-
-   // @NotBlank(message="fill country name to proceed")
-    private String country;
-
    // @NotNull(message ="It's mandatory field")
     private String specialist;
 }

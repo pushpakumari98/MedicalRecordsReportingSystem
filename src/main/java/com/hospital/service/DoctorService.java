@@ -14,11 +14,9 @@ public interface DoctorService {
 
     public Doctor saveDoctor(Doctor doctor);  //C
 
-    static List<Doctor> getAllDoctor() {
-        return null;
-    }
+    public List<Doctor> getAllDoctor();
 
-    Optional<Doctor> getDoctorById(Long doctorId);
+    Doctor getDoctorById(Long doctorId);
 
     void deleteDoctorById(Long id);
 
