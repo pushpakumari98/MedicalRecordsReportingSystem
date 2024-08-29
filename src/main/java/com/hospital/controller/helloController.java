@@ -1,6 +1,7 @@
 package com.hospital.controller;
 
-import com.hospital.dto.DoctorReq;
+
+import com.hospital.dto.DoctorRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,13 @@ public class helloController {
     @GetMapping("/hello")
     public String hello(Model model){
 
-        DoctorReq docForm = new DoctorReq();
+        DoctorRequest docForm = new DoctorRequest();
         model.addAttribute("docForm",docForm);
         return "hello";
     }
 
     @PostMapping("/addPatient")
-    public String addPatient(@Valid @ModelAttribute DoctorReq docRequest, BindingResult result, HttpSession session){
+    public String addPatient(@Valid @ModelAttribute DoctorRequest docRequest, BindingResult result, HttpSession session){
 
         if(result.hasErrors()){
             return "hello";

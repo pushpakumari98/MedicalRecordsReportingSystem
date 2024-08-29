@@ -1,5 +1,6 @@
 package com.hospital.controller;
-import com.hospital.dto.DoctorReq;
+
+import com.hospital.dto.DoctorRequest;
 import com.hospital.entity.Doctor;
 import com.hospital.repository.DoctorRepository;
 import com.hospital.service.DoctorService;
@@ -9,6 +10,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -17,42 +19,41 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class DoctorController {
-
     @Autowired
     private DoctorService doctorService;
-
     @Autowired
     DoctorRepository doctorRepository;
-
     @PostMapping("/doctor")
-    public <DoctorRequest> ResponseEntity saveDoctor(@Valid @RequestBody DoctorReq doctor, BindingResult result) {
+    public ResponseEntity<?> saveDoctor(@Valid @RequestBody DoctorRequest doctor, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorList = result.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
             return ResponseEntity.badRequest().body(errorList);
         }
+
         Doctor d = new Doctor();
-        d.setName(doctor.getName());
-        d.setDob(doctor.getDob());
-        d.setAge(doctor.getAge());
-        d.setPhone(doctor.getPhone());
-        d.setSpecialist(doctor.getSpecialist());
+        d.setName(doctor.getName());          // Ensure that getName() method exists
+        d.setDob(doctor.getDob());            // Ensure that getDob() method exists
+        d.setAge(doctor.getAge());            // Ensure that getAge() method exists
+        d.setPhone(doctor.getPhone());        // Ensure that getPhone() method exists
+        d.setSpecialist(doctor.getSpecialist()); // Ensure that getSpecialist() method exists
 
         Doctor createdDoctor = null;
         try {
-            Doctor doctor1 = doctorService.findByPhone(doctor.getPhone()).get();
+            Doctor doctor1 = doctorService.findByPhone(doctor.getPhone()).orElse(null);
             if (doctor1 == null) {
                 createdDoctor = doctorService.saveDoctor(d);  //
             } else {
-                return ResponseEntity.badRequest().body("Patient already exist!! Your Patient Id is: " + doctor1.getId());
+                return ResponseEntity.badRequest().body("Patient already exists!! Your Patient Id is: " + doctor1.getId());
             }
-        }catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             createdDoctor = doctorService.saveDoctor(d);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
         }
         return ResponseEntity.ok().body(createdDoctor);
+
     }
     @GetMapping("/getDoctor")
     public ResponseEntity getAllDoctor () {
@@ -100,7 +101,7 @@ public class DoctorController {
     }
 
     @PutMapping("/updateDoctor/{phone}")
-    public ResponseEntity<?> updateDoctor(@RequestBody DoctorReq doctorReq, @PathVariable Long phone, BindingResult result) {
+    public ResponseEntity<?> updateDoctor(@RequestBody DoctorRequest doctorRequest, @PathVariable Long phone, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorList = result.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -116,20 +117,20 @@ public class DoctorController {
 
             Doctor dbDoctor = dbDoctorOpt.get();
 
-            if (doctorReq.getName() != null) {
-                dbDoctor.setName(doctorReq.getName());
+            if (doctorRequest.getName() != null) {
+                dbDoctor.setName(doctorRequest.getName());
             }
-            if (doctorReq.getAge() != null) {
-                dbDoctor.setAge(doctorReq.getAge());
+            if (doctorRequest.getAge() != null) {
+                dbDoctor.setAge(doctorRequest.getAge());
             }
-            if (doctorReq.getPhone() != null) {
-                dbDoctor.setPhone(doctorReq.getPhone());
+            if (doctorRequest.getPhone() != null) {
+                dbDoctor.setPhone(doctorRequest.getPhone());
             }
-            if (doctorReq.getDob() != null) {
-                dbDoctor.setDob(doctorReq.getDob());
+            if (doctorRequest.getDob() != null) {
+                dbDoctor.setDob(doctorRequest.getDob());
             }
-            if (doctorReq.getSpecialist() != null) {
-                dbDoctor.setSpecialist(doctorReq.getSpecialist());
+            if (doctorRequest.getSpecialist() != null) {
+                dbDoctor.setSpecialist(doctorRequest.getSpecialist());
             }
             Doctor updatedDoctor = doctorService.saveDoctor(dbDoctor);
             return ResponseEntity.ok().body("Doctor Updated Successfully.");
@@ -137,4 +138,12 @@ public class DoctorController {
             return ResponseEntity.badRequest().body("Something went wrong in the update.");
         }
     }
+
+    @GetMapping("/findBySpe/{specialist}")
+    public ResponseEntity findBySpecialist(@PathVariable String specialist){
+        System.out.println(specialist);
+        List<Doctor> docList = doctorService.findBySpecialist(specialist);
+        return ResponseEntity.ok().body(docList);
+    }
+
 }

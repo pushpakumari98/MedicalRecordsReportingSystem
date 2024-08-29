@@ -1,15 +1,15 @@
 package com.hospital.repository;
 
 import com.hospital.entity.Doctor;
+import com.hospital.entity.DoctorHistory;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor,Long> {
-    Optional<Doctor> findByPhone(Long phone);
+public interface DoctorHistoryRepository extends JpaRepository<DoctorHistory, Long> {
 
-    List<Doctor> findBySpecialist(String specialist);
+
 }

@@ -14,6 +14,8 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -44,6 +46,7 @@ public class PatientController {
             p.setPhone(patient.getPhone());
             p.setDob(patient.getDob());
             p.setAadhar(patient.getAadhar());
+            p.setAddmissionDate(new Date());
             Patient createdPatient = null;
 
             try {
@@ -108,11 +111,9 @@ public class PatientController {
                 } catch (NoSuchElementException e) {
                     return ResponseEntity.ok().body("Patient Does Not Exist!!!");
                 }
-
                 if(patient2 == null){
                     return ResponseEntity.ok().body("Patient Does Not Exist!!!");
                 }
-
                 PatientHistory patientHistory = new PatientHistory();
                 AddressHistory addHis = new AddressHistory();
                 patientHistory.setId(patient2.getId());
@@ -121,6 +122,8 @@ public class PatientController {
                 patientHistory.setAadhar(patient2.getAadhar());
                 patientHistory.setAge(patient2.getAge());
                 patientHistory.setPhone(patient2.getPhone());
+                patientHistory.setAddmissionDate(patient2.getAddmissionDate());
+                patientHistory.setDischargeDate(new Date());
                if(add!=null){
                    addHis.setId(add.getId());
                    addHis.setCity(add.getCity());
@@ -128,7 +131,6 @@ public class PatientController {
                    addHis.setCountry(add.getCountry());
                    addHis.setState(add.getState());
                    addHis.setPin(add.getPin());
-                   //
                }
                 patientHistory.setAddress(addHis);
 

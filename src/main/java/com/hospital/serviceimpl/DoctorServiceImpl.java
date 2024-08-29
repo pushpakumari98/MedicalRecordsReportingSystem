@@ -43,4 +43,9 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findByPhone(phone);
     }
 
+    @Override
+    public List<Doctor> findBySpecialist(String specialist) {
+        return doctorRepository.findBySpecialist(specialist);
+    }
+
 }

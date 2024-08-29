@@ -9,17 +9,17 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name="tbl_patient")
+@Table(name="tbl_patient_history")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Patient {
+public class PatientHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="aadhar", nullable = false, unique = true)
+    @Column(name="aadhar", nullable = false, unique = false)
     private String aadhar;
 
     @Column(name="name")
@@ -33,8 +33,10 @@ public class Patient {
 
     private Date addmissionDate;
 
+    private Date dischargeDate;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    private AddressHistory address;
 
 }
