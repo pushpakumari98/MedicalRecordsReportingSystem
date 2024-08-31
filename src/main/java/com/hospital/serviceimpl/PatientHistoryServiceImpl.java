@@ -13,7 +13,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     PatientHistoryRepository patientHistoryRepository;
 
     @Override
-    public PatientHistory saveDeletedPaitent(PatientHistory patient) {
+    public PatientHistory saveDeletedPatient(PatientHistory patient) {
        return patientHistoryRepository.save(patient) ;
     }
 }

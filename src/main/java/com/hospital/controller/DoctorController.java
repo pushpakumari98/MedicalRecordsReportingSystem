@@ -1,7 +1,9 @@
 package com.hospital.controller;
 
 import com.hospital.dto.DoctorRequest;
+import com.hospital.dto.DoctorScheduleRequest;
 import com.hospital.entity.Doctor;
+import com.hospital.entity.DoctorSchedule;
 import com.hospital.repository.DoctorRepository;
 import com.hospital.service.DoctorService;
 import jakarta.validation.Valid;
@@ -144,6 +146,86 @@ public class DoctorController {
         System.out.println(specialist);
         List<Doctor> docList = doctorService.findBySpecialist(specialist);
         return ResponseEntity.ok().body(docList);
+    }
+
+    @PostMapping("/createdocschedule/{docid}")
+    public ResponseEntity findBySpecialist(@RequestBody DoctorScheduleRequest doctorScheduleRequest, @PathVariable Long docid){
+
+        System.out.println(doctorScheduleRequest);
+        System.out.println(docid);
+        boolean validDays = validateDays(doctorScheduleRequest.getWorkingdays());
+        if(!validDays){
+            return ResponseEntity.ok().body("Please correct the days format! follow the given date format:-" +
+                    "MON,TUE,WED,THU,FRI,SAT,SUN");
+        }
+
+
+        //TODO: Validate that request has the corret days
+        Doctor doctor = null;
+        System.out.println("doctorId " + docid);
+        try {
+            try {
+                doctor = doctorService.getDoctorById(docid);
+
+            } catch (NoSuchElementException e) {
+                return ResponseEntity.ok().body("Doctor Does Not Exist!!!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok().body("Something Went Wrong!");
+        }
+
+        DoctorSchedule schedule = new DoctorSchedule();
+        schedule.setWorkingdays(doctorScheduleRequest.getWorkingdays());
+        schedule.setAvailabledate(doctorScheduleRequest.getAvailabledate());
+        schedule.setCheckuproom(doctorScheduleRequest.getCheckuproom());
+
+        doctor.setSchedule(schedule);
+
+        Doctor doc = doctorService.saveDoctor(doctor);
+
+        return ResponseEntity.ok().body(doc);
+    }
+
+    private boolean validateDays(List<String> workingdays) {
+        boolean valid = true;
+
+        for(String day:workingdays){
+            if(day.equalsIgnoreCase("MON"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("TUE"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("WED"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("THUR"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("FRI"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("SAT"))
+            {
+
+            }
+            else if(day.equalsIgnoreCase("SUN"))
+            {
+
+            }
+            else{
+                valid = false;
+            }
+        }
+
+        return valid;
+
     }
 
 }

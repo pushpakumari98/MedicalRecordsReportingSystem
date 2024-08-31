@@ -1,10 +1,7 @@
 package com.hospital.controller;
-
 import com.hospital.dto.PatientRequest;
-import com.hospital.entity.Address;
-import com.hospital.entity.AddressHistory;
-import com.hospital.entity.Patient;
-import com.hospital.entity.PatientHistory;
+import com.hospital.entity.*;
+import com.hospital.service.DoctorService;
 import com.hospital.service.PatientHistoryService;
 import com.hospital.service.PatientService;
 import jakarta.transaction.Transactional;
@@ -28,6 +25,9 @@ public class PatientController {
         @Autowired
         private PatientHistoryService patientHistoryService;
         //localhost:8081/api/patient
+
+        @Autowired
+        private DoctorService doctorService;
 
         //POST //GET//DELETE//PUT
         @PostMapping("/patient") //data create ho rha h
@@ -137,7 +137,7 @@ public class PatientController {
                 patientService.deletePatientById(patientId);  ///
 
 
-                patientHistoryService.saveDeletedPaitent(patientHistory);  //wro
+                patientHistoryService.saveDeletedPatient(patientHistory);  //wro
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -184,4 +184,37 @@ public class PatientController {
             }
             return ResponseEntity.ok().body("Patient Updated Succesfully.");
         }
+
+        @GetMapping("/patient/{patientId}/doctor/{doctorId}")
+        public ResponseEntity linkPatientWithDoctor(@PathVariable Long patientId, @PathVariable Long doctorId){
+            System.out.println(patientId);
+            System.out.println(doctorId);
+
+            Patient patient = null;
+            try {
+                patient = patientService.getPatientByPatientId(patientId);
+            }catch (NoSuchElementException e){
+                return ResponseEntity.ok().body("Patient Does Not Exist!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.ok().body("Something Went Wrong!");
+            }
+
+            Doctor doctor = null;
+            try {
+                doctor = doctorService.getDoctorById(doctorId);
+            }catch (NoSuchElementException e){
+                return ResponseEntity.ok().body("Doctor Does Not Exist!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.ok().body("Something Went Wrong!");
+            }
+
+            patient.setDoctor(doctor);
+
+            patientService.savePatient(patient);
+
+            return ResponseEntity.ok().body("Patient Saved Succesfully.");
+        }
+
 }

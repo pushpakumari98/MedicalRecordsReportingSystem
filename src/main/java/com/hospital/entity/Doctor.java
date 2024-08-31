@@ -1,5 +1,6 @@
 package com.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,5 +36,12 @@ public class Doctor {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "doctor")
+    private Patient patient;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
+    private DoctorSchedule schedule;
 
 }
