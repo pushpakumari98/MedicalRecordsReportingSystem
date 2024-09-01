@@ -43,7 +43,7 @@ public class Patient {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "app_id", referencedColumnName = "id")
-    private AppoinmentDetails appDetails;
+    private AppointmentDetails appDetails;
 
 
 }

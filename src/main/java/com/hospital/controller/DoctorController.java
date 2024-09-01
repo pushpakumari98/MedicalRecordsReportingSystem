@@ -25,7 +25,7 @@ public class DoctorController {
     private DoctorService doctorService;
     @Autowired
     DoctorRepository doctorRepository;
-    @PostMapping("/doctor")
+    @PostMapping("/doctor") //A new doctor will get created
     public ResponseEntity<?> saveDoctor(@Valid @RequestBody DoctorRequest doctor, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorList = result.getAllErrors().stream()
@@ -57,7 +57,7 @@ public class DoctorController {
         return ResponseEntity.ok().body(createdDoctor);
 
     }
-    @GetMapping("/getDoctor")
+    @GetMapping("/getDoctor")  //To retrieve a list of all doctors in the hospital
     public ResponseEntity getAllDoctor () {
         List<Doctor> DoctorList = null;
         try {
@@ -68,7 +68,7 @@ public class DoctorController {
         }
         return ResponseEntity.ok().body(DoctorList);
     }
-    @GetMapping("/getdoctor/{doctorId}")
+    @GetMapping("/getdoctor/{doctorId}") //To retrieve information about a nurse based on specific ID
     public ResponseEntity getDoctorById (@PathVariable Long doctorId){
 
         System.out.println("doctorId " + doctorId);
@@ -83,7 +83,7 @@ public class DoctorController {
         return ResponseEntity.ok().body(doctor);
     }
 
-    @DeleteMapping("/deletedoctor/{doctorId}")
+    @DeleteMapping("/deletedoctor/{doctorId}")  //To delete details about a specific doctor using ID
     public ResponseEntity deleteDoctorById (@RequestParam Long doctorId){
         Doctor doctor = null;
         System.out.println("doctorId " + doctorId);
@@ -102,7 +102,7 @@ public class DoctorController {
         return ResponseEntity.ok().body("Doctor has been deleted successfully");
     }
 
-    @PutMapping("/updateDoctor/{phone}")
+    @PutMapping("/updateDoctor/{phone}") //To update the details of an existing doctor based on phone number
     public ResponseEntity<?> updateDoctor(@RequestBody DoctorRequest doctorRequest, @PathVariable Long phone, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorList = result.getAllErrors().stream()
@@ -141,14 +141,14 @@ public class DoctorController {
         }
     }
 
-    @GetMapping("/findBySpe/{specialist}")
+    @GetMapping("/findBySpe/{specialist}")  //To retrieve a list of doctors who specialize in a specific disease
     public ResponseEntity findBySpecialist(@PathVariable String specialist){
         System.out.println(specialist);
         List<Doctor> docList = doctorService.findBySpecialist(specialist);
         return ResponseEntity.ok().body(docList);
     }
 
-    @PostMapping("/createdocschedule/{docid}")
+    @PostMapping("/createdocschedule/{docid}")  //To create a schedule for a specific doctor based on the provided details
     public ResponseEntity findBySpecialist(@RequestBody DoctorScheduleRequest doctorScheduleRequest, @PathVariable Long docid){
 
         System.out.println(doctorScheduleRequest);

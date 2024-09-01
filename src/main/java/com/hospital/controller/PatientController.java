@@ -187,7 +187,7 @@ public class PatientController {
             return ResponseEntity.ok().body("Patient Updated Succesfully.");
         }
 
-        @GetMapping("/patient/{patientId}/doctor/{doctorId}") //This api is linking patient with doctor using their id's
+        @GetMapping("/patient/{patientId}/doctor/{doctorId}") //To link a specific patient with a specific doctor in a hospital
         public ResponseEntity linkPatientWithDoctor(@PathVariable Long patientId, @PathVariable Long doctorId){
             System.out.println(patientId);
             System.out.println(doctorId);

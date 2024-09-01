@@ -22,7 +22,7 @@ public class AddressController {
     @Autowired
     PatientRepository patientRepository;
 
-    @PostMapping("/savePatientAddress/{patientid}")
+    @PostMapping("/savePatientAddress/{patientid}")  //To save or update the address of a specific patient
     public ResponseEntity savePatientAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long patientid) {
 
         //check if the patient is exist in the hospital or not
@@ -59,7 +59,7 @@ public class AddressController {
         return ResponseEntity.ok().body("Address saved sucessfully!!");
     }
 
-    @PostMapping("/createdocaddress/{doctorid}")
+    @PostMapping("/createdocaddress/{doctorid}") // To save or update the address of a specific doctor
     public ResponseEntity saveDoctorAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long doctorid) {
 
         //check if the patient is exist in the hospital or not
@@ -92,7 +92,7 @@ public class AddressController {
         return ResponseEntity.ok().body("doctor saved sucessfully!!");
     }
 
-    @PutMapping("/updatePatientAddress/{patientid}")
+    @PutMapping("/updatePatientAddress/{patientid}")  //To update the address of a specific patient
     public ResponseEntity updatePatientAddress(@RequestBody AddressRequest addressRequest, @PathVariable Long patientid) {
 
         //check if the patient is exist in the hospital or not
@@ -134,7 +134,7 @@ public class AddressController {
         return ResponseEntity.ok().body("Address Updated sucessfully!!");
     }
 
-    @PutMapping("/updateDoctorAddress/{doctorid}")
+    @PutMapping("/updateDoctorAddress/{doctorid}")  //To update the address of a specific doctor
     public ResponseEntity updateDoctorAddress(@RequestBody AddressRequest addressRequest, @PathVariable Long doctorid) {
 
         try {
