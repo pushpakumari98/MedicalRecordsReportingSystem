@@ -18,8 +18,8 @@ User Authentication and Authorization: Secure access with role-based authenticat
 Advanced Search: Easily locate patient records using various search criteria.
 <br>
 Responsive Design: User-friendly interface compatible with multiple devices.
-<br>
 
+<br>
 <b>Technology Stack</b>
 <br>
 Backend: Spring Boot, Java
@@ -31,11 +31,13 @@ Database: MySQL / PostgreSQL
 Security: Spring Security with JWT (JSON Web Token) Authentication
 <br>
 Build Tools: Maven / Gradle
+
 <br>
 Version Control: Git
 
 <br>
 <b>Installation and Setup</b>
+
 <br>
 <b>Prerequisites</b>
 Ensure that the following software is installed on your system:
@@ -51,46 +53,9 @@ MySQL or PostgreSQL
 <br>
 Update the application.properties or application.yml file with your database connection details.
 <br>
-Build the Project:
 
-If using Maven:
 
-bash
-Copy code
-mvn clean install
-If using Gradle:
 
-bash
-Copy code
-gradle build
-Run the Application:
 
-bash
-Copy code
-mvn spring-boot:run
-or
 
-bash
-Copy code
-gradle bootRun
-Access the Application:
-
-Navigate to http://localhost:8080 in your web browser.
-
-Usage
-Once the application is up and running:
-
-Admin Users: Manage doctors, view and update patient records, oversee appointment schedules.
-Doctors: Access and update their patients' records, manage their appointment calendar.
-Patients: If a patient portal is provided, patients can view their medical records and appointment history.
-Contributing
-We welcome contributions to enhance the functionality of this project. To contribute:
-
-Fork the repository.
-Create a new branch for your feature (git checkout -b feature-name).
-Commit your changes (git commit -m 'Add feature-name').
-Push your branch (git push origin feature-name).
-Create a Pull Request.
-<b>License</b>
-This project is licensed under the MIT License. See the LICENSE file for details.
 
