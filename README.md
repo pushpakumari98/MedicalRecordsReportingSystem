@@ -40,7 +40,7 @@ Version Control: Git
 <b>Installation and Setup</b>
 
 <br>
-Prerequisites
+Prerequisites:-
 Ensure that the following software is installed on your system:
 <br>
 Java Development Kit (JDK) 11+
