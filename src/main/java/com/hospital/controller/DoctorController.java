@@ -177,7 +177,6 @@ public class DoctorController {
 
         DoctorSchedule schedule = new DoctorSchedule();
         schedule.setWorkingdays(doctorScheduleRequest.getWorkingdays());
-        schedule.setAvailabledate(doctorScheduleRequest.getAvailabledate());
         schedule.setCheckuproom(doctorScheduleRequest.getCheckuproom());
 
         doctor.setSchedule(schedule);
@@ -203,7 +202,7 @@ public class DoctorController {
             {
 
             }
-            else if(day.equalsIgnoreCase("THUR"))
+            else if(day.equalsIgnoreCase("THU"))
             {
 
             }
