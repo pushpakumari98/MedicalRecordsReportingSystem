@@ -1,6 +1,7 @@
 <b>Overview</b>
 <br>
 The Patient Record Management System is a robust and scalable application designed to streamline the management of patient records within a healthcare environment. It allows for the efficient storage, retrieval, and management of patient data, facilitating better healthcare delivery and enhanced data security.
+
 <br>
 <b>Features</b>
 <br>
@@ -17,6 +18,7 @@ User Authentication and Authorization: Secure access with role-based authenticat
 Advanced Search: Easily locate patient records using various search criteria.
 <br>
 Responsive Design: User-friendly interface compatible with multiple devices.
+
 <br>
 <b>Technology Stack</b>
 <br>
@@ -31,6 +33,7 @@ Security: Spring Security with JWT (JSON Web Token) Authentication
 Build Tools: Maven / Gradle
 <br>
 Version Control: Git
+
 <br>
 <b>Installation and Setup</b>
 <br>
