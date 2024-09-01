@@ -20,6 +20,7 @@ Advanced Search: Easily locate patient records using various search criteria.
 Responsive Design: User-friendly interface compatible with multiple devices.
 
 <br>
+
 <b>Technology Stack</b>
 <br>
 Backend: Spring Boot, Java
