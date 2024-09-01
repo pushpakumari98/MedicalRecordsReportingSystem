@@ -41,4 +41,9 @@ public class Patient {
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "app_id", referencedColumnName = "id")
+    private AppoinmentDetails appDetails;
+
+
 }

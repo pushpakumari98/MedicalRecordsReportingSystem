@@ -29,8 +29,10 @@ public class PatientController {
         @Autowired
         private DoctorService doctorService;
 
+
+        //
         //POST //GET//DELETE//PUT
-        @PostMapping("/patient") //data create ho rha h
+        @PostMapping("/patient") // A new patient will get created
         public ResponseEntity savePatient (@Valid @RequestBody PatientRequest patient, BindingResult result)
         {
             if (result.hasErrors()) {
@@ -66,7 +68,7 @@ public class PatientController {
             return ResponseEntity.ok().body(createdPatient);
         }
 
-        @GetMapping("/getpatient")
+        @GetMapping("/getpatient")  //All the admitted patient will get retrieved
         public ResponseEntity getAllPatient() {
             List<Patient> patientList = null;
             try {
@@ -79,7 +81,7 @@ public class PatientController {
             return ResponseEntity.ok().body(patientList);
         }
 
-        @GetMapping("/getpatient/{patientId}")
+        @GetMapping("/getpatient/{patientId}")  //This api find the patient using patient Id.
         public ResponseEntity getPatientById (@PathVariable Long patientId){
 
             System.out.println("patientId " + patientId);
@@ -95,7 +97,7 @@ public class PatientController {
             return ResponseEntity.ok().body(patient);
         }
 
-        @DeleteMapping("/deletepatient/{patientId}")
+        @DeleteMapping("/deletepatient/{patientId}") //This api deletes a patient using patient id
         @Transactional
         public ResponseEntity deletePatientById (@RequestParam Long patientId){
             Patient patient = null;
@@ -185,7 +187,7 @@ public class PatientController {
             return ResponseEntity.ok().body("Patient Updated Succesfully.");
         }
 
-        @GetMapping("/patient/{patientId}/doctor/{doctorId}")
+        @GetMapping("/patient/{patientId}/doctor/{doctorId}") //This api is linking patient with doctor using their id's
         public ResponseEntity linkPatientWithDoctor(@PathVariable Long patientId, @PathVariable Long doctorId){
             System.out.println(patientId);
             System.out.println(doctorId);
