@@ -56,7 +56,7 @@ public class AddressController {
             patientService.savePatient(patient);  //
         }
 
-        return ResponseEntity.ok().body("Address saved sucessfully!!");
+        return ResponseEntity.ok().body("Address saved successfully!!");
     }
 
     @PostMapping("/createdocaddress/{doctorid}") // To save or update the address of a specific doctor
@@ -89,7 +89,7 @@ public class AddressController {
             doctorService.saveDoctor(doctor);  //
         }
 
-        return ResponseEntity.ok().body("doctor saved sucessfully!!");
+        return ResponseEntity.ok().body("doctor saved successfully!!");
     }
 
     @PutMapping("/updatePatientAddress/{patientid}")  //To update the address of a specific patient
@@ -131,7 +131,7 @@ public class AddressController {
         }
         patientService.savePatient(patient);  //
 
-        return ResponseEntity.ok().body("Address Updated sucessfully!!");
+        return ResponseEntity.ok().body("Address Updated successfully!!");
     }
 
     @PutMapping("/updateDoctorAddress/{doctorid}")  //To update the address of a specific doctor

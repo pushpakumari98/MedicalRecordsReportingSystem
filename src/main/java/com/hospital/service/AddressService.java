@@ -1,9 +1,12 @@
 package com.hospital.service;
 import com.hospital.entity.Doctor;
 import com.hospital.entity.Patient;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public interface AddressService {
     public Patient savePatient(Patient patient);  //C
 

@@ -45,5 +45,4 @@ public class Patient {
     @JoinColumn(name = "app_id", referencedColumnName = "id")
     private AppointmentDetails appDetails;
 
-
 }

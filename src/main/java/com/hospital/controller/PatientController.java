@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-@RestController
+@RestController  //To create RESTful web services. It combines @Controller and @ResponseBody,i.e every method in a class annotated with @RestController will return a domain object directly in the HTTP response body, typically as JSON or XML.
 @RequestMapping("/api")
 public class PatientController {
         @Autowired
@@ -30,7 +30,6 @@ public class PatientController {
         private DoctorService doctorService;
 
 
-        //
         //POST //GET//DELETE//PUT
         @PostMapping("/patient") // A new patient will get created
         public ResponseEntity savePatient (@Valid @RequestBody PatientRequest patient, BindingResult result)
@@ -184,7 +183,7 @@ public class PatientController {
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Something went wrong in update.");
             }
-            return ResponseEntity.ok().body("Patient Updated Succesfully.");
+            return ResponseEntity.ok().body("Patient Updated Successfully.");
         }
 
         @GetMapping("/patient/{patientId}/doctor/{doctorId}") //To link a specific patient with a specific doctor in a hospital
@@ -216,7 +215,7 @@ public class PatientController {
 
             patientService.savePatient(patient);
 
-            return ResponseEntity.ok().body("Patient Saved Succesfully.");
+            return ResponseEntity.ok().body("Patient Saved Successfully.");
         }
 
 }

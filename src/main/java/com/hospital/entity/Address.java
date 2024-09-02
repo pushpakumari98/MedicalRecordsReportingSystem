@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.print.Doc;
 
 @Entity
 @Table(name="TBL_ADDRESS")

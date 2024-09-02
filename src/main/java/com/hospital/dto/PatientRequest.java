@@ -30,4 +30,5 @@ public class PatientRequest {
 
     @NotBlank(message ="Aadhar is a mandatory input." )
     private String aadhar;
+
 }
