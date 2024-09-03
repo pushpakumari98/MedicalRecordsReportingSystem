@@ -148,7 +148,8 @@ public class PatientController {
             return ResponseEntity.ok().body("Patient has been deleted successfully");
         }
 
-        //@PutMapping("/updatePatient") //to update any data  we use @Putmapping
+        @PutMapping("/updatePatient") //to update any data  we use @Putmapping
+
         @RequestMapping(value = "/updatePatient/{aadhar}", method = RequestMethod.PUT)
         public ResponseEntity updatePatient (@RequestBody PatientRequest patient, String aadhar, BindingResult result){
 
