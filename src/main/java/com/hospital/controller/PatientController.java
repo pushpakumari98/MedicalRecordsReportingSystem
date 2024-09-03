@@ -135,7 +135,7 @@ public class PatientController {
                }
                 patientHistory.setAddress(addHis);
 
-                patientService.deletePatientById(patientId);  ///
+                patientService.deletePatientById(patientId);
 
 
                 patientHistoryService.saveDeletedPatient(patientHistory);  //wro
