@@ -1,3 +1,4 @@
+
 package com.hospital.repository;
 
 
@@ -8,3 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NurseHistoryRepository extends JpaRepository<NurseHistory,Long> {
 }
+

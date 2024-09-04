@@ -1,9 +1,8 @@
-package com.hospital.serviceimpl;
 
+package com.hospital.serviceimpl;
 
 import com.hospital.entity.Nurse;
 import com.hospital.repository.NurseRepository;
-
 import com.hospital.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,6 @@ package com.hospital.controller;
 import com.hospital.dto.AppRequest;
 
 import com.hospital.entity.DoctorSchedule;
-
 import com.hospital.repository.DoctorScheduleRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,7 +173,4 @@ public class AppointmentController {
 
         return "Appointment has been scheduled successfully";
     }
-
-
-
 }
