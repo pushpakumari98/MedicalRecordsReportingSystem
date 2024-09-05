@@ -84,7 +84,6 @@ public class helloController {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
-
         return "redirect:/ui/addPatientForm";
     }
 }
