@@ -1,6 +1,7 @@
 package com.hospital.service;
 
 import com.hospital.entity.Patient;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface PatientService {
 
     public Patient findByAadhar(String aadhar);
 
+    Page<Patient> getAllPatient(int page, int size, String sortBy, String direction);
 }

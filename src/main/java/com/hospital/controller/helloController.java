@@ -1,6 +1,7 @@
 package com.hospital.controller;
 
 
+import com.hospital.constants.AppConstants;
 import com.hospital.dto.DoctorRequest;
 import com.hospital.dto.PatientRequest;
 import com.hospital.entity.Patient;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +23,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-
-//@Controller vs @RestController
 @Controller
 @RequestMapping("/ui")
 public class helloController {
@@ -85,5 +85,26 @@ public class helloController {
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
         return "redirect:/ui/addPatientForm";
+    }
+
+    @GetMapping("/patientList")
+    public String viewPatientList(@RequestParam(value = "page", defaultValue = "0") int page,
+                                          @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+                                          @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+                                          @RequestParam(value = "direction", defaultValue = "asc") String direction, Model model,RedirectAttributes redirectAttributes) {
+
+        Page<Patient> patientList = null;
+        try {
+            patientList = patientService.getAllPatient(page, size, sortBy, direction);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }
+
+        model.addAttribute("patientList", patientList);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
+        model.addAttribute("patientRequest", new PatientRequest());
+        return "patientList";
     }
 }
