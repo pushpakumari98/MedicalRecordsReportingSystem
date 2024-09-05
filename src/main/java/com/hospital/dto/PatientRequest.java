@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -25,6 +26,7 @@ public class PatientRequest {
     @Size(min = 10, message = "Minimum 10 digits required")
     private String phone;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message="DOB is a mandatory field")
     private Date dob;
 
