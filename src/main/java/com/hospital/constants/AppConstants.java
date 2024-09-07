@@ -4,6 +4,12 @@ public class AppConstants {
 
     public static final String APP_NAME = "SCM";
 
+    public static final String hospitalName ="XYZ";
+
+    public static final String PENDING = "PENDING";
+
+    public static final String SUCCESS = "SUCCESS";
+
     public static final String ROLE_USER = "ROLE_USER";
 
     public static final int CONTACT_IMAGE_WIDTH = 500;

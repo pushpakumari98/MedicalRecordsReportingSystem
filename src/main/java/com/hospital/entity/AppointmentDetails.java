@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="TBL_ADDRESS")
+@Table(name="TBL_APPOINMENT_DETAILS")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,8 +24,8 @@ public class AppointmentDetails {
     private String docName;
     private Long docId;
     private Long patientId;
-    private List<String> dayOfAppointment;
-    private List<Date> dateOfAppointment;
+    private String dayOfAppointment;
+    private Date dateOfAppointment;
     private String appointmentStatus;
     private Integer checkupRoom;
 

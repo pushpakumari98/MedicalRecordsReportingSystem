@@ -1,11 +1,18 @@
 package com.hospital.controller;
 
+import com.hospital.constants.AppConstants;
 import com.hospital.dto.AppRequest;
 
+import com.hospital.entity.AppointmentDetails;
+import com.hospital.entity.Doctor;
 import com.hospital.entity.DoctorSchedule;
+import com.hospital.entity.Patient;
 import com.hospital.repository.DoctorScheduleRepository;
+import com.hospital.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.Format;
@@ -19,13 +26,44 @@ public class AppointmentController {
     @Autowired
     private DoctorScheduleRepository appointmentRepository;
 
+    @Autowired
+    PatientService patientService;
+
+
+
     //date, patientid, docid
 
     @PostMapping("/bookappointment")
-    public ResponseBody bookPatientAppointment(@Valid @RequestBody AppRequest appRequest){
+    public ResponseEntity<String> bookPatientAppointment(@Valid @RequestBody AppRequest appRequest){
 
+        Patient patient = null;
+        try {
+            patient = patientService.getPatientByPatientId(appRequest.getPatientId());
+        }catch (NoSuchElementException e){
+            return ResponseEntity.ok().body("Patient Does Not Exist!");
+        } catch (Exception e) {
+            return ResponseEntity.ok().body("Something Went Wrong!");
+        }
 
-        return null;
+        Doctor doctor = patient.getDoctor();
+
+        DoctorSchedule docSchedule = doctor.getSchedule();
+
+        AppointmentDetails appointmentDetails = new AppointmentDetails();
+        appointmentDetails.setDateOfAppointment(appRequest.getAppoinmentDate());
+        appointmentDetails.setAppointmentStatus(AppConstants.PENDING);
+
+        Date appoinmentDate = appRequest.getAppoinmentDate();
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(appoinmentDate);
+        appointmentDetails.setDayOfAppointment(str);
+        appointmentDetails.setDocName(doctor.getName());
+        appointmentDetails.setCheckupRoom(docSchedule.getCheckuproom());
+        appointmentDetails.setPatientId(patient.getId());
+        appointmentDetails.setDocId(doctor.getId());
+        patient.setAppDetails(appointmentDetails);
+        patientService.savePatient(patient);
+        return ResponseEntity.ok().body("Success");
     }
 
     @GetMapping("/createDoctorSchedule")

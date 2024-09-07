@@ -3,11 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Patient Home</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+
+        h2 {
+          padding-top: 150px; /* Adjust vertical spacing */
+          font-size: 48px; /* Adjust font size */
+        }
+
+        /* Style for the buttons */
+        .button {
+          display: inline-block;
+          padding: 15px 30px;
+          margin: 15px;
+          background-color: #4CAF50; /* Adjust button color */
+          color: black;
+          text-decoration: none;
+          font-size: 16px;
+          border-radius: 5px; /* Adjust button border radius */
+        }
+
+        .button:hover {
+          background-color: #3e8e41; /* Adjust button color on hover */
+        }
+    </style>
 </head>
 <body>
-    <h4>Patient Home</h4>
-    <a href="/ui/addPatientForm">Add Patient</a><br>
-    <a href="/ui/patientList">See Patient List</a><br>
-    <a href="/ui/home">Home</a>
+
+<h2>Patient Home</h2>
+<br>
+<b><a class="button" href="/ui/addPatientForm">Add Patient</a></b>
+<br>
+<b><a class="button" href="/ui/patientList">See Patient</a></b>
+<br>
+<b><a class="button" href="/ui/home">List Patient</a></b>
+
 </body>
 </html>

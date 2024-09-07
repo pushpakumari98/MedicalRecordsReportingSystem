@@ -26,7 +26,7 @@ public class AddressController {
     public ResponseEntity savePatientAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long patientid) {
 
         //check if the patient is exist in the hospital or not
-        //if not, return a valid message else procedd to save address
+        //if not, return a valid message else proceed to save address
         Patient patient = null;
         try {
             patient = patientService.getPatientByPatientId(patientid);
@@ -51,9 +51,9 @@ public class AddressController {
             add.setPin(addressRequest.getPin());
             add.setAddType("Patient");
 
-            patient.setAddress(add); ///
+            patient.setAddress(add);
 
-            patientService.savePatient(patient);  //
+            patientService.savePatient(patient);
         }
 
         return ResponseEntity.ok().body("Address saved successfully!!");
@@ -63,7 +63,7 @@ public class AddressController {
     public ResponseEntity saveDoctorAddress(@Valid @RequestBody AddressRequest addressRequest, @PathVariable Long doctorid) {
 
         //check if the patient is exist in the hospital or not
-        //if not, return a valid message else procedd to save address
+        //if not, return a valid message else proceed to save address
         Doctor doctor = null;
         try {
             doctor = doctorService.findById(doctorid);
@@ -84,9 +84,9 @@ public class AddressController {
             add.setPin(addressRequest.getPin());
             add.setAddType("Doctor");
 
-            doctor.setAddress(add); ///
+            doctor.setAddress(add);
 
-            doctorService.saveDoctor(doctor);  //
+            doctorService.saveDoctor(doctor);
         }
 
         return ResponseEntity.ok().body("doctor saved successfully!!");
@@ -129,8 +129,7 @@ public class AddressController {
             add.setAddType("Patient");
             patient.setAddress(add);
         }
-        patientService.savePatient(patient);  //
-
+        patientService.savePatient(patient);
         return ResponseEntity.ok().body("Address Updated successfully!!");
     }
 
@@ -162,7 +161,6 @@ public class AddressController {
                 address.setPin(addressRequest.getPin());
                 address.setAddType("Doctor");
             }
-
             // Associate the address with the doctor and save
             doctor.setAddress(address);
             doctorService.saveDoctor(doctor);

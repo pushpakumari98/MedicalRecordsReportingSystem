@@ -1,8 +1,0 @@
-1) Entity class of doctor //run
-2) Repository  //run
-3)DoctorReq // run //DTO
-4) service
-    serviceimpl  -> run
-     controller -> run  -> swagger  //doctor save hona chaiye
-
-5) Controller

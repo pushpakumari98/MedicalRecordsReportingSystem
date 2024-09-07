@@ -1,5 +1,6 @@
 package com.hospital.controller;
 import com.hospital.dto.NurseRequest;
+import com.hospital.entity.Doctor;
 import com.hospital.entity.Nurse;
 import com.hospital.service.NurseHistoryService;
 import com.hospital.service.NurseService;
@@ -68,6 +69,17 @@ public class NurseController {
         }
 
         return ResponseEntity.ok().body(nurse);
+    }
+    @GetMapping("/getNurse")  //To retrieve a list of all nurses in the hospital
+    public ResponseEntity getAllNurse () {
+        List<Nurse> NurseList = null;
+        try {
+            NurseList = nurseService.getAllNurse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok().body("Something Went Wrong!");
+        }
+        return ResponseEntity.ok().body(NurseList);
     }
 
     @DeleteMapping("/deletenurse/{nurseId}")  //To delete details about a specific nurse using ID
