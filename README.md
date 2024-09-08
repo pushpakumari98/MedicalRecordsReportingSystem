@@ -1,4 +1,4 @@
-<b>Patient Record Management System</b>
+<b><h2>Patient Record Management System</h2></b>
 <hr>
 <p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors and nurses.</p>
 <br>
