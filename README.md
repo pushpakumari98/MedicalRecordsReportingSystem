@@ -1,7 +1,6 @@
 <b><h2>Patient Record Management System</h2></b>
 <hr>
 <p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors and nurses.</p>
-<br>
 <b><h3>Table of Contents</h3></b>
 <ul>
   <li>Project Overview</li>
@@ -16,7 +15,6 @@
 
 <b><h3>Project Overview</h3></b>
 <p>The Patient Record Management System is designed to streamline the process of handling patient data. It enables administrators to assign doctors and nurses to patients while maintaining secure, up-to-date records. The system focuses on ease of use, reliability, and scalability for hospitals and clinics.</p>
-<br>
 <b><h3>Features</h3></b>
 <ul>
   <li>Add, update, and delete patient records.</li>
@@ -25,7 +23,6 @@
   <li>Secure login for administrators and healthcare providers.</li>
   <li>Responsive and user-friendly UI/UX design.</li>
 </ul>
-<br>
 <b><h3>Technologies Used</h3></b>
 <p>The following technologies and tools were used to develop this project:</p>
 <b><h3>Backend</h3></b>
@@ -48,4 +45,18 @@
   <li><strong>Git</strong>: Version control system for tracking changes.</li>
   <li><strong>Postman</strong>: API testing tool for validating the backend services.</li>
 </ul>
-<br>
+<b><h3>Installation</h3></b>
+<b><h2>Prerequisites</h2></b>
+<ul>
+  <li>Java 17 installed on your machine.</li>
+  <li>MySQL/PostgreSQL database setup.</li>
+  <li>Maven installed.</li>
+</ul>
+<b><h3>Usage</h3></b>
+<p>Once the application is running</p>
+<ul>
+  <li>Access the login page at <a href="http://localhost:8081/login">http://localhost:8080/login</a>.</li>
+  <li>Use the credentials of an admin or healthcare provider to access the system.</li>
+  <li>Navigate through the system to manage patient, doctor, and nurse records.</li>
+</ul>
+
