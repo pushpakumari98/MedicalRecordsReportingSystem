@@ -42,7 +42,6 @@
   <li><strong>JavaScript</strong>: Interactive functionality for a seamless user experience.</li>
   <li><strong>Thymeleaf</strong>: Server-side templating engine integrated with Spring Boot.</li>
 </ul>
-<br>
 <b><h3>Tools</h3></b>
 <ul>
   <li><strong>Maven</strong>: Dependency management and project build tool.</li>
