@@ -216,6 +216,7 @@ public class PatientController {
             patientService.savePatient(patient);
 
             return ResponseEntity.ok().body("Patient Saved Successfully.");
+
         }
 
 }

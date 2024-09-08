@@ -7,84 +7,112 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            width: 50%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-container {
+            text-align: center;
+        }
+        .form-control {
+            margin-bottom: 10px; /* reduce margin bottom to 10px */
+        }
+    </style>
 </head>
 <body>
+
 <div class="container">
-    <h3>Hospital Management System</h3>
-    <hr>
-    <h2>Save Patient</h2>
-    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
-    <form action="#"
-          th:action="@{/ui/savepatient}"
-          th:object="${patientrequest}"
-          method="POST"  style="form-align: center;">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Patient Name
-        </label>
-        <input type="text"
-               th:field="*{name}"
-               placeholder="Patient Name"
-               class="form-control mb-4 col-4">
-        <p data-th-if="${#fields.hasErrors('name')}"
-           data-th-errors="*{name}"
-           class="alert alert-danger" >
-            Name is required
-        </p>
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Age
-        </label>
-        <input type="number"
-               th:field="*{age}"
-               placeholder="Patient Age"
-               class="form-control mb-4 col-4">
-        <p data-th-if="${#fields.hasErrors('age')}"
-           data-th-errors="*{age}"
-           class="alert alert-danger" >
-            Age is required
-        </p>
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Phone
-        </label>
-        <input type="text"
-               th:field="*{phone}"
-               placeholder="Phone"
-               class="form-control mb-4 col-4">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Date Of Birth
-        </label>
-        <input type="date"
-               th:field="*{dob}"
-               placeholder="Dob"
-               class="form-control mb-4 col-4">
-        <p data-th-if="${#fields.hasErrors('dob')}"
-           data-th-errors="*{dob}"
-           class="alert alert-danger" >
-            Age is required.
-        </p>
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Aadhar
-        </label>
-        <input type="text"
-               th:field="*{aadhar}"
-               placeholder="Aadhar"
-               class="form-control mb-4 col-4">
-        <p data-th-if="${#fields.hasErrors('aadhar')}"
-           data-th-errors="*{aadhar}"
-           class="alert alert-danger" >
-            Age is required
-        </p>
-        <button type="submit" class="btn btn-info col-2">
-            Save Patient
-        </button>
-        <button type="reset" class="btn btn-info col-2">
-            Reset
-        </button>
-    </form>
+    <div class="form-container">
+        <h3>Hospital Management System</h3>
+        <hr>
+        <h2>Save Patient</h2>
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+        <form action="#"
+              th:action="@{/ui/savepatient}"
+              th:object="${patientrequest}"
+              method="POST">
+            <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                Patient Name
+            </label>
+            <input type="text"
+                   th:field="*{name}"
+                   placeholder="Patient Name"
+                   class="form-control">
+            <p data-th-if="${#fields.hasErrors('name')}"
+               data-th-errors="*{name}"
+               class="alert alert-danger" >
+                Name is required
+            </p>
+            <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                Age
+            </label>
+            <input type="number"
+                   th:field="*{age}"
+                   placeholder="Patient Age"
+                   class="form-control">
+            <p data-th-if="${#fields.hasErrors('age')}"
+               data-th-errors="*{age}"
+               class="alert alert-danger" >
+                Age is required
+            </p>
+            <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                Phone
+            </label>
+            <input type="text"
+                   th:field="*{phone}"
+                   placeholder="Phone"
+                   class="form-control">
+            <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                Date Of Birth
+            </label>
+            <input type="date"
+                   th:field="*{dob}"
+                   placeholder="Dob"
+                   class="form-control">
+            <p data-th-if="${#fields.hasErrors('dob')}"
+               data-th-errors="*{dob}"
+               class="alert alert-danger" >
+                Age is required.
+            </p>
+            <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                Aadhar
+            </label>
+            <input type="text"
+                   th:field="*{aadhar}"
+                   placeholder="Aadhar"
+                   class="form-control">
+            <p data-th-if="${#fields.hasErrors('aadhar')}"
+               data-th-errors="*{aadhar}"
+               class="alert alert-danger" >
+                Age is required
+            </p>
+            <div class="button-container">
+                <button type="submit" class="btn btn-success">
+                    Save Patient
+                </button>
+                <button type="reset" class="btn btn-success">
+                    Reset
+                </button>
+            </div>
+        </form>
 
-    <hr>
+        <hr>
 
-    <a th:href="@{/ui/patient}">Patient Home</a><br>
-    <a th:href="@{/ui/home}">Home</a>
+        <a th:href="@{/ui/patient}">Patient Home</a>
+        <br>
+        <a th:href="@{/ui/home}">Home</a>
+    </div>
 </div>
 </body>
 </html>

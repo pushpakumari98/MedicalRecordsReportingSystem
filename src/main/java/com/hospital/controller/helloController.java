@@ -106,5 +106,7 @@ public class helloController {
 
         model.addAttribute("patientRequest", new PatientRequest());
         return "patientList";
+
+
     }
 }
