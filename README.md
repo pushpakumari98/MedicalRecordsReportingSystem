@@ -1,62 +1,34 @@
-<b>Overview</b>
+<b>Patient Record Management System</b>
+<hr>
+<p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors and nurses.</p>
 <br>
-The Patient Record Management System is a robust and scalable application designed to streamline the management of patient records within a healthcare environment. It allows for the efficient storage, retrieval, and management of patient data, facilitating better healthcare delivery and enhanced data security.
-
+<b>Table of Contents</b>
+<br>
+Project Overview
+<br>
+Features
+<br>
+Technologies Used
+<br>
+Installation
+<br>
+Usage
+<br>
+Screenshots
+<br>
+Contributing
+<br>
+License
+<br>
+<b>Project Overview</b>
+<hr>
+<p>The Patient Record Management System is designed to streamline the process of handling patient data. It enables administrators to assign doctors and nurses to patients while maintaining secure, up-to-date records. The system focuses on ease of use, reliability, and scalability for hospitals and clinics.</p>
 <br>
 <b>Features</b>
-<br>
-Patient Management: CRUD (Create, Read, Update, Delete) operations for patient records.
-<br>
-Doctor Management: Manage doctors' profiles and their associations with patients.
-<br>
-Appointment Scheduling: Schedule, update, and track patient appointments.
-<br>
-Medical History Tracking: Maintain detailed records of patients' medical histories.
-<br>
-User Authentication and Authorization: Secure access with role-based authentication.
-<br>
-Advanced Search: Easily locate patient records using various search criteria.
-<br>
-Responsive Design: User-friendly interface compatible with multiple devices.
-
-<br>
-
-<b>Technology Stack</b>
-<br>
-Backend: Spring Boot, Java
-<br>
-Frontend: HTML, CSS, JavaScript (React or Angular, if applicable)
-<br>
-Database: MySQL / PostgreSQL
-<br>
-Security: Spring Security with JWT (JSON Web Token) Authentication
-<br>
-Build Tools: Maven / Gradle
-
-<br>
-Version Control: Git
-
-<br>
-<b>Installation and Setup</b>
-
-<br>
-Prerequisites:-
-Ensure that the following software is installed on your system:
-<br>
-Java Development Kit (JDK) 11+
-<br>
-Maven or Gradle
-<br>
-MySQL or PostgreSQL
-<br>
-
-<b>Configure the Database:</b>
-<br>
-Update the application.properties or application.yml file with your database connection details.
-<br>
-
-
-
-
-
-
+<ul>
+  <li>Add, update, and delete patient records.</li>
+  <li>Assign doctors and nurses to patients.</li>
+  <li>View detailed patient information, including doctor and nurse assignments.</li>
+  <li>Secure login for administrators and healthcare providers.</li>
+  <li>Responsive and user-friendly UI/UX design.</li>
+</ul>
