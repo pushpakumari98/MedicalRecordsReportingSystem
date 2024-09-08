@@ -26,3 +26,18 @@
   <li>Secure login for administrators and healthcare providers.</li>
   <li>Responsive and user-friendly UI/UX design.</li>
 </ul>
+<br>
+<b><h3>Technologies Used</h3></b>
+<br>
+<p>The following technologies and tools were used to develop this project:</p>
+<br>
+<b><h3>Backend</h3></b>
+<br>
+<ul>
+  <li><strong>Java 17</strong>: Programming language used to build the core application logic.</li>
+  <li><strong>Spring Boot</strong>: Framework for creating a production-ready backend with minimal configuration.</li>
+  <li><strong>Hibernate/JPA</strong>: ORM for interacting with the relational database.</li>
+  <li><strong>MySQL</strong>: Database for storing patient, doctor, and nurse information.</li>
+  <li><strong>Spring Security</strong>: Authentication and authorization mechanism.</li>
+</ul>
+
