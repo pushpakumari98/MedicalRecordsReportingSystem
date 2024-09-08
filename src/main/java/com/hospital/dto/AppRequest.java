@@ -1,6 +1,8 @@
 
 package com.hospital.dto;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppRequest {
+    @Temporal(TemporalType.DATE)
     @NotNull(message="This is mandatory field")
     private Date appoinmentDate;
     @NotNull(message="This is mandatory field")

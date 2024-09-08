@@ -62,7 +62,36 @@ public class AppointmentController {
         appointmentDetails.setPatientId(patient.getId());
         appointmentDetails.setDocId(doctor.getId());
         patient.setAppDetails(appointmentDetails);
-        patientService.savePatient(patient);
+        //patientService.savePatient(patient);
+
+
+
+        List<Date> docAvailableDate =  docSchedule.getAvailabledate();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String format = formatter.format(appRequest.getAppoinmentDate());
+        System.out.println(format);
+
+
+        //List<Date> dates = getDates(date1, date2);
+        List<String> dateStringList = new ArrayList<>();
+
+        for (Date date : docAvailableDate) {
+            String dateStr = String.valueOf(date);
+            dateStringList.add(dateStr);
+        }
+
+
+        if(dateStringList.contains(format)){
+            System.out.println("//remove the date");
+        }
+
+
+
+
+
+
+
         return ResponseEntity.ok().body("Success");
     }
 

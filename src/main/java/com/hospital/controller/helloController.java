@@ -2,16 +2,16 @@ package com.hospital.controller;
 
 
 import com.hospital.constants.AppConstants;
-import com.hospital.dto.DoctorRequest;
+
 import com.hospital.dto.PatientRequest;
 import com.hospital.entity.Patient;
 import com.hospital.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
+
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
-import java.util.List;
+
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/ui")
@@ -106,7 +106,5 @@ public class helloController {
 
         model.addAttribute("patientRequest", new PatientRequest());
         return "patientList";
-
-
     }
 }

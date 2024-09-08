@@ -25,6 +25,8 @@ public class AppointmentDetails {
     private Long docId;
     private Long patientId;
     private String dayOfAppointment;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfAppointment;
     private String appointmentStatus;
     private Integer checkupRoom;
