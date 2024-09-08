@@ -15,7 +15,6 @@
 </ul>
 
 <b><h3>Project Overview</h3></b>
-<br>
 <p>The Patient Record Management System is designed to streamline the process of handling patient data. It enables administrators to assign doctors and nurses to patients while maintaining secure, up-to-date records. The system focuses on ease of use, reliability, and scalability for hospitals and clinics.</p>
 <br>
 <b><h3>Features</h3></b>
@@ -32,7 +31,6 @@
 <p>The following technologies and tools were used to develop this project:</p>
 <br>
 <b><h3>Backend</h3></b>
-<br>
 <ul>
   <li><strong>Java 17</strong>: Programming language used to build the core application logic.</li>
   <li><strong>Spring Boot</strong>: Framework for creating a production-ready backend with minimal configuration.</li>
