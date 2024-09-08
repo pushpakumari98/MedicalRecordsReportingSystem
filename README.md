@@ -33,7 +33,7 @@
   <li><strong>Java 17</strong>: Programming language used to build the core application logic.</li>
   <li><strong>Spring Boot</strong>: Framework for creating a production-ready backend with minimal configuration.</li>
   <li><strong>Hibernate/JPA</strong>: ORM for interacting with the relational database.</li>
-  <li><strong>MySQL</strong>: Database for storing patient, doctor, and nurse information.</li>
+  <li><strong>MySQL/PostgreSQL</strong>: Database for storing patient, doctor, and nurse information.</li>
   <li><strong>Spring Security</strong>: Authentication and authorization mechanism.</li>
 </ul>
 
