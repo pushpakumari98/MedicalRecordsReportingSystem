@@ -36,11 +36,18 @@
   <li><strong>MySQL/PostgreSQL</strong>: Database for storing patient, doctor, and nurse information.</li>
   <li><strong>Spring Security</strong>: Authentication and authorization mechanism.</li>
 </ul>
-<br>
 <b><h3>Frontend</h3></b>
 <ul>
   <li><strong>HTML5/CSS3</strong>: Structure and styling for the user interface.</li>
   <li><strong>JavaScript</strong>: Interactive functionality for a seamless user experience.</li>
   <li><strong>Thymeleaf</strong>: Server-side templating engine integrated with Spring Boot.</li>
+</ul>
+<br>
+<br>
+<b><h3>Tools</h3></b>
+<ul>
+  <li><strong>Maven</strong>: Dependency management and project build tool.</li>
+  <li><strong>Git</strong>: Version control system for tracking changes.</li>
+  <li><strong>Postman</strong>: API testing tool for validating the backend services.</li>
 </ul>
 <br>
