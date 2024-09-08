@@ -14,11 +14,11 @@
   <li>License</li>
 </ul>
 
-<b>Project Overview</b>
-<hr>
+<b><h3>Project Overview</h3></b>
+<br>
 <p>The Patient Record Management System is designed to streamline the process of handling patient data. It enables administrators to assign doctors and nurses to patients while maintaining secure, up-to-date records. The system focuses on ease of use, reliability, and scalability for hospitals and clinics.</p>
 <br>
-<b>Features</b>
+<b><h3>Features</h3></b>
 <ul>
   <li>Add, update, and delete patient records.</li>
   <li>Assign doctors and nurses to patients.</li>
