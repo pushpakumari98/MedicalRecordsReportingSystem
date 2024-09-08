@@ -27,9 +27,7 @@
 </ul>
 <br>
 <b><h3>Technologies Used</h3></b>
-<br>
 <p>The following technologies and tools were used to develop this project:</p>
-<br>
 <b><h3>Backend</h3></b>
 <ul>
   <li><strong>Java 17</strong>: Programming language used to build the core application logic.</li>
