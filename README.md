@@ -60,7 +60,7 @@
   <li>Navigate through the system to manage patient, doctor, and nurse records.</li>
 </ul>
 <b><h3>Screenshots</h3></b>
-
+<img src="C:\Users\panka\Pictures\Screenshots\Screenshot 2024-09-08 122304.png" alt="Screenshot" />
 <b><h3>Contributing</h3></b>
 <p>Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request with your changes.</p>
 <b><h3>License</h3></b>
