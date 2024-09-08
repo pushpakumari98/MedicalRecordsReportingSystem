@@ -46,7 +46,7 @@
   <li><strong>Postman</strong>: API testing tool for validating the backend services.</li>
 </ul>
 <b><h3>Installation</h3></b>
-<b><h2>Prerequisites</h2></b>
+<b><h4>Prerequisites</h4></b>
 <ul>
   <li>Java 17 installed on your machine.</li>
   <li>MySQL/PostgreSQL database setup.</li>
