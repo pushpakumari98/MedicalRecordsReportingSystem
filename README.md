@@ -60,8 +60,11 @@
   <li>Navigate through the system to manage patient, doctor, and nurse records.</li>
 </ul>
 <b><h3>Screenshots</h3></b>
-![Screenshot 2024-09-09 203837](https://github.com/user-attachments/assets/d14160b2-b899-415e-9976-a81a89784768)
-![Screenshot 2024-09-08 122332](https://github.com/user-attachments/assets/21612cf8-2477-448e-982f-3eb3899b37aa)
+
+![Screenshot 2024-09-09 203837](https://github.com/user-attachments/assets/712136c0-582e-4993-ac8d-cc54989f0985)
+
+![Screenshot 2024-09-08 122332](https://github.com/user-attachments/assets/46efe151-d18f-4e8c-95aa-b6bcd46320ce)
+
 
 <b><h3>Contributing</h3></b>
 <p>Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request with your changes.</p>
