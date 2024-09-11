@@ -1,7 +1,17 @@
 spring:
+  mail:
+    host: live.smtp.mailtrap.io
+    port: 587
+    username: api
+    password: 56417f92a94b1d3c6a76079b2f5b194b
+    tls: true
+    properties.mail.smtp:
+     auth: true
+     starttls.enable: true
+    properties:
+      domain_name: info@demomailtrap.com
   datasource:
     url: jdbc:postgresql://localhost:5432/hospital
-
     username: postgres
     password: pushpa@9798
     driver-class-name: org.postgresql.Driver

@@ -18,7 +18,7 @@ import java.util.Date;
 public class AppRequest {
     @Temporal(TemporalType.DATE)
     @NotNull(message="This is mandatory field")
-    private Date appoinmentDate;
+    private Date appointmentDate;
     @NotNull(message="This is mandatory field")
     private Long patientId;
     @NotNull(message="This field is mandatory")
