@@ -43,7 +43,7 @@
 <ul>
   <li><strong>Maven</strong>: Dependency management and project build tool.</li>
   <li><strong>Git</strong>: Version control system for tracking changes.</li>
-  <li><strong>Postman</strong>: API testing tool for validating the backend services.</li>
+  <li><strong>Postman/Swagger</strong>: API testing tool for validating the backend services.</li>
 </ul>
 <b><h3>Installation</h3></b>
 <b><h4>Prerequisites</h4></b>
