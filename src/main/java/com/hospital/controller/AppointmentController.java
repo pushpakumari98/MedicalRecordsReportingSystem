@@ -102,19 +102,17 @@ public class AppointmentController {
         patientService.savePatient(patient);
 
         //mail all the details to patient //krpi@gmail.com -> krpi@gmail.com
-        String message = "Hi "+patient.getName()+","+"\n\nYour appoinment has been scheduled successfully. Find the appoinment details below."+
-                "\n\nAppoinment No: 123"+
+        String message = "Hi "+patient.getName()+","+"\n\nYour appointment has been scheduled successfully. Find the appointment details below."+
+                "\n\nAppointment No: 123"+
                 "\n\nDoctor Name: "+doctor.getName();
 
         try {
-            emailService.sendEmail("pushpa20052002kumari@gmail.com", "Appoinment Details",
+            emailService.sendEmail("pushpa20052002kumari@gmail.com", "Appointment Details",
                     message);
             System.out.println("email sent");
         }catch (Exception e){
-            System.out.println("email send failed");
+            System.out.println("email sent failed");
         }
-
-
 
         return ResponseEntity.ok().body("Success");
     }
