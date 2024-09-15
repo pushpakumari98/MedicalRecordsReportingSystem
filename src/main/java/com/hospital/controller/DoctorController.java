@@ -5,13 +5,17 @@ import com.hospital.entity.Doctor;
 import com.hospital.entity.DoctorSchedule;
 import com.hospital.repository.DoctorRepository;
 import com.hospital.service.DoctorService;
+import com.hospital.serviceimpl.ExportExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -24,6 +28,9 @@ public class DoctorController {
     private DoctorService doctorService;
     @Autowired
     DoctorRepository doctorRepository;
+    @Autowired
+    private ExportExcel exportExcel; // Add this line to inject the service
+
     @PostMapping("/doctor") //A new doctor will get created
     public ResponseEntity<?> saveDoctor(@Valid @RequestBody DoctorRequest doctor, BindingResult result) {
         if (result.hasErrors()) {
@@ -159,7 +166,7 @@ public class DoctorController {
         }
 
 
-        //TODO: Validate that request has the corret days
+        //TODO: Validate that request has the correct days
         Doctor doctor = null;
         System.out.println("doctorId " + docid);
         try {
@@ -184,6 +191,17 @@ public class DoctorController {
 
         return ResponseEntity.ok().body(doc);
     }
+
+    @GetMapping("/export-doctor")
+    public ResponseEntity<?> exportDoctor(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Doctor_Info.xlsx";
+        response.setHeader(headerKey, headerValue);
+        exportExcel.exportDoctorDataToExcel(response);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     private boolean validateDays(List<String> workingdays) {
         boolean valid = true;

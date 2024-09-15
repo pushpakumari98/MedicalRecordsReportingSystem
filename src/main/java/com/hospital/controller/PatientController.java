@@ -4,14 +4,18 @@ import com.hospital.entity.*;
 import com.hospital.service.DoctorService;
 import com.hospital.service.PatientHistoryService;
 import com.hospital.service.PatientService;
+import com.hospital.serviceimpl.ExportExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,6 +25,9 @@ import java.util.stream.Collectors;
 public class PatientController {
         @Autowired
         private PatientService patientService;
+
+        @Autowired
+        private ExportExcel exportExcel;
 
         @Autowired
         private PatientHistoryService patientHistoryService;
@@ -218,5 +225,16 @@ public class PatientController {
             return ResponseEntity.ok().body("Patient Saved Successfully.");
 
         }
+
+
+    @GetMapping("/export-patient")
+    public ResponseEntity exportPatient(HttpServletResponse response) throws IOException, IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Patient_Info.xlsx";
+        response.setHeader(headerKey, headerValue);
+        exportExcel.exportPatientDataToExcel(response);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }
