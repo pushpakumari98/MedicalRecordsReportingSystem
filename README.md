@@ -55,7 +55,7 @@
 <b><h3>Usage</h3></b>
 <p>Once the application is running</p>
 <ul>
-  <li>Access the login page at <a href="http://localhost:8081/login">http://localhost:8081/login</a>.</li>
+  <li>Access the login page at <a href="http://localhost:8081/login">http://localhost:8081/ui/addPatientForm</a>.</li>
   <li>Use the credentials of an admin or healthcare provider to access the system.</li>
   <li>Navigate through the system to manage patient, doctor, and nurse records.</li>
 </ul>
