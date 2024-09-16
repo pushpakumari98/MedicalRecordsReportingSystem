@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.NoSuchElementException;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @RestController
 @RequestMapping("/api")
 public class AddressController {
@@ -31,11 +34,11 @@ public class AddressController {
         try {
             patient = patientService.getPatientByPatientId(patientid);
             if (patient == null) {
-                return ResponseEntity.ok().body("Patient Does not exist!");
+                return ResponseEntity.status(CREATED).body("Patient Does not exist!");
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Patient Does not exist!");
+            return ResponseEntity.status(CREATED).body("Patient Does not exist!");
         }
 
         if (patient != null) {
@@ -56,7 +59,7 @@ public class AddressController {
             patientService.savePatient(patient);
         }
 
-        return ResponseEntity.ok().body("Address saved successfully!!");
+        return ResponseEntity.status(CREATED).body("Address saved successfully!!");
     }
 
     @PostMapping("/createdocaddress/{doctorid}") // To save or update the address of a specific doctor
@@ -68,11 +71,11 @@ public class AddressController {
         try {
             doctor = doctorService.findById(doctorid);
             if (doctor == null) {
-                return ResponseEntity.ok().body("Doctor Does not exist!");
+                return ResponseEntity.status(CREATED).body("Doctor Does not exist!");
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("doctor Does not exist!");
+            return ResponseEntity.status(CREATED).body("doctor Does not exist!");
         }
 
         if (doctor != null) {
@@ -89,7 +92,7 @@ public class AddressController {
             doctorService.saveDoctor(doctor);
         }
 
-        return ResponseEntity.ok().body("doctor saved successfully!!");
+        return ResponseEntity.status(CREATED).body("doctor address saved successfully!!");
     }
 
     @PutMapping("/updatePatientAddress/{patientid}")  //To update the address of a specific patient
@@ -169,7 +172,7 @@ public class AddressController {
 
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Doctor does not exist!");
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Doctor does not exist!");
         }
     }
 }

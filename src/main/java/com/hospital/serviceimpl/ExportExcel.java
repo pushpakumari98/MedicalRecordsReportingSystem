@@ -109,7 +109,7 @@ public class ExportExcel {
 
     public void exportPatientDataToExcel(HttpServletResponse response) throws IOException {
         createPatientHeaderRow();
-        writeDoctorData();
+        writePatientData();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();

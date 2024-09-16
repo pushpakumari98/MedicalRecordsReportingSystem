@@ -20,6 +20,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static org.apache.catalina.util.XMLWriter.NO_CONTENT;
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController  //To create RESTful web services. It combines @Controller and @ResponseBody,i.e every method in a class annotated with @RestController will return a domain object directly in the HTTP response body, typically as JSON or XML.
 @RequestMapping("/api")
 public class PatientController {
@@ -45,7 +49,7 @@ public class PatientController {
                 List<String> errorList = result.getAllErrors().stream()
                         .map(DefaultMessageSourceResolvable::getDefaultMessage)
                         .collect(Collectors.toList());
-                return ResponseEntity.badRequest().body(errorList);
+                return ResponseEntity.status(CREATED).body(errorList);
             }
             //TODO: check the duplicate value
             Patient p = new Patient();
@@ -63,15 +67,15 @@ public class PatientController {
                 if (patient1 == null) {
                     createdPatient = patientService.savePatient(p);   //
                 } else {
-                    return ResponseEntity.badRequest().body("Patient already exist!! Your Patient Id is: " + patient1.getId());
+                    return ResponseEntity.status(CREATED).body("Patient already exist!! Your Patient Id is: " + patient1.getId());
                 }
             }catch  (NoSuchElementException e){
                 createdPatient = patientService.savePatient(p);
             }
             catch (Exception e) {
-                return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
+                return ResponseEntity.status(CREATED).body("Something went wrong. Please check with Admin!!");
             }
-            return ResponseEntity.ok().body(createdPatient);
+            return ResponseEntity.status(CREATED).body(createdPatient);
         }
 
         @GetMapping("/getpatient")  //All the admitted patient will get retrieved
@@ -117,10 +121,10 @@ public class PatientController {
                        add = patient2.getAddress();
                    }
                 } catch (NoSuchElementException e) {
-                    return ResponseEntity.ok().body("Patient Does Not Exist!!!");
+                    return ResponseEntity.status(NO_CONTENT).body("Patient Does Not Exist!!!");
                 }
                 if(patient2 == null){
-                    return ResponseEntity.ok().body("Patient Does Not Exist!!!");
+                    return ResponseEntity.status(NO_CONTENT).body("Patient Does Not Exist!!!");
                 }
                 PatientHistory patientHistory = new PatientHistory();
                 AddressHistory addHis = new AddressHistory();
@@ -152,7 +156,7 @@ public class PatientController {
                 return ResponseEntity.ok().body("Something Went Wrong!");
             }
 
-            return ResponseEntity.ok().body("Patient has been deleted successfully");
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
 
         @PutMapping("/updatePatient") //to update any data  we use @Putmapping

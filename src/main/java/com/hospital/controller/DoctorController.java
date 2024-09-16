@@ -21,6 +21,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("/api")
 public class DoctorController {
@@ -31,13 +33,13 @@ public class DoctorController {
     @Autowired
     private ExportExcel exportExcel; // Add this line to inject the service
 
-    @PostMapping("/doctor") //A new doctor will get created
+    @PostMapping("/doctor")   //A new doctor will get created
     public ResponseEntity<?> saveDoctor(@Valid @RequestBody DoctorRequest doctor, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorList = result.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
-            return ResponseEntity.badRequest().body(errorList);
+            return ResponseEntity.status(CREATED).body(errorList);
         }
 
         Doctor d = new Doctor();
@@ -51,7 +53,7 @@ public class DoctorController {
         try {
             Doctor doctor1 = doctorService.findByPhone(doctor.getPhone()).orElse(null);
             if (doctor1 == null) {
-                createdDoctor = doctorService.saveDoctor(d);  //
+                createdDoctor = doctorService.saveDoctor(d);
             } else {
                 return ResponseEntity.badRequest().body("Patient already exists!! Your Patient Id is: " + doctor1.getId());
             }
@@ -60,7 +62,7 @@ public class DoctorController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
         }
-        return ResponseEntity.ok().body(createdDoctor);
+        return ResponseEntity.status(CREATED).body(createdDoctor);
 
     }
     @GetMapping("/getDoctor")  //To retrieve a list of all doctors in the hospital
@@ -98,14 +100,14 @@ public class DoctorController {
                 Doctor doctor1 = doctorService.getDoctorById(doctorId);
 
             } catch (NoSuchElementException e) {
-                return ResponseEntity.ok().body("Doctor Does Not Exist!!!");
+                return ResponseEntity.status(NO_CONTENT).body("Doctor Does Not Exist!!!");
             }
             doctorService.deleteDoctorById(doctorId);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Something Went Wrong!");
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Something Went Wrong!");
         }
-        return ResponseEntity.ok().body("Doctor has been deleted successfully");
+        return ResponseEntity.status(NO_CONTENT).body("Doctor has been deleted successfully");
     }
 
     @PutMapping("/updateDoctor/{phone}") //To update the details of an existing doctor based on phone number
@@ -161,7 +163,7 @@ public class DoctorController {
         System.out.println(docid);
         boolean validDays = validateDays(doctorScheduleRequest.getWorkingdays());
         if(!validDays){
-            return ResponseEntity.ok().body("Please correct the days format! follow the given date format:-" +
+            return ResponseEntity.status(CREATED).body("Please correct the days format! follow the given date format:-" +
                     "MON,TUE,WED,THU,FRI,SAT,SUN");
         }
 
@@ -174,11 +176,11 @@ public class DoctorController {
                 doctor = doctorService.getDoctorById(docid);
 
             } catch (NoSuchElementException e) {
-                return ResponseEntity.ok().body("Doctor Does Not Exist!!!");
+                return ResponseEntity.status(CREATED).body("Doctor Does Not Exist!!!");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Something Went Wrong!");
+            return ResponseEntity.status(CREATED).body("Something Went Wrong!");
         }
 
         DoctorSchedule schedule = new DoctorSchedule();
@@ -189,7 +191,7 @@ public class DoctorController {
 
         Doctor doc = doctorService.saveDoctor(doctor);
 
-        return ResponseEntity.ok().body(doc);
+        return ResponseEntity.status(CREATED).body(doc);
     }
 
     @GetMapping("/export-doctor")

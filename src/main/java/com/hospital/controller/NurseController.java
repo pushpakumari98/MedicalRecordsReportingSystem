@@ -16,6 +16,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("/api")
 public class NurseController {
@@ -31,7 +33,7 @@ public class NurseController {
             List<String> errorList = result.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
-            return ResponseEntity.badRequest().body(errorList);
+            return ResponseEntity.status(CREATED).body(errorList);
         }
         Nurse n = new Nurse();
         n.setName(nurse.getName());
@@ -46,14 +48,14 @@ public class NurseController {
             if (nurse1 == null) {
                 createdNurse = nurseService.saveNurse(n);
             } else {
-                return ResponseEntity.badRequest().body("Nurse already exists!! Your Nurse Id is: " + nurse1.getId());
+                return ResponseEntity.status(CREATED).body("Nurse already exists!! Your Nurse Id is: " + nurse1.getId());
             }
         } catch (NoSuchElementException e) {
             createdNurse = nurseService.saveNurse(n);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something went wrong. Please check with Admin!!");
+            return ResponseEntity.status(CREATED).body("Something went wrong. Please check with Admin!!");
         }
-        return ResponseEntity.ok().body(createdNurse);
+        return ResponseEntity.status(CREATED).body(createdNurse);
     }
 
     @GetMapping("/getnurse/{nurseId}")  //To retrieve information about a nurse based on specific ID
@@ -91,14 +93,14 @@ public class NurseController {
                 Nurse nurse1 = nurseService.getNurseById(nurseId);
 
             } catch (NoSuchElementException e) {
-                return ResponseEntity.ok().body("Nurse Does Not Exist!!!");
+                return ResponseEntity.status(NO_CONTENT).body("Nurse Does Not Exist!!!");
             }
             nurseService.deleteNurseById(nurseId);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Something Went Wrong!");
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Something Went Wrong!");
         }
-        return ResponseEntity.ok().body("Nurse has been deleted successfully");
+        return ResponseEntity.status(NO_CONTENT).body("Nurse has been deleted successfully");
     }
 
     @PutMapping("/updateNurse/{phone}") //To update the details of an existing nurse based on  phone number
