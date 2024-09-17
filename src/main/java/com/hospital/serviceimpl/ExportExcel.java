@@ -2,6 +2,8 @@ package com.hospital.serviceimpl;
 
 import com.hospital.entity.Doctor;
 import com.hospital.entity.Patient;
+import com.hospital.entity.PatientDetails;
+import com.hospital.repository.PatientDetailsRepository;
 import com.hospital.service.DoctorService;
 import com.hospital.service.PatientService;
 import jakarta.servlet.ServletOutputStream;
@@ -29,6 +31,9 @@ public class ExportExcel {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private PatientDetailsRepository patientDetailsRepository;
 
     @Autowired
     private DoctorService doctorService;
@@ -77,15 +82,18 @@ public class ExportExcel {
         style.setFont(font);
         createCell(row, 0, "Patient ID", style);
         createCell(row, 1, "Patient Name", style);
-        createCell(row, 2, "Patient DOB", style);
-        createCell(row, 3, "Admission date", style);
-        createCell(row, 4, "Age", style);
-        createCell(row, 5, "Phone", style);
+        createCell(row, 2, "Age", style);
+        createCell(row, 3, "Doctor Name", style);
+        createCell(row, 4, "Appoinment Status", style);
+        createCell(row, 5, "CheckUp Room", style);
+        createCell(row, 6, "Date Of Appoinment", style);
+        createCell(row, 7, "Day of Appoinment", style);
+        createCell(row, 8, "Nurse Name", style);
     }
 
     private void writePatientData(){
 
-        List<Patient> patientList = patientService.getAllPatient();
+        List<PatientDetails> patientList = patientDetailsRepository.findAll();
 
         int rowCount = 2;
         CellStyle style = workbook.createCellStyle();
@@ -93,15 +101,18 @@ public class ExportExcel {
         font.setFontHeight(14);
         style.setFont(font);
 
-        for (Patient patient : patientList){
+        for (PatientDetails patient : patientList){
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, patient.getId().toString(), style);
-            createCell(row, columnCount++, patient.getName(), style);
-            createCell(row, columnCount++, patient.getDob().toString(), style);
-            createCell(row, columnCount++, patient.getAddmissionDate().toString(), style);
+            createCell(row, columnCount++, patient.getPatName(), style);
             createCell(row, columnCount++, patient.getAge().toString(), style);
-            createCell(row, columnCount++, patient.getPhone(), style);
+            createCell(row, columnCount++, patient.getDoctor_name().toString(), style);
+            createCell(row, columnCount++, patient.getAppointment_status().toString(), style);
+            createCell(row, columnCount++, patient.getCheckupRoom().toString(), style);
+            createCell(row, columnCount++, patient.getDateOfAppointment().toString(), style);
+            createCell(row, columnCount++, patient.getDayOfAppointment().toString(), style);
+            createCell(row, columnCount++, patient.getNurseName().toString(), style);
 
         }
 

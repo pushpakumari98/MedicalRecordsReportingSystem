@@ -20,7 +20,7 @@ public class Nurse {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="doc_name")
+    @Column(name="nurse_name")
     private String name;
 
     private int Age;
