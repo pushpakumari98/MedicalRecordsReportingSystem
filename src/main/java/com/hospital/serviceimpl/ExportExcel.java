@@ -113,6 +113,14 @@ public class ExportExcel {
             createCell(row, columnCount++, patient.getDoctorName().toString(), style);
             if(patient.getAppStatus()!=null)
             createCell(row, columnCount++, patient.getAppStatus().toString(), style);
+            if(patient.getCheckupRoom()!=null)
+                createCell(row, columnCount++, patient.getCheckupRoom().toString(), style);
+            if(patient.getDateOfAppointment()!=null)
+                createCell(row, columnCount++, patient.getDateOfAppointment().toString(), style);
+            if(patient.getDayOfAppointment()!=null)
+                createCell(row, columnCount++, patient.getDayOfAppointment().toString(), style);
+            if(patient.getNurseName()!=null)
+                createCell(row, columnCount++, patient.getNurseName().toString(), style);
 
         }
 

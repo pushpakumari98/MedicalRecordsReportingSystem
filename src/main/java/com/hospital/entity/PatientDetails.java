@@ -35,10 +35,10 @@ public class PatientDetails {
     @Column(name="checkup_room")
     private Integer checkupRoom;
 
-    @Column(name="date_of_appoinment")
+    @Column(name="date_of_appointment")
     private Date dateOfAppointment;
 
-    @Column(name="day_of_appoinment")
+    @Column(name="day_of_appointment")
     private String dayOfAppointment;
 
     @Column(name="nurse_name")
