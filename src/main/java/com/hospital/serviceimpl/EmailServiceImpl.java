@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-    @Autowired
-    private JavaMailSender eMailSender;
+    //@Autowired
+    //private JavaMailSender eMailSender;
 
-    @Value("${spring.mail.properties.domain_name}")
+    //@Value("${spring.mail.properties.domain_name}")
     private String domainName;
 
     @Override
@@ -22,6 +22,6 @@ public class EmailServiceImpl implements EmailService {
         message.setSubject(subject);
         message.setText(body);
         message.setFrom(domainName);
-        eMailSender.send(message);
+        //eMailSender.send(message);
     }
 }

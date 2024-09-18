@@ -72,7 +72,7 @@ public class ExportExcel {
         font.setFontHeight(20);
         style.setFont(font);
         style.setAlignment(HorizontalAlignment.CENTER);
-        createCell(row, 0, "Patient Information", style);
+        createCell(row, 0, "Patient info", style);
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
         font.setFontHeightInPoints((short) 10);
 
@@ -88,8 +88,8 @@ public class ExportExcel {
         createCell(row, 5, "CheckUp Room", style);
         createCell(row, 6, "Date Of Appoinment", style);
         createCell(row, 7, "Day of Appoinment", style);
-        createCell(row, 8, "Nurse Name", style);
-    }
+        createCell(row, 8, "Nurse Name", style);    
+}
 
     private void writePatientData(){
 
@@ -105,14 +105,14 @@ public class ExportExcel {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, patient.getId().toString(), style);
+            if(patient.getPatName()!=null)
             createCell(row, columnCount++, patient.getPatName(), style);
+            if(patient.getAge()!=null)
             createCell(row, columnCount++, patient.getAge().toString(), style);
-            createCell(row, columnCount++, patient.getDoctor_name().toString(), style);
-            createCell(row, columnCount++, patient.getAppointment_status().toString(), style);
-            createCell(row, columnCount++, patient.getCheckupRoom().toString(), style);
-            createCell(row, columnCount++, patient.getDateOfAppointment().toString(), style);
-            createCell(row, columnCount++, patient.getDayOfAppointment().toString(), style);
-            createCell(row, columnCount++, patient.getNurseName().toString(), style);
+            if(patient.getDoctorName()!=null)
+            createCell(row, columnCount++, patient.getDoctorName().toString(), style);
+            if(patient.getAppStatus()!=null)
+            createCell(row, columnCount++, patient.getAppStatus().toString(), style);
 
         }
 

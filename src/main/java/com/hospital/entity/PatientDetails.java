@@ -17,31 +17,29 @@ import java.util.Date;
 public class PatientDetails {
 
     @Id
-    @Column(name="PATIENT_ID")
+    @Column(name="patient_id")
     private Long id;
 
-    @Column(name="PATIENT_NAME")
+    @Column(name="patient_name")
     private String patName;
 
-    @Column(name="PATIENT_AGE")
+    @Column(name="patient_age")
     private Integer age;
 
-    @Column(name="DOCTOR_NAME")
-    private String doctor_name;
+    @Column(name="doctor_name")
+    private String doctorName;
 
-    @Column(name="APP_STATUS")
-    private String appointment_status;
+    @Column(name="app_status")
+    private String appStatus;
 
-    @Column(name="CHECKUP_ROOM")
+    @Column(name="checkup_room")
     private Integer checkupRoom;
 
-    @Column(name="DATE_OF_APPOINTMENT")
+    @Column(name="date_of_appoinment")
     private Date dateOfAppointment;
 
-    @Column(name="DAY_OF_APPOINTMENT")
+    @Column(name="day_of_appoinment")
     private String dayOfAppointment;
 
-    @Column(name="NURSE_NAME")
-    private String nurseName;
-
-}
+    @Column(name="nurse_name")
+    private String nurseName;}
