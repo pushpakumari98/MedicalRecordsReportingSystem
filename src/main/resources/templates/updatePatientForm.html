@@ -63,10 +63,10 @@
         <div class="form-container">
             <h3>Hospital Management System</h3>
             <hr>
-            <h2>Save Patient</h2>
+            <h2>Update Patient</h2>
             <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
             <form action="#"
-                  th:action="@{/ui/savepatient}"
+                  th:action="@{/ui/updatepatient}"
                   th:object="${patientrequest}"
                   method="POST">
                 <input style="display:none;" type="text"

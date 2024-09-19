@@ -17,6 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class PatientRequest {
+    private Long id;
+
     @NotBlank(message = "Name is a mandatory field.")
     private String name;
 

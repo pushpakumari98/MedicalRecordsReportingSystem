@@ -1,45 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="ISO-8859-1">
-    <title>Employee</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-</head>
-<body>
-<div class="container my-2" align="center">
+    <title>Hospital Mgmt System</title>
 
-    <h3>Patient List</h3>
-    <div class="flex justify-center flex-col items-center">
-        <h1 class="text-5xl">Search Results</h1>
-        <p data-th-text="${patientList.totalElements}+' results found'"></p>
-    </div>
-    <a th:href="@{/ui/addPatientForm}" class="btn btn-primary btn-sm mb-3" >Add Employee</a>
-    <table style="width:80%" border="1"
-           class = "table table-striped table-responsive-md">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<div class="container my-2">
+    <h1>Patient List</h1>
+    <a th:href="@{/ui/addPatientForm}" class="btn btn-primary btn-sm mb-3"> Add Patient </a>
+    <a th:href="@{/api/export-patient}" class="btn btn-primary btn-sm mb-3"> Export All Patient </a>
+    <table border="1" class="table table-striped table-responsive-md">
         <thead>
         <tr>
             <th>Name</th>
             <th>Phone</th>
             <th>Admitted On</th>
-            <th>Action</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="patient:${patientList}">
+        <tr th:each="patient : ${patientList}">
             <td th:text="${patient.name}"></td>
             <td th:text="${patient.phone}"></td>
             <td th:text="${patient.addmissionDate}"></td>
-            <td> <a th:href="@{/showFormForUpdate/{id}(id=${patient.id})}"
-                    class="btn btn-primary">Update</a>
+            <td> <a th:href="@{/ui/updatePatientForm?patientId={id}(id=${patient.id})}" class="btn btn-primary">Update</a>
                 <a th:href="@{/deleteEmployee/{id}(id=${patient.id})}"
                    class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div  class="col-sm-1">
+                <a th:if="${currentPage != i}" th:href="@{'/ui/patientList/' + ${currentPage - 1}}">Previous</a>
+            </div>
+            <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/ui/patientList/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/ui/patientList/' + ${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/ui/patientList/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
+
 </html>
