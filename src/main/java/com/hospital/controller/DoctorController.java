@@ -4,6 +4,7 @@ import com.hospital.dto.DoctorScheduleRequest;
 import com.hospital.entity.Doctor;
 import com.hospital.entity.DoctorSchedule;
 import com.hospital.repository.DoctorRepository;
+import com.hospital.service.AppointmentService;
 import com.hospital.service.DoctorService;
 import com.hospital.serviceimpl.ExportExcel;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ public class DoctorController {
     private DoctorService doctorService;
     @Autowired
     DoctorRepository doctorRepository;
+    @Autowired
+    private AppointmentService appointmentService;
     @Autowired
     private ExportExcel exportExcel; // Add this line to inject the service
 
@@ -245,5 +248,15 @@ public class DoctorController {
         return valid;
 
     }
+
+    @PutMapping("/updateAppoinmentStatus/{patientId}")
+    public ResponseEntity updateAppoinment(@PathVariable Long patientId){
+
+        appointmentService.updateAppointmentStatus(patientId);
+        return ResponseEntity.ok("Your appointment status is Successful");
+
+    }
+
+
 
 }
