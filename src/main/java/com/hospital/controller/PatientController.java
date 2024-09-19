@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static org.apache.catalina.util.XMLWriter.NO_CONTENT;
 import static org.springframework.http.HttpStatus.CREATED;
 
-@RestController  //To create RESTful web services. It combines @Controller and @ResponseBody,i.e every method in a class annotated with @RestController will return a domain object directly in the HTTP response body, typically as JSON or XML.
+@RestController  //To create REST ful web services. It combines @Controller and @ResponseBody,i.e every method in a class annotated with @RestController will return a domain object directly in the HTTP response body, typically as JSON or XML.
 @RequestMapping("/api")
 public class PatientController {
         @Autowired
@@ -78,7 +78,7 @@ public class PatientController {
             return ResponseEntity.status(CREATED).body(createdPatient);
         }
 
-        @GetMapping("/getpatient")  //All the admitted patient will get retrieved
+        @GetMapping("/getPatient")  //All the admitted patient will get retrieved
         public ResponseEntity getAllPatient() {
             List<Patient> patientList = null;
             try {
@@ -91,7 +91,7 @@ public class PatientController {
             return ResponseEntity.ok().body(patientList);
         }
 
-        @GetMapping("/getpatient/{patientId}")  //This api find the patient using patient Id.
+        @GetMapping("/getPatient/{patientId}")  //This api find the patient using patient Id.
         public ResponseEntity getPatientById (@PathVariable Long patientId){
 
             System.out.println("patientId " + patientId);
@@ -107,7 +107,7 @@ public class PatientController {
             return ResponseEntity.ok().body(patient);
         }
 
-        @DeleteMapping("/deletepatient/{patientId}") //This api deletes a patient using patient id
+        @DeleteMapping("/deletePatient/{patientId}") //This api deletes a patient using patient id
         @Transactional
         public ResponseEntity deletePatientById (@RequestParam Long patientId){
             Patient patient = null;
