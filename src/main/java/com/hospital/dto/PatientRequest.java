@@ -1,5 +1,6 @@
 package com.hospital.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,6 +22,10 @@ public class PatientRequest {
 
     @NotBlank(message = "Name is a mandatory field.")
     private String name;
+
+    @NotBlank(message = "Email is mandatory field.")
+    @Email(message = "Add valid email.")
+    private String email;
 
     @NotNull(message = "Age is a mandatory field.")
     private Integer age;

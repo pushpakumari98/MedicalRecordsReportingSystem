@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/ui")
-public class viewController {
+public class ViewController {
 
     @Autowired
     private PatientService patientService;
@@ -45,19 +45,8 @@ public class viewController {
     }
 
     @GetMapping("/addPatientForm")
-    public String addPatientForm(Model model, @RequestParam(required = false, value="patientId") Long patientId){
-        System.out.println("Patient Id "+patientId);
+    public String addPatientForm(Model model){
         PatientRequest patientrequest = new PatientRequest();
-        if(patientId != null){
-            Patient patient = patientRepository.findById(patientId).get();
-            patientrequest.setName(patient.getName());
-            patientrequest.setPhone(patient.getPhone());
-            patientrequest.setDob(patient.getDob());
-            patientrequest.setAadhar(patient.getAadhar());
-            patientrequest.setAge(patient.getAge());
-            patientrequest.setId(patient.getId());
-        }
-
         model.addAttribute("patientrequest", patientrequest);
         return "addPatientForm";
     }
