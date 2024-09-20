@@ -87,6 +87,19 @@
                 </p>
 
                 <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                    Email
+                </label>
+                <input type="email"
+                       th:field="*{email}"
+                       placeholder="Email"
+                       class="form-control">
+                <p data-th-if="${#fields.hasErrors('email')}"
+                   data-th-errors="*{email}"
+                   class="alert alert-danger">
+                    Email is required
+                </p>
+
+                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Age
                 </label>
                 <input type="number"

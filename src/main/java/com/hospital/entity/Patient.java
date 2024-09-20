@@ -25,6 +25,9 @@ public class Patient {
     @Column(name="name")
     private String name;
 
+    @Column(name="email")
+    private String email;
+
     private Integer age;
 
     private String phone;

@@ -4,8 +4,10 @@ package com.hospital.controller;
 import com.hospital.constants.AppConstants;
 
 import com.hospital.dto.PatientRequest;
+import com.hospital.entity.ComposeMailForm;
 import com.hospital.entity.Patient;
 import com.hospital.repository.PatientRepository;
+import com.hospital.service.EmailService;
 import com.hospital.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,7 +28,7 @@ import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/ui")
-public class ViewController {
+public class PatientViewController {
 
     @Autowired
     private PatientService patientService;
@@ -44,6 +46,9 @@ public class ViewController {
         return "patientHome";
     }
 
+    @Autowired
+    public EmailService emailService;
+
     @GetMapping("/addPatientForm")
     public String addPatientForm(Model model){
         PatientRequest patientrequest = new PatientRequest();
@@ -58,6 +63,7 @@ public class ViewController {
         if(patientId != null){
             Patient patient = patientRepository.findById(patientId).get();
             patientrequest.setName(patient.getName());
+            patientrequest.setEmail(patient.getEmail());
             patientrequest.setPhone(patient.getPhone());
             patientrequest.setDob(patient.getDob());
             patientrequest.setAadhar(patient.getAadhar());
@@ -79,6 +85,7 @@ public class ViewController {
         //TODO: check the duplicate value
         Patient p = new Patient();
         p.setName(patientrequest.getName());
+        p.setEmail(patientrequest.getEmail());
         p.setAge(patientrequest.getAge());
         p.setPhone(patientrequest.getPhone());
         p.setDob(patientrequest.getDob());
@@ -120,6 +127,7 @@ public class ViewController {
         Patient p = new Patient();
         p.setId(patientrequest.getId());
         p.setName(patientrequest.getName());
+        p.setEmail(patientrequest.getEmail());
         p.setAge(patientrequest.getAge());
         p.setPhone(patientrequest.getPhone());
         p.setDob(patientrequest.getDob());
@@ -131,10 +139,10 @@ public class ViewController {
             Patient patient1 = patientService.findByAadhar(patientrequest.getAadhar());
 
             patientService.savePatient(p);
-
+            redirectAttributes.addFlashAttribute("message", "Patient has been updated successfully");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         }catch  (NoSuchElementException e){
-            createdPatient = patientService.savePatient(p);
-            redirectAttributes.addFlashAttribute("message", "Patient has been saved successfully with patient id: "+createdPatient.getId());
+            redirectAttributes.addFlashAttribute("message", "Something went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         }
         catch (Exception e) {
@@ -169,5 +177,57 @@ public class ViewController {
 
         //model.addAttribute("patientRequest", new PatientRequest());
         return "patientList";
+    }
+
+    @GetMapping("/deletePatient")
+    public String deletePatient(@RequestParam(required = false, value="patientId") Long patientId
+            , RedirectAttributes redirectAttributes){
+
+        System.out.println(patientId);
+
+        try{
+            patientService.deletePatientById(patientId);
+            redirectAttributes.addFlashAttribute("message", "Patient Deleted Succesfully");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("message", "Exception in Patient deletion");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }
+
+
+        return "redirect:/ui/patientList/0";
+    }
+
+    @GetMapping("/mailform")
+    public String composeMailForm(@RequestParam(required = false, value="patientId") Long patientId
+            , RedirectAttributes redirectAttributes, Model model) {
+
+        System.out.println(patientId);
+        Patient patient = patientRepository.findById(patientId).get();
+
+        ComposeMailForm composeForm = new ComposeMailForm();
+        composeForm.setEmail(patient.getEmail().toString());
+        composeForm.setPatientId(patient.getId());
+        model.addAttribute("composeForm", composeForm);
+        return "composemail";
+    }
+
+    @RequestMapping(value = "/sendmail", method = RequestMethod.POST)
+    public String sendmail(@Valid @ModelAttribute ComposeMailForm composeForm,BindingResult bindingResult, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        System.out.println("Hello");
+        try {
+            emailService.sendEmail(composeForm.getEmail(), composeForm.getSubject(),
+                    composeForm.getMessage());
+            redirectAttributes.addFlashAttribute("message", "Mail sent");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-success");
+
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("message", "Mail send failed");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }
+
+        return "redirect:/ui/mailform?patientId="+composeForm.getPatientId();
     }
 }

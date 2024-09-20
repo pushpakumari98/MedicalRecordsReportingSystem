@@ -86,14 +86,10 @@
                     Name is required
                 </p>
 
-                <input style="display:none;" type="text"
-                       th:field="*{email}"
-                       placeholder="Email"
-                       class="form-control">
                 <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Email
                 </label>
-                <input type="text"
+                <input type="email"
                        th:field="*{email}"
                        placeholder="Email"
                        class="form-control">
@@ -102,6 +98,7 @@
                    class="alert alert-danger">
                     Email is required
                 </p>
+
                 <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Age
                 </label>
