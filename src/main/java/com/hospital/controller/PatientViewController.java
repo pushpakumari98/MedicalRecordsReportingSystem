@@ -4,6 +4,7 @@ package com.hospital.controller;
 import com.hospital.constants.AppConstants;
 
 import com.hospital.dto.PatientRequest;
+import com.hospital.entity.Address;
 import com.hospital.entity.ComposeMailForm;
 import com.hospital.entity.Patient;
 import com.hospital.repository.PatientRepository;
@@ -236,8 +237,13 @@ public class PatientViewController {
             , RedirectAttributes redirectAttributes, Model model){
 
         Patient patient = patientRepository.findById(patientId).get();
+        Address address =  patient.getAddress();
+        if(address==null){
+            address = new Address();
+        }
         System.out.println(patientId);
         model.addAttribute("patient", patient);
+        model.addAttribute("address", address);
         return "patientdetails";
     }
 
