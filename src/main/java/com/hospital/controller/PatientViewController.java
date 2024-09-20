@@ -230,4 +230,17 @@ public class PatientViewController {
 
         return "redirect:/ui/mailform?patientId="+composeForm.getPatientId();
     }
+
+    @GetMapping("/viewpatientdetails")
+    public String viewPatientDetails(@RequestParam(required = false, value="patientId") Long patientId
+            , RedirectAttributes redirectAttributes, Model model){
+
+        Patient patient = patientRepository.findById(patientId).get();
+        System.out.println(patientId);
+        model.addAttribute("patient", patient);
+        return "patientdetails";
+    }
+
+
+
 }

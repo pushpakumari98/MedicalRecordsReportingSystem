@@ -14,8 +14,8 @@
             <div
               class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
+              <h1><div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div></h1>
               <h1 class="text-2xl font-semibold">Compose Your Message</h1>
-              <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
               <form data-th-object="${composeForm}"
                     method="post"
                     data-th-action="@{/ui/sendmail}">
