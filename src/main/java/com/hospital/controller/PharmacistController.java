@@ -1,7 +1,6 @@
 package com.hospital.controller;
 
 import com.hospital.dto.PharmacistRequest;
-import com.hospital.entity.Nurse;
 import com.hospital.entity.Pharmacist;
 import com.hospital.service.PharmacistService;
 import jakarta.validation.Valid;

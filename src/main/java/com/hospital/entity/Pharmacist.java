@@ -21,53 +21,17 @@ public class Pharmacist {
         private Date dob;
         private String phone;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="nurse_id",referencedColumnName = "id")
+    private Nurse nurse;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="doctor_id",referencedColumnName = "id")
+    private Doctor doctor;
 
 }
 
