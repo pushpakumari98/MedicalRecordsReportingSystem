@@ -12,5 +12,11 @@ public interface PharmacistService {
     public List<Pharmacist> getAllPharmacists();
     Pharmacist getPharmacistById(Long id);
     void deletePharmacist(Long id);
+    Pharmacist findByPhone(String phone);
+    
+    Pharmacist updatePharmacist(Long id, String name, Integer age, String dob, String specialization);
 
+    Pharmacist savePharmacist(Pharmacist ph);
+
+    void deletePharmacistById(Long pharmacistId);
 }

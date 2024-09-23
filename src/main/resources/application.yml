@@ -1,15 +1,13 @@
 spring:
   mail:
-    host: live.smtp.mailtrap.io
+    host: smtp.gmail.com
     port: 587
-    username: api
-    password: 56417f92a94b1d3c6a76079b2f5b194b
+    username: pushpa20052002kumari@gmail.com
+    password: eawf owun xxcs gemq
     tls: true
     properties.mail.smtp:
-     auth: true
-     starttls.enable: true
-    properties:
-      domain_name: info@demomailtrap.com
+      auth: true
+      starttls.enable: true
   datasource:
     url: jdbc:postgresql://localhost:5432/hospital
     username: postgres

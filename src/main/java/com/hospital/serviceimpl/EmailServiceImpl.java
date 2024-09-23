@@ -1,7 +1,6 @@
 package com.hospital.serviceimpl;
 
 import com.hospital.service.EmailService;
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,7 @@ public class EmailServiceImpl implements EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        message.setFrom(String.valueOf(new InternetAddress("kmrpiyush95@gmail.com", "Piyush Kumar")));
+        message.setFrom(String.valueOf(new InternetAddress("pushpa20052002kumari@gmail.com", "Pushpa Kumari")));
         eMailSender.send(message);
     }
 }

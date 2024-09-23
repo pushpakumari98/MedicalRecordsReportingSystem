@@ -35,5 +35,26 @@ public class PharmacistServiceImpl implements PharmacistService {
     public void deletePharmacist(Long id) {
         pharmacistRepository.deleteById(id);
     }
+
+    @Override
+    public Pharmacist findByPhone(String phone) {
+        return null;
+    }
+
+    @Override
+    public Pharmacist updatePharmacist(Long id, String name, Integer age, String dob, String specialization) {
+        return null;
+    }
+
+    @Override
+    public Pharmacist savePharmacist(Pharmacist ph) {
+        return null;
+    }
+
+    @Override
+    public void deletePharmacistById(Long pharmacistId) {
+
+    }
+
 }
 

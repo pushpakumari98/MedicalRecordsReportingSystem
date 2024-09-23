@@ -18,4 +18,5 @@ public class PharmacistRequest {
     private Integer age;
     private String specialization;
     private Date dob;
+    private String phone;
 }
