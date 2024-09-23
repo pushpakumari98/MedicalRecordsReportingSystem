@@ -53,25 +53,33 @@
                 <div class="row gy-4">
                     <div class="col-12">
                         <div class="card widget-card border-light shadow-sm">
-                            <div class="card-header text-bg-primary">Welcome, Dr. Tarika</div>
+                            <div class="card-header text-bg-primary">Your Doctor Details</div>
                             <div class="card-body">
                                 <div class="text-center mb-3">
-                                    <img src="D:/springBoot/demo/src/main/resources/static/doctor.jpg" class="img-fluid rounded-circle" alt="Image not found">
+                                    <img src="https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/fffd9126-dda4-430c-a18d-fb33c6493c57/de210368-9622-4654-b8c7-a7f24673cb00.png" class="img-fluid rounded-circle" alt="Image not found">
                                 </div>
-                                <h5 class="text-center mb-1">Dr. Tarika Mehta</h5>
+                                <h5 class="text-center mb-1">[[${doctor.name}]]</h5>
                                 <p class="text-center text-secondary mb-4">Doctor alloted</p>
                                 <ul class="list-group list-group-flush mb-4">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Followers</h6>
-                                        <span>7,854</span>
+                                        <h6 class="m-0">Age</h6>
+                                        <span>[[${doctor.age}]]</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Following</h6>
-                                        <span>5,987</span>
+                                        <h6 class="m-0">Checkup Room</h6>
+                                        <span>[[${docSchedule.checkuproom}]]</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Friends</h6>
-                                        <span>4,620</span>
+                                        <h6 class="m-0">Email</h6>
+                                        <span>[[${doctor.phone}]]</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Phone</h6>
+                                        <span>[[${doctor.phone}]]</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Next Available Date</h6>
+                                        <span>[[${docSchedule.nextAvailableDate}]]</span>
                                     </li>
                                 </ul>
                                 <div class="d-grid m-0">

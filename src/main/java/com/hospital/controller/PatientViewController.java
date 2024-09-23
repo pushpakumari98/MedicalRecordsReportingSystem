@@ -4,10 +4,7 @@ package com.hospital.controller;
 import com.hospital.constants.AppConstants;
 
 import com.hospital.dto.PatientRequest;
-import com.hospital.entity.Address;
-import com.hospital.entity.AddressForm;
-import com.hospital.entity.ComposeMailForm;
-import com.hospital.entity.Patient;
+import com.hospital.entity.*;
 import com.hospital.repository.PatientRepository;
 import com.hospital.service.AddressService;
 import com.hospital.service.EmailService;
@@ -25,8 +22,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Date;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -244,6 +245,16 @@ public class PatientViewController {
 
         Patient patient = patientRepository.findById(patientId).get();
         Address address =  patient.getAddress();
+        Doctor doctor = patient.getDoctor();
+        if(doctor==null){
+            doctor = new Doctor();
+            doctor.setName("Piyush Kumar");
+        }
+
+        DoctorSchedule docSchedule = doctor.getSchedule();
+        List<Date> availableDate = docSchedule.getAvailabledate();
+        Collections.sort(availableDate);
+        docSchedule.setNextAvailableDate(availableDate.get(0));
         System.out.println(patientId);
         AddressForm addressForm = new AddressForm();
         if(address==null){
@@ -263,6 +274,8 @@ public class PatientViewController {
         model.addAttribute("addressForm", addressForm);
         model.addAttribute("patient", patient);
         model.addAttribute("address", address);
+        model.addAttribute("doctor", doctor);
+        model.addAttribute("docSchedule", docSchedule);
         return "patientdetails";
     }
 

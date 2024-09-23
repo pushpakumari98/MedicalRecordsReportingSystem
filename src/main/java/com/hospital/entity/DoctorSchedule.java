@@ -34,4 +34,7 @@ public class DoctorSchedule {
     @OneToOne(mappedBy = "schedule")
     private Doctor doctor;
 
+    @Transient
+    private Date nextAvailableDate;
+
 }
