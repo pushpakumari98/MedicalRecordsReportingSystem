@@ -22,18 +22,24 @@
                     "disabled",
                     false
                 );
+        $("#addId").prop(
+                    "disabled",
+                    true
+                );
     }
 </script>
 
 <body>
-<a th:href="@{/ui/home}" class="btn btn-primary btn-sm mb-3"> Patient Home</a>
+
 <!-- Profile 1 - Bootstrap Brain Component -->
 <section class="bg-light py-3 py-md-5 py-xl-8">
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-                <h2 class="mb-4 display-5 text-center">Patient Details</h2>
+            <div class="col-12 col-md-10 col-lg-8 col-xl-5 col-xxl-4">
+                <h4 class="mb-4 display-5 text-center">Patient Details</h4>
                 <p class="text-secondary text-center lead fs-4 mb-5">[[${patient.name}]]</p>
+                <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+                <a th:href="@{/ui/home}" class="btn text-center">Home</a>
                 <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
             </div>
         </div>
@@ -218,42 +224,73 @@
                             <div class="tab-pane fade" id="address-tab-pane" role="tabpanel" aria-labelledby="address-tab" tabindex="0">
                                 <h5 class="mb-3">Patient Address Details</h5>
                                 <div class="row g-0">
-                                    <form action="#!" class="row gy-3 gy-xxl-4" id="GFG">
+                                    <form action="#"
+                                          class="row gy-3 gy-xxl-4"
+                                          id="GFG"
+                                          th:action="@{/ui/saveaddressform}"
+                                          th:object="${addressForm}"
+                                          method="POST">
                                         <div class="col-12">
                                             <div class="row gy-2">
+                                                <input type="hidden" th:field="*{patientId}">
+                                                <input type="hidden" th:field="*{addressId}">
                                                 <div class="col-12 col-md-6">
                                                     <label for="addId" class="form-label">Address Id</label>
-                                                    <label type="text" class="form-control" id="addId" value="Leo">Leo</label>
+                                                    <input type="text"
+                                                           th:field="*{addId}"
+                                                           placeholder="Address id"
+                                                           class="form-control"
+                                                           id="addId">
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <label for="city" class="form-label">City</label>
-                                                    <input type="text" class="form-control" id="city" value="Ethan">
+                                                    <input type="text"
+                                                           th:field="*{city}"
+                                                           placeholder="City"
+                                                           class="form-control"
+                                                            id="city">
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label for="state" class="form-label">State</label>
-                                                    <input type="text" class="form-control" id="state" value="Leo">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           placeholder="State"
+                                                           id="state"
+                                                           th:field="*{state}">
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label for="country" class="form-label">Country</label>
-                                                    <input type="text" class="form-control" id="country" value="Ethan">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="country"
+                                                           placeholder="Country"
+                                                           th:field="*{country}">
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label for="pin" class="form-label">Pin</label>
-                                                    <input type="text" class="form-control" id="pin" value="Leo">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="pin"
+                                                           placeholder="Pin"
+                                                           th:field="*{pin}">
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label for="addType" class="form-label">Address Type</label>
-                                                    <input type="text" class="form-control" id="addType" value="Ethan">
+                                                    <select class="form-select" id="addType" th:field="*{addType}">
+                                                        <option value="Patient">Patient</option>
+                                                        <option value="Doctor">Doctor</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="submit" id="saveAdd" class="btn btn-link" onclick="" disabled>Save Address</button>
                                     </form>
                                     <button type="button" class="btn btn-link" onclick="enable_disable()">Edit Address</button>
-                                    <button type="submit" id="saveAdd" class="btn btn-link" onclick="" disabled>Save Address</button>
+
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
@@ -262,7 +299,8 @@
                                         <div class="row gy-2">
                                             <label class="col-12 form-label m-0">Profile Image</label>
                                             <div class="col-12">
-                                                <img src="./assets/img/profile-img-1.jpg" class="img-fluid" alt="Luna John">
+                                                <img src="https://cdn.pixabay.com/photo/2024/05/27/07/46/bee-8790316_640.jpg"
+                                                     width="200" height="267" class="img-fluid" alt="Luna">
                                             </div>
                                             <div class="col-12">
                                                 <a href="#!" class="d-inline-block bg-primary link-light lh-1 p-2 rounded">

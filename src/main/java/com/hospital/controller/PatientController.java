@@ -4,10 +4,12 @@ import com.hospital.entity.*;
 import com.hospital.service.DoctorService;
 import com.hospital.service.PatientHistoryService;
 import com.hospital.service.PatientService;
+import com.hospital.service.ReportService;
 import com.hospital.serviceimpl.ExportExcel;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +42,14 @@ public class PatientController {
 
         @Autowired
         private DoctorService doctorService;
+
+    @Autowired
+    private ReportService reportService;
+
+    @GetMapping("/report/{format}")
+    public String generatePatientDetailsReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportPatientDetails(format);
+    }
 
 
         //POST //GET//DELETE//PUT

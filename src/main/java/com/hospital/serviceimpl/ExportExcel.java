@@ -104,19 +104,19 @@ public class ExportExcel {
         for (PatientDetails patient : patientList){
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCell(row, columnCount++, patient.getId().toString(), style);
-            if(patient.getPatName()!=null)
-            createCell(row, columnCount++, patient.getPatName(), style);
-            if(patient.getAge()!=null)
-            createCell(row, columnCount++, patient.getAge().toString(), style);
-            if(patient.getDoctorName()!=null)
-            createCell(row, columnCount++, patient.getDoctorName().toString(), style);
-            if(patient.getAppStatus()!=null)
-            createCell(row, columnCount++, patient.getAppStatus().toString(), style);
-            if(patient.getCheckupRoom()!=null)
-                createCell(row, columnCount++, patient.getCheckupRoom().toString(), style);
-            if(patient.getDateOfAppointment()!=null)
-                createCell(row, columnCount++, patient.getDateOfAppointment().toString(), style);
+            createCell(row, columnCount++, patient.getPatient_id().toString(), style);
+            if(patient.getPatient_name()!=null)
+            createCell(row, columnCount++, patient.getPatient_name(), style);
+            if(patient.getPatient_age()!=null)
+            createCell(row, columnCount++, patient.getPatient_age().toString(), style);
+            if(patient.getDoctor_name()!=null)
+            createCell(row, columnCount++, patient.getDoctor_name().toString(), style);
+            if(patient.getApp_status()!=null)
+            createCell(row, columnCount++, patient.getApp_status().toString(), style);
+            if(patient.getCheckup_room()!=null)
+                createCell(row, columnCount++, patient.getCheckup_room().toString(), style);
+            if(patient.getDate_of_appointment()!=null)
+                createCell(row, columnCount++, patient.getDate_of_appointment().toString(), style);
             if(patient.getDayOfAppointment()!=null)
                 createCell(row, columnCount++, patient.getDayOfAppointment().toString(), style);
             if(patient.getNurseName()!=null)

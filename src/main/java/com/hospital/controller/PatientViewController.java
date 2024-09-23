@@ -5,13 +5,16 @@ import com.hospital.constants.AppConstants;
 
 import com.hospital.dto.PatientRequest;
 import com.hospital.entity.Address;
+import com.hospital.entity.AddressForm;
 import com.hospital.entity.ComposeMailForm;
 import com.hospital.entity.Patient;
 import com.hospital.repository.PatientRepository;
+import com.hospital.service.AddressService;
 import com.hospital.service.EmailService;
 import com.hospital.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.apache.commons.math3.analysis.function.Add;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -36,6 +39,9 @@ public class PatientViewController {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private AddressService addressService;
 
     @GetMapping("/home")
     public String hello(Model model){
@@ -238,15 +244,64 @@ public class PatientViewController {
 
         Patient patient = patientRepository.findById(patientId).get();
         Address address =  patient.getAddress();
-        if(address==null){
-            address = new Address();
-        }
         System.out.println(patientId);
+        AddressForm addressForm = new AddressForm();
+        if(address==null){
+            addressForm.setPatientId(patient.getId());
+        }else{
+            addressForm.setAddId(address.getId());
+            addressForm.setAddressId(address.getId());
+            addressForm.setPatientId(patient.getId());
+            addressForm.setAddressId(address.getId());
+            addressForm.setPin(address.getPin());
+            addressForm.setCity(address.getCity());
+            addressForm.setCountry(address.getCountry());
+            addressForm.setAddType(address.getAddType());
+            addressForm.setState(address.getState());
+        }
+
+        model.addAttribute("addressForm", addressForm);
         model.addAttribute("patient", patient);
         model.addAttribute("address", address);
         return "patientdetails";
     }
 
+    @PostMapping("/saveaddressform")
+    public String saveAddressForm(
+            @Valid @ModelAttribute AddressForm addressForm,RedirectAttributes redirectAttributes, Model model) {
+
+        System.out.println(addressForm.getPatientId());
+        Patient patient = patientRepository.findById(addressForm.getPatientId()).get();
+        Address address = patient.getAddress();
+        if(address==null){
+            Address newAddress = new Address();
+            newAddress.setCity(addressForm.getCity());
+            newAddress.setPin(addressForm.getPin());
+            newAddress.setCountry(addressForm.getCountry());
+            newAddress.setState(addressForm.getState());
+            newAddress.setAddType(addressForm.getAddType());
+            patient.setAddress(newAddress);
+        }else{
+            address.setId(addressForm.getAddressId());
+            address.setCity(addressForm.getCity());
+            address.setPin(addressForm.getPin());
+            address.setCountry(addressForm.getCountry());
+            address.setState(addressForm.getState());
+            address.setAddType(addressForm.getAddType());
+            patient.setAddress(address);
+        }
+        try {
+            Patient savedPatient = addressService.savePatient(patient);
+            redirectAttributes.addFlashAttribute("message", "Address has been saved successfully.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-success");
+
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("message", "Address Save failed.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }
+
+        return "redirect:/ui/viewpatientdetails?patientId="+addressForm.getPatientId();
+    }
 
 
 }

@@ -18,25 +18,25 @@ public class PatientDetails {
 
     @Id
     @Column(name="patient_id")
-    private Long id;
+    private Long patient_id;
 
     @Column(name="patient_name")
-    private String patName;
+    private String patient_name;
 
     @Column(name="patient_age")
-    private Integer age;
+    private Integer patient_age;
 
     @Column(name="doctor_name")
-    private String doctorName;
+    private String doctor_name;
 
     @Column(name="app_status")
-    private String appStatus;
+    private String app_status;
 
     @Column(name="checkup_room")
-    private Integer checkupRoom;
+    private Integer checkup_room;
 
     @Column(name="date_of_appointment")
-    private Date dateOfAppointment;
+    private Date date_of_appointment;
 
     @Column(name="day_of_appointment")
     private String dayOfAppointment;

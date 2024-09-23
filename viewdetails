@@ -16,3 +16,15 @@ AS SELECT
      LEFT JOIN tbl_doctor doctor ON patient.doctor_id = doctor.id
      LEFT JOIN tbl_appoinment_details app ON patient.app_id = app.id
      left join tbl_nurse nurse on patient.id = nurse.patient_id;
+
+//property to send a mail from gmail
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: xyz
+    password:abc def
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
