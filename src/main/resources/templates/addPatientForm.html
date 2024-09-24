@@ -66,7 +66,7 @@
             <h2>Save Patient</h2>
             <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
             <form action="#"
-                  th:action="@{/ui/savepatient}"
+                  th:action="@{/patient/ui/savepatient}"
                   th:object="${patientrequest}"
                   method="POST">
                 <input style="display:none;" type="text"
@@ -158,9 +158,9 @@
 
             <hr>
 
-            <a th:href="@{/ui/patient}">Patient Home</a>
+            <a th:href="@{/patient/ui/patient}">Patient Home</a>
             <br>
-            <a th:href="@{/ui/home}">Home</a>
+            <a th:href="@{/patient/ui/home}">Home</a>
             
         </div>
     </div>

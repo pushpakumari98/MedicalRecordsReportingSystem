@@ -32,7 +32,7 @@ import java.util.NoSuchElementException;
 
 
 @Controller
-@RequestMapping("/ui")
+@RequestMapping("/patient/ui")
 public class PatientViewController {
 
     @Autowired
@@ -121,7 +121,7 @@ public class PatientViewController {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
-        return "redirect:/ui/addPatientForm";
+        return "redirect:/patient/ui/addPatientForm";
     }
 
     @PostMapping("/updatepatient")
@@ -157,7 +157,7 @@ public class PatientViewController {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
-        return "redirect:/ui/updatePatientForm";
+        return "redirect:/patient/ui/updatePatientForm";
     }
 
     @GetMapping("/patientList/{pageNo}")
@@ -203,7 +203,7 @@ public class PatientViewController {
         }
 
 
-        return "redirect:/ui/patientList/0";
+        return "redirect:/patient/ui/patientList/0";
     }
 
     @GetMapping("/mailform")
@@ -236,7 +236,7 @@ public class PatientViewController {
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
 
-        return "redirect:/ui/mailform?patientId="+composeForm.getPatientId();
+        return "redirect:/patient/ui/mailform?patientId="+composeForm.getPatientId();
     }
 
     @GetMapping("/viewpatientdetails")
@@ -245,7 +245,7 @@ public class PatientViewController {
 
         Patient patient = patientRepository.findById(patientId).get();
         Address address =  patient.getAddress();
-        Doctor doctor = patient.getDoctor();
+        Doctor doctor = patient.getDoctor().get(0);
         if(doctor==null){
             doctor = new Doctor();
             doctor.setName("Piyush Kumar");
@@ -313,7 +313,7 @@ public class PatientViewController {
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
 
-        return "redirect:/ui/viewpatientdetails?patientId="+addressForm.getPatientId();
+        return "redirect:/patient/ui/viewpatientdetails?patientId="+addressForm.getPatientId();
     }
 
 

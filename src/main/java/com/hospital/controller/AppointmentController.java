@@ -8,11 +8,14 @@ import com.hospital.entity.Doctor;
 import com.hospital.entity.DoctorSchedule;
 import com.hospital.entity.Patient;
 import com.hospital.repository.DoctorScheduleRepository;
+import com.hospital.service.AppointmentService;
+import com.hospital.service.DoctorService;
 import com.hospital.service.EmailService;
 import com.hospital.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.Format;
@@ -33,6 +36,12 @@ public class AppointmentController {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    DoctorService doctorService;
+
+    @Autowired
+    AppointmentService appointmentService;
+
 
 
     //date, patientid, docid
@@ -40,6 +49,7 @@ public class AppointmentController {
     @PostMapping("/bookappointment")
     public ResponseEntity<String> bookPatientAppointment(@Valid @RequestBody AppRequest appRequest) throws ParseException {
 
+        //get the patient details
         Patient patient = null;
         try {
             patient = patientService.getPatientByPatientId(appRequest.getPatientId());
@@ -49,11 +59,22 @@ public class AppointmentController {
             return ResponseEntity.ok().body("Something Went Wrong!");
         }
 
-        Doctor doctor = patient.getDoctor();
+        //get the doctor details
+        Doctor doctor = null;
+        try {
+            doctor = doctorService.getDoctorById(appRequest.getDocId());
+        }catch (NoSuchElementException e){
+            return ResponseEntity.ok().body("Doctor Does Not Exist!");
+        } catch (Exception e) {
+            return ResponseEntity.ok().body("Something Went Wrong!");
+        }
+        DoctorSchedule docSchedule = null;
+        if(doctor!=null){
+            docSchedule = doctor.getSchedule();
+        }
 
-        DoctorSchedule docSchedule = doctor.getSchedule();
-
-        AppointmentDetails appointmentDetails = new AppointmentDetails();   //creating appointment details object
+        //creating appointment details object
+        AppointmentDetails appointmentDetails = new AppointmentDetails();
         appointmentDetails.setDateOfAppointment(appRequest.getAppointmentDate());
         appointmentDetails.setAppointmentStatus(AppConstants.PENDING);
 
@@ -61,22 +82,21 @@ public class AppointmentController {
         Format f = new SimpleDateFormat("EEEE");        //logic to find day from a date
         String str = f.format(appointmentDate);
 
-        appointmentDetails.setDayOfAppointment(str);
         appointmentDetails.setDocName(doctor.getName());
-        appointmentDetails.setCheckupRoom(docSchedule.getCheckuproom());
-        appointmentDetails.setPatientId(patient.getId());
+        appointmentDetails.setDayOfAppointment(str);
+        appointmentDetails.setPatId(patient.getId());
         appointmentDetails.setDocId(doctor.getId());
-        patient.setAppDetails(appointmentDetails);
+        appointmentDetails.setPatient(patient);
+        appointmentDetails.setCheckupRoom(docSchedule.getCheckuproom());
+        appointmentService.saveAppoinmentDetails(appointmentDetails);
 
-
-        List<Date> docAvailableDate =  docSchedule.getAvailabledate();   //all the date    1/2/3/4  //3
+        List<Date> docAvailableDate = null;
+        if(docSchedule != null){
+            docAvailableDate =  docSchedule.getAvailabledate();   //all the date    1/2/3/4  //3
+        }
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String patAppointmentDate = formatter.format(appRequest.getAppointmentDate());
-        System.out.println(patAppointmentDate);
-
-        //List<Date> dates = getDates(date1, date2);
-
         List<String> dateStringList = new ArrayList<>();
         for (Date date : docAvailableDate) {                    //this for loop is used to convert list of Date to List of String
             String dateStr = String.valueOf(date);              //Date -> String
@@ -84,7 +104,6 @@ public class AppointmentController {
         }
 
         //yyyy-MM-dd
-
         if(dateStringList.contains(patAppointmentDate)){
             dateStringList.remove(patAppointmentDate);           //doctor new available date //String
         }
@@ -98,8 +117,7 @@ public class AppointmentController {
         }
         docSchedule.setAvailabledate(docAvailableDate);
         doctor.setSchedule(docSchedule);
-        patient.setDoctor(doctor);
-        patientService.savePatient(patient);
+        doctorService.saveDoctor(doctor);
 
         //mail all the details to patient //krpi@gmail.com -> krpi@gmail.com
         String message = "Hi "+patient.getName()+","+"\n\nYour appointment has been scheduled successfully. Find the appointment details below."+
@@ -107,7 +125,7 @@ public class AppointmentController {
                 "\n\nDoctor Name: "+doctor.getName();
 
         try {
-            emailService.sendEmail("pushpa20052002kumari@gmail.com", "Appointment Details",
+            emailService.sendEmail(patient.getEmail(), "Appointment Details",
                     message);
             System.out.println("email sent");
         }catch (Exception e){

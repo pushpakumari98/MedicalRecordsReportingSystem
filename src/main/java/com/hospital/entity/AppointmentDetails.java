@@ -23,7 +23,7 @@ public class AppointmentDetails {
     private Long id;
     private String docName;
     private Long docId;
-    private Long patientId;
+    private Long patId;
     private String dayOfAppointment;
 
     @Temporal(TemporalType.DATE)
@@ -32,7 +32,8 @@ public class AppointmentDetails {
     private Integer checkupRoom;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "appDetails")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
 }

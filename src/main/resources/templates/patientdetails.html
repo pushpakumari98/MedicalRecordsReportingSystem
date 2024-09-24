@@ -41,7 +41,7 @@
                 <h4 class="mb-4 display-5 text-center">Patient Details</h4>
                 <p class="text-secondary text-center lead fs-4 mb-5">[[${patient.name}]]</p>
                 <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
-                <a th:href="@{/ui/home}" class="btn text-center">Home</a>
+                <a th:href="@{/patient/ui/home}" class="btn text-center">Home</a>
                 <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
             </div>
         </div>
@@ -83,7 +83,7 @@
                                     </li>
                                 </ul>
                                 <div class="d-grid m-0">
-                                    <button class="btn btn-outline-primary" type="button">Follow</button>
+                                    <button class="btn btn-outline-primary" type="button">Book Appoinment</button>
                                 </div>
                             </div>
                         </div>
@@ -161,6 +161,9 @@
                                 <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address-tab-pane" type="button" role="tab" aria-controls="address-tab-pane" aria-selected="false">Address</button>
                             </li>
                             <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="appoinment-tab" data-bs-toggle="tab" data-bs-target="#appoinment-tab-pane" type="button" role="tab" aria-controls="appoinment-tab-pane" aria-selected="false">Appoinment Details</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -233,7 +236,7 @@
                                     <form action="#"
                                           class="row gy-3 gy-xxl-4"
                                           id="GFG"
-                                          th:action="@{/ui/saveaddressform}"
+                                          th:action="@{/patient/ui/saveaddressform}"
                                           th:object="${addressForm}"
                                           method="POST">
                                         <div class="col-12">

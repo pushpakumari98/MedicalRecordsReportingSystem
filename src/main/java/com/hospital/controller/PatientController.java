@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -208,10 +209,9 @@ public class PatientController {
             }
             return ResponseEntity.ok().body("Patient Updated Successfully.");
         }
+
         @GetMapping("/patient/{patientId}/doctor/{doctorId}") //To link a specific patient with a specific doctor in a hospital
         public ResponseEntity linkPatientWithDoctor(@PathVariable Long patientId, @PathVariable Long doctorId){
-            System.out.println(patientId);
-            System.out.println(doctorId);
 
             Patient patient = null;
             try {
@@ -229,16 +229,13 @@ public class PatientController {
             }catch (NoSuchElementException e){
                 return ResponseEntity.ok().body("Doctor Does Not Exist!");
             } catch (Exception e) {
-                e.printStackTrace();
                 return ResponseEntity.ok().body("Something Went Wrong!");
             }
-
-            patient.setDoctor(doctor);
-
-            patientService.savePatient(patient);
-
-            return ResponseEntity.ok().body("Patient Saved Successfully.");
-
+            if(doctor!=null){
+                doctor.setPatient(patient);
+            }
+            doctorService.saveDoctor(doctor);
+            return ResponseEntity.ok().body("Doctor has been assigned Successfully.");
         }
 
 

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="tbl_patient")
@@ -40,12 +41,10 @@ public class Patient {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    private Doctor doctor;
+    @OneToMany(mappedBy = "patient",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Doctor> doctor;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "app_id", referencedColumnName = "id")
-    private AppointmentDetails appDetails;
+    @OneToMany(mappedBy = "patient",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<AppointmentDetails> appDetails;
 
 }

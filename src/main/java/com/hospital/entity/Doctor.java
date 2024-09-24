@@ -37,7 +37,8 @@ public class Doctor {
     private Address address;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "doctor")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -19,9 +19,18 @@ public class AppointmentServiceImpl implements AppointmentService {
     private PatientRepository patientRepository;
 
     @Override
+    public AppointmentDetails saveAppoinmentDetails(AppointmentDetails appoinment) {
+        AppointmentDetails appointmentDetails = null;
+        if(appoinment!=null){
+             appointmentRepository.save(appoinment);
+        }
+        return appointmentDetails;
+    }
+
+    @Override
     public String updateAppointmentStatus(Long patientId) {
         Patient patient = patientRepository.findById(patientId).get();
-        Long appId = patient.getAppDetails().getId();
+        Long appId = patient.getAppDetails().get(0).getId();
 
         AppointmentDetails appDetails = appointmentRepository.findById(appId).get();
         appDetails.setAppointmentStatus("Success");
