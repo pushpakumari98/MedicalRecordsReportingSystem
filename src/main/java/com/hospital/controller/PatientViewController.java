@@ -24,11 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Date;
-
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -140,18 +137,22 @@ public class PatientViewController {
         p.setPhone(patientrequest.getPhone());
         p.setDob(patientrequest.getDob());
         p.setAadhar(patientrequest.getAadhar());
-        p.setAddmissionDate(new Date());
         Patient createdPatient = null;
 
         try {
             Patient patient1 = patientService.findByAadhar(patientrequest.getAadhar());
-
+            if(patient1==null){
+                redirectAttributes.addFlashAttribute("message", "No Such Patient exist with aadhar :"+patientrequest.getAadhar());
+                redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+                return "redirect:/patient/ui/updatePatientForm";
+            }
+            p.setAddmissionDate(patient1.getAddmissionDate());
             patientService.savePatient(p);
             redirectAttributes.addFlashAttribute("message", "Patient has been updated successfully");
             redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         }catch  (NoSuchElementException e){
-            redirectAttributes.addFlashAttribute("message", "Something went wrong.");
-            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+            redirectAttributes.addFlashAttribute("message", "No Such Patient exist with aadhar :"+patientrequest.getAadhar());
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
         catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
@@ -244,18 +245,29 @@ public class PatientViewController {
             , RedirectAttributes redirectAttributes, Model model){
 
         Patient patient = patientRepository.findById(patientId).get();
+        model.addAttribute("patient", patient);
+
+
         Address address =  patient.getAddress();
-        Doctor doctor = patient.getDoctor().get(0);
-        if(doctor==null){
-            doctor = new Doctor();
-            doctor.setName("Piyush Kumar");
+        model.addAttribute("address", address);
+        List<Doctor> docList = patient.getDoctor();
+        List<Doctor> doctorList = new ArrayList<>();
+        if(docList!=null && docList.size()>0){
+            for(Doctor doc : docList){
+                DoctorSchedule docSchedule = doc.getSchedule();
+                List<Date> availableDate = docSchedule.getAvailabledate();
+                Collections.sort(availableDate);
+                doc.setNextAvailableDate(availableDate.get(0));
+                doctorList.add(doc);
+            }
         }
 
-        DoctorSchedule docSchedule = doctor.getSchedule();
-        List<Date> availableDate = docSchedule.getAvailabledate();
-        Collections.sort(availableDate);
-        docSchedule.setNextAvailableDate(availableDate.get(0));
-        System.out.println(patientId);
+        List<Doctor> docSortedList = doctorList.stream()
+                .sorted(Comparator.comparing(Doctor::getId).reversed())
+                .collect(Collectors.toList());
+        List<Doctor> latestFiveDoctorDetails = docSortedList.stream().limit(5).collect(Collectors.toList());
+        model.addAttribute("doctorList", doctorList);
+
         AddressForm addressForm = new AddressForm();
         if(address==null){
             addressForm.setPatientId(patient.getId());
@@ -270,12 +282,32 @@ public class PatientViewController {
             addressForm.setAddType(address.getAddType());
             addressForm.setState(address.getState());
         }
-
         model.addAttribute("addressForm", addressForm);
-        model.addAttribute("patient", patient);
-        model.addAttribute("address", address);
-        model.addAttribute("doctor", doctor);
-        model.addAttribute("docSchedule", docSchedule);
+
+
+        List<AppointmentDetails> appDetails = patient.getAppDetails();
+        List<AppointmentDetails> sortedList = appDetails.stream()
+                .sorted(Comparator.comparing(AppointmentDetails::getId).reversed())
+                .collect(Collectors.toList());
+        List<AppointmentDetails> latestFiveAppDetails = sortedList.stream().limit(10).collect(Collectors.toList());
+        model.addAttribute("appDetails", latestFiveAppDetails);
+
+
+        List<AppointmentDetails> sortedList1 = appDetails.stream()
+                .sorted(Comparator.comparing(AppointmentDetails::getDateOfAppointment).reversed())
+                .collect(Collectors.toList());
+        if(sortedList1!=null && sortedList1.size()>0){
+            AppointmentDetails nextAppoinment = sortedList1.get(0);
+            model.addAttribute("nextAppoinment", nextAppoinment);
+        }
+
+
+
+
+
+        model.addAttribute("docSchedule", new DoctorSchedule());
+
+
         return "patientdetails";
     }
 

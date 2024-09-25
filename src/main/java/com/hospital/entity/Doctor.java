@@ -45,4 +45,7 @@ public class Doctor {
     @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     private DoctorSchedule schedule;
 
+    @Transient
+    private Date nextAvailableDate;
+
 }

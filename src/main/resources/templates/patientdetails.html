@@ -53,33 +53,29 @@
                 <div class="row gy-4">
                     <div class="col-12">
                         <div class="card widget-card border-light shadow-sm">
-                            <div class="card-header text-bg-primary">Your Doctor Details</div>
+                            <div class="card-header text-bg-primary">Next Appointment Details</div>
                             <div class="card-body">
                                 <div class="text-center mb-3">
-                                    <img src="https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/fffd9126-dda4-430c-a18d-fb33c6493c57/de210368-9622-4654-b8c7-a7f24673cb00.png" class="img-fluid rounded-circle" alt="Image not found">
+                                    <img src="https://www.stamplab.com.au/cdn/shop/files/02-1222-your-next-appointment-stamp-mockup.jpg?v=1684447085&width=5000" class="img-fluid rounded-circle" alt="Image not found">
                                 </div>
-                                <h5 class="text-center mb-1">[[${doctor.name}]]</h5>
+                                <h5 class="text-center mb-1">[[${nextAppoinment.docName}]]</h5>
                                 <p class="text-center text-secondary mb-4">Doctor alloted</p>
                                 <ul class="list-group list-group-flush mb-4">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Age</h6>
-                                        <span>[[${doctor.age}]]</span>
+                                        <h6 class="m-0">Appointment Date</h6>
+                                        <span>[[${nextAppoinment.dateOfAppointment}]]</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Appointment Day</h6>
+                                        <span>[[${nextAppoinment.dayOfAppointment}]]</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <h6 class="m-0">Checkup Room</h6>
-                                        <span>[[${docSchedule.checkuproom}]]</span>
+                                        <span>[[${nextAppoinment.checkupRoom}]]</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Email</h6>
-                                        <span>[[${doctor.phone}]]</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Phone</h6>
-                                        <span>[[${doctor.phone}]]</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Next Available Date</h6>
-                                        <span>[[${docSchedule.nextAvailableDate}]]</span>
+                                        <h6 class="m-0">Help Desk Phone</h6>
+                                        <span>+91-9000444401</span>
                                     </li>
                                 </ul>
                                 <div class="d-grid m-0">
@@ -161,7 +157,10 @@
                                 <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address-tab-pane" type="button" role="tab" aria-controls="address-tab-pane" aria-selected="false">Address</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="appoinment-tab" data-bs-toggle="tab" data-bs-target="#appoinment-tab-pane" type="button" role="tab" aria-controls="appoinment-tab-pane" aria-selected="false">Appoinment Details</button>
+                                <button class="nav-link" id="appointment-tab" data-bs-toggle="tab" data-bs-target="#appointment-tab-pane" type="button" role="tab" aria-controls="appointment-tab-pane" aria-selected="false">Appointment Details</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="doctor-tab" data-bs-toggle="tab" data-bs-target="#doctor-tab-pane" type="button" role="tab" aria-controls="doctor-tab-pane" aria-selected="false">Doctor Details</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
@@ -301,6 +300,76 @@
                                     <button type="button" class="btn btn-link" onclick="enable_disable()">Edit Address</button>
 
                                 </div>
+                            </div>
+                            <div class="tab-pane fade" id="appointment-tab-pane" role="tabpanel" aria-labelledby="appointment-tab" tabindex="0">
+                                <h5 class="mb-3">Last 5 Appointment Details</h5>
+                                <table border="1" class="table table-striped table-responsive-md">
+                                    <thead>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <th>Doctor Name</th>
+                                        <th>App. Date</th>
+                                        <th>App. Day</th>
+                                        <th>App. Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="appointment : ${appDetails}">
+                                        <td th:text="${patient.name}"></td>
+                                        <td th:text="${appointment.docName}"></td>
+                                        <td th:text="${appointment.dateOfAppointment}"></td>
+                                        <td th:text="${appointment.dayOfAppointment}"></td>
+                                        <td th:text="${appointment.appointmentStatus}"></td>
+                                        <td> <a th:href="@{/patient/ui/updatePatientForm?appId={id}(id=${appointment.id})}" class="btn btn-primary">
+                                            Update
+                                        </a>
+                                            <a th:href="@{/patient/ui/deletePatient?appId={id}(id=${appointment.id})}" class="btn btn-danger">
+                                                Cancel
+                                            </a>
+                                            <a th:href="@{/patient/ui/viewpatientdetails?appId={id}(id=${appointment.id})}" class="btn btn-info">
+                                                Details
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="tab-pane fade" id="doctor-tab-pane" role="tabpanel" aria-labelledby="doctor-tab" tabindex="0">
+                                <h5 class="mb-3">Last 5 Doctor Details</h5>
+                                <table border="1" class="table table-striped table-responsive-md">
+                                    <thead>
+                                    <tr>
+                                        <th>Doctor Name</th>
+                                        <th>Age</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Next Available Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="doctor : ${doctorList}">
+                                        <td th:text="${doctor.name}"></td>
+                                        <td th:text="${doctor.age}"></td>
+                                        <td th:text="${doctor.phone}"></td>
+                                        <td th:text="${doctor.phone}"></td>
+                                        <td th:text="${doctor.nextAvailableDate}"></td>
+                                        <td> <a th:href="@{/patient/ui/updatePatientForm?doctorId={id}(id=${doctor.id})}" class="btn btn-primary">
+                                            Update
+                                        </a>
+                                            <a th:href="@{/patient/ui/deletePatient?doctorId={id}(id=${doctor.id})}" class="btn btn-danger">
+                                                Cancel
+                                            </a>
+                                            <a th:href="@{/patient/ui/viewpatientdetails?doctorId={id}(id=${doctor.id})}" class="btn btn-info">
+                                                Details
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
                             </div>
                             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                 <form action="#!" class="row gy-3 gy-xxl-4">
