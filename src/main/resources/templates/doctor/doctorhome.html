@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+
+        h2 {
+          padding-top: 150px; /* Adjust vertical spacing */
+          font-size: 48px; /* Adjust font size */
+        }
+
+        /* Style for the buttons */
+        .button {
+          display: inline-block;
+          padding: 15px 30px;
+          margin: 15px;
+          background-color: #4CAF50; /* Adjust button color */
+          color: black;
+          text-decoration: none;
+          font-size: 16px;
+          border-radius: 5px; /* Adjust button border radius */
+        }
+
+        .button:hover {
+          background-color: #3e8e41; /* Adjust button color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<h2>Doctor Home</h2>
+<br>
+<b><a class="button" href="/doctor/ui/addDoctorForm">Add Doctor</a></b>
+<br>
+<b><a class="button" href="/doctor/ui/doctorList/0">See Doctors</a></b>
+<br>
+<b><a class="button" th:href="@{/api/export-patient}">Export Doctors</a></b>
+<br>
+<b><a class="button" href="/doctor/ui/home">Home</a></b>
+
+</body>
+</html>

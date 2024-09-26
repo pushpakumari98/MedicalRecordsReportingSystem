@@ -2,6 +2,8 @@ package com.hospital.service;
 
 import com.hospital.entity.Doctor;
 
+import com.hospital.entity.Patient;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +24,7 @@ public interface DoctorService {
     Optional<Doctor> findByPhone(Long phone);
 
     List<Doctor> findBySpecialist(String specialist);
+
+    Page<Doctor> getAllDoctor(int page, int size, String sortBy, String direction);
+
 }

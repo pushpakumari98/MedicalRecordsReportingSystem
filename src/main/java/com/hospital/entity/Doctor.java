@@ -24,6 +24,8 @@ public class Doctor {
     @Column(name="doc_name")
     private String name;
 
+    private String email;
+
     private Integer age;
 
     private Long phone;
