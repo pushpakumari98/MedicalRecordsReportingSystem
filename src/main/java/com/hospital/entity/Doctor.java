@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="tbl_doctor")
@@ -49,5 +50,10 @@ public class Doctor {
 
     @Transient
     private Date nextAvailableDate;
+
+    @Transient
+    public List<Date> availableDate;
+
+
 
 }

@@ -3,10 +3,12 @@ package com.hospital.controller;
 
 import com.hospital.constants.AppConstants;
 
+import com.hospital.dto.AppRequest;
 import com.hospital.dto.PatientRequest;
 import com.hospital.entity.*;
 import com.hospital.repository.PatientRepository;
 import com.hospital.service.AddressService;
+import com.hospital.service.DoctorService;
 import com.hospital.service.EmailService;
 import com.hospital.service.PatientService;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +43,9 @@ public class PatientViewController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private DoctorService doctorService;
 
     @GetMapping("/home")
     public String hello(Model model){
@@ -348,5 +354,44 @@ public class PatientViewController {
         return "redirect:/patient/ui/viewpatientdetails?patientId="+addressForm.getPatientId();
     }
 
+    @GetMapping("/linkdoctor/{pageNo}")
+    public String linkPatientDoctorList(
+            @PathVariable(value = "pageNo") int pageNo,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE) int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction, Model model,RedirectAttributes redirectAttributes) {
+
+        Page<Doctor> doctorList = null;
+        if(pageNo!=0){
+            pageNo = pageNo -1;
+        }
+        try {
+            doctorList = doctorService.getAllDoctor(pageNo, size, sortBy, direction);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+        }
+
+        List<Doctor> tmpDoctorList = doctorList.getContent();
+        List<Doctor> doctorList1 = new ArrayList<>();
+
+        for(Doctor doc : tmpDoctorList){
+            if(doc.getSchedule() !=null){
+                doc.setAvailableDate(doc.getSchedule().getAvailabledate());
+            }
+            doctorList1.add(doc);
+        }
+
+        model.addAttribute("currentPage", pageNo+1);
+        model.addAttribute("totalPages", doctorList.getTotalPages());
+        model.addAttribute("totalItems", doctorList.getTotalElements());
+        model.addAttribute("doctorList", doctorList1);
+
+        DoctorSchedule test = doctorList1.get(0).getSchedule();
+
+        model.addAttribute("test", test);
+
+        return "linkdoctor";
+    }
 
 }
