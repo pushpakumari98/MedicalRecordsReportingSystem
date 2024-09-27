@@ -23,7 +23,7 @@ public class Nurse {
     @Column(name="nurse_name")
     private String name;
 
-    private int Age;
+    private String Age;
 
     private Long phone;
 

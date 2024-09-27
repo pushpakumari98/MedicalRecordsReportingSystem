@@ -19,4 +19,6 @@ public interface PharmacistService {
     Pharmacist savePharmacist(Pharmacist ph);
 
     void deletePharmacistById(Long pharmacistId);
+
+
 }

@@ -4,13 +4,17 @@ import com.hospital.entity.Doctor;
 import com.hospital.entity.Nurse;
 import com.hospital.service.NurseHistoryService;
 import com.hospital.service.NurseService;
+import com.hospital.serviceimpl.ExportExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -27,6 +31,9 @@ public class NurseController {
     @Autowired
     private NurseHistoryService nurseHistoryService;
 
+    @Autowired
+    private ExportExcel exportExcel;
+
     @PostMapping("/nurse") //A new nurse will get created
     public ResponseEntity saveNurse(@Valid @RequestBody NurseRequest nurse, BindingResult result) {
         if (result.hasErrors()) {
@@ -38,7 +45,7 @@ public class NurseController {
         Nurse n = new Nurse();
         n.setName(nurse.getName());
         n.setDob(nurse.getDob());
-        n.setAge(nurse.getAge());
+        n.setAge(nurse.getAge().toString());
         n.setPhone(nurse.getPhone());
 
         Nurse createdNurse = null;
@@ -72,8 +79,9 @@ public class NurseController {
 
         return ResponseEntity.ok().body(nurse);
     }
+
     @GetMapping("/getNurse")  //To retrieve a list of all nurses in the hospital
-    public ResponseEntity getAllNurse () {
+    public ResponseEntity getAllNurse() {
         List<Nurse> NurseList = null;
         try {
             NurseList = nurseService.getAllNurse();
@@ -122,7 +130,7 @@ public class NurseController {
                 dbNurse.setName(nurseRequest.getName());
             }
             if (nurseRequest.getAge() != null) {
-                dbNurse.setAge(nurseRequest.getAge());
+                dbNurse.setAge(nurseRequest.getAge().toString());
             }
             if (nurseRequest.getPhone() != null) {
                 dbNurse.setPhone(nurseRequest.getPhone());
@@ -136,5 +144,14 @@ public class NurseController {
             return ResponseEntity.badRequest().body("Something went wrong in the update.");
         }
     }
-}
 
+    @GetMapping("/export-nurse")
+    public ResponseEntity exportNurse(HttpServletResponse response) throws IOException, IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Nurse_Info.xlsx";
+        response.setHeader(headerKey, headerValue);
+        exportExcel.exportNurseDataToExcel(response);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+}
