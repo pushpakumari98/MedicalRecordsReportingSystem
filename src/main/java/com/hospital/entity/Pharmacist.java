@@ -16,7 +16,7 @@ public class Pharmacist {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long Id;
         private String name;
-        private int age;
+        private String age;
         private String specialization;
         private Date dob;
         private String phone;

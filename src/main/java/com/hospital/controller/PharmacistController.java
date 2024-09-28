@@ -2,14 +2,19 @@ package com.hospital.controller;
 
 import com.hospital.dto.PharmacistRequest;
 import com.hospital.entity.Pharmacist;
+import com.hospital.repository.PharmacistRepository;
 import com.hospital.service.PharmacistService;
+import com.hospital.serviceimpl.ExportExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -24,6 +29,13 @@ public class PharmacistController {
     @Autowired
     private PharmacistService pharmacistService;
 
+    @Autowired
+    private ExportExcel exportExcel;
+
+    @Autowired
+    private PharmacistRepository pharmacistRepository;
+
+
     @PostMapping("/Pharmacist") // A new pharmacist will get created
     public ResponseEntity<?> savePharmacist(@Valid @RequestBody PharmacistRequest pharmacist, BindingResult result) {
         if (result.hasErrors()) {
@@ -36,7 +48,7 @@ public class PharmacistController {
         Pharmacist ph = new Pharmacist();
         ph.setName(pharmacist.getName());
         ph.setDob(pharmacist.getDob());
-        ph.setAge(pharmacist.getAge());
+        ph.setAge(pharmacist.getAge().toString());
         ph.setPhone(pharmacist.getPhone());
         ph.setSpecialization(pharmacist.getSpecialization());
 
@@ -115,7 +127,7 @@ public class PharmacistController {
                 dbPharmacist.setName(pharmacistRequest.getName());
             }
             if (pharmacistRequest.getAge() != null) {
-                dbPharmacist.setAge(pharmacistRequest.getAge());
+                dbPharmacist.setAge(pharmacistRequest.getAge().toString());
             }
             if (pharmacistRequest.getPhone() != null) {
                 dbPharmacist.setPhone(pharmacistRequest.getPhone());
@@ -132,5 +144,15 @@ public class PharmacistController {
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Something went wrong during the update.");
         }
+    }
+
+    @GetMapping("/export-pharmacist")
+    public ResponseEntity exportPharmacist(HttpServletResponse response) throws IOException, IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Pharmacist_Info.xlsx";
+        response.setHeader(headerKey, headerValue);
+        exportExcel.exportPharmacistDataToExcel(response);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

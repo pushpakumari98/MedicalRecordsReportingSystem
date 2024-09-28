@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Hospital Mgmt System</title>
+    <title>Medical Records Reporting System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
@@ -49,16 +49,16 @@
             <td th:text="${doctor.email}"></td>
             <td th:text="${doctor.age}"></td>
             <td th:text="${doctor.specialist}"></td>
-            <td> <a th:href="@{/patient/ui/updatePatientForm?patientId={id}(id=${doctor.id})}" class="btn btn-primary">
+                <td> <a th:href="@{/doctor/ui/updateDoctorForm?doctorId={id}(id=${doctor.id})}" class="btn btn-primary">
                         Update
                     </a>
-                <a th:href="@{/patient/ui/deletePatient?patientId={id}(id=${doctor.id})}" class="btn btn-danger">
+                <a th:href="@{/doctor/ui/deleteDoctor?doctorId={id}(id=${doctor.id})}" class="btn btn-danger">
                         Delete
                     </a>
-                <a th:href="@{/patient/ui/viewpatientdetails?patientId={id}(id=${doctor.id})}" class="btn btn-info">
+                <a th:href="@{/doctor/ui/viewdoctordetails?doctorId={id}(id=${doctor.id})}" class="btn btn-info">
                     View Details
                 </a>
-                <a th:href="@{/patient/ui/mailform?patientId={id}(id=${doctor.id})}" class="btn btn-warning">
+                <a th:href="@{/doctor/ui/mailform?doctorId={id}(id=${doctor.id})}" class="btn btn-warning">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
                     </svg>
@@ -76,29 +76,29 @@
                 Total Rows: [[${totalItems}]]
             </div>
             <div  class="col-sm-1">
-                <a th:if="${currentPage != i}" th:href="@{'/patient/ui/patientList/' + ${currentPage - 1}}">Previous</a>
+                <a th:if="${currentPage != i}" th:href="@{'/doctor/ui/doctorList/' + ${currentPage - 1}}">Previous</a>
             </div>
             <div class="col-sm-50">
                     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-      <a th:if="${currentPage != i}" th:href="@{'/patient/ui/patientList/' + ${i}}">[[${i}]]</a>
+      <a th:if="${currentPage != i}" th:href="@{'/doctor/ui/doctorList/' + ${i}}">[[${i}]]</a>
       <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                     </span>
             </div>
             <div class="col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/patient/ui/patientList/' + ${currentPage + 1}}">Next</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{'/doctor/ui/doctorList/' + ${currentPage + 1}}">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
             </div>
 
             <div class="col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/patient/ui/patientList/' + ${totalPages}}">Last</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{'/doctor/ui/doctorList/' + ${totalPages}}">Last</a>
                 <span th:unless="${currentPage < totalPages}">Last</span>
             </div>
         </div>
     </div><br><br>
-    <a th:href="@{/patient/ui/addPatientForm}" class="btn btn-primary btn-sm mb-3"> Add Patient </a>
-    <a th:href="@{/api/export-patient}" class="btn btn-primary btn-sm mb-3"> Export All Patient In Excel </a>
-    <a th:href="@{/report/ui/pdf}" class="btn btn-primary btn-sm mb-3"> Export All Patient In PDF </a>
-    <a th:href="@{/patient/ui/home}" class="btn btn-primary btn-sm mb-3"> Patient Home</a>
+    <a th:href="@{/doctor/ui/addDoctorForm}" class="btn btn-primary btn-sm mb-3"> Add Doctor </a>
+    <a th:href="@{/api/export-doctor}" class="btn btn-primary btn-sm mb-3"> Export All Doctor In Excel </a>
+    <a th:href="@{/report/ui/pdf}" class="btn btn-primary btn-sm mb-3"> Export All Doctor In PDF </a>
+    <a th:href="@{/doctor/ui/home}" class="btn btn-primary btn-sm mb-3"> Doctor Home</a>
 
 </div>
 </body>
