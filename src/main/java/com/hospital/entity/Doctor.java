@@ -54,6 +54,9 @@ public class Doctor {
     @Transient
     public List<Date> availableDate;
 
+    @Transient
+    private Long patientId;
+
 
 
 }

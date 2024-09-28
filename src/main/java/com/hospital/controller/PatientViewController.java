@@ -7,10 +7,7 @@ import com.hospital.dto.AppRequest;
 import com.hospital.dto.PatientRequest;
 import com.hospital.entity.*;
 import com.hospital.repository.PatientRepository;
-import com.hospital.service.AddressService;
-import com.hospital.service.DoctorService;
-import com.hospital.service.EmailService;
-import com.hospital.service.PatientService;
+import com.hospital.service.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.apache.commons.math3.analysis.function.Add;
@@ -18,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -46,6 +48,9 @@ public class PatientViewController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping("/home")
     public String hello(Model model){
@@ -261,9 +266,14 @@ public class PatientViewController {
         if(docList!=null && docList.size()>0){
             for(Doctor doc : docList){
                 DoctorSchedule docSchedule = doc.getSchedule();
-                List<Date> availableDate = docSchedule.getAvailabledate();
-                Collections.sort(availableDate);
-                doc.setNextAvailableDate(availableDate.get(0));
+                try{
+                    List<Date> availableDate = docSchedule.getAvailabledate();
+                    Collections.sort(availableDate);
+                    doc.setNextAvailableDate(availableDate.get(0));
+                    doc.setPatientId(patient.getId());
+                }catch(Exception e){
+
+                }
                 doctorList.add(doc);
             }
         }
@@ -293,17 +303,14 @@ public class PatientViewController {
 
         List<AppointmentDetails> appDetails = patient.getAppDetails();
         List<AppointmentDetails> sortedList = appDetails.stream()
-                .sorted(Comparator.comparing(AppointmentDetails::getId).reversed())
-                .collect(Collectors.toList());
-        List<AppointmentDetails> latestFiveAppDetails = sortedList.stream().limit(10).collect(Collectors.toList());
-        model.addAttribute("appDetails", latestFiveAppDetails);
-
-
-        List<AppointmentDetails> sortedList1 = appDetails.stream()
                 .sorted(Comparator.comparing(AppointmentDetails::getDateOfAppointment).reversed())
                 .collect(Collectors.toList());
-        if(sortedList1!=null && sortedList1.size()>0){
-            AppointmentDetails nextAppoinment = sortedList1.get(0);
+        Collections.reverse(sortedList);
+        List<AppointmentDetails> latestFiveAppDetails = sortedList.stream().limit(6).collect(Collectors.toList());
+        model.addAttribute("appDetails", latestFiveAppDetails);
+
+        if(sortedList!=null && sortedList.size()>0){
+            AppointmentDetails nextAppoinment = sortedList.get(0);
             model.addAttribute("nextAppoinment", nextAppoinment);
         }
 
@@ -357,9 +364,10 @@ public class PatientViewController {
     @GetMapping("/linkdoctor/{pageNo}")
     public String linkPatientDoctorList(
             @PathVariable(value = "pageNo") int pageNo,
+            @RequestParam(value = "patientId", required = true) Long patientId,
             @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE) int size,
             @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction, Model model,RedirectAttributes redirectAttributes) {
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,RedirectAttributes redirectAttributes, Model model) {
 
         Page<Doctor> doctorList = null;
         if(pageNo!=0){
@@ -379,6 +387,7 @@ public class PatientViewController {
             if(doc.getSchedule() !=null){
                 doc.setAvailableDate(doc.getSchedule().getAvailabledate());
             }
+            doc.setPatientId(patientId);
             doctorList1.add(doc);
         }
 
@@ -387,11 +396,159 @@ public class PatientViewController {
         model.addAttribute("totalItems", doctorList.getTotalElements());
         model.addAttribute("doctorList", doctorList1);
 
-        DoctorSchedule test = doctorList1.get(0).getSchedule();
-
-        model.addAttribute("test", test);
 
         return "linkdoctor";
+    }
+
+
+    @GetMapping("/linkdoctor/{patientId}/doctor/{doctorId}") //To link a specific patient with a specific doctor in a hospital
+    public String linkPatientWithDoctor(@PathVariable Long patientId, @PathVariable Long doctorId,RedirectAttributes redirectAttributes, Model model){
+
+        Patient patient = null;
+        try {
+            patient = patientService.getPatientByPatientId(patientId);
+        }catch (NoSuchElementException e){
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0";
+        }
+
+        Doctor doctor = null;
+        try {
+            doctor = doctorService.getDoctorById(doctorId);
+        }catch (NoSuchElementException e){
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0";
+        }
+        if(doctor!=null){
+            doctor.setPatient(patient);
+        }
+        doctorService.saveDoctor(doctor);
+        redirectAttributes.addFlashAttribute("message", "Doctor Linked Successfully.");
+        redirectAttributes.addFlashAttribute("alertClass", "alert alert-success");
+        return "redirect:/patient/ui/linkdoctor/0?patientId="+patient.getId();
+    }
+
+
+
+    @GetMapping("/bookappointment/patient/{patientId}/doctor/{doctorId}/{bookdate}")
+    public String bookPatientAppointment(
+            @PathVariable Long patientId, @PathVariable Long doctorId,
+            @PathVariable String bookdate, RedirectAttributes redirectAttributes, Model model
+    ) throws ParseException {
+
+        //get the patient details
+        Patient patient = null;
+        try {
+            patient = patientService.getPatientByPatientId(patientId);
+        }catch (NoSuchElementException e){
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
+        }
+
+        //get the doctor details
+        Doctor doctor = null;
+        try {
+            doctor = doctorService.getDoctorById(doctorId);
+        }catch (NoSuchElementException e){
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong.");
+            redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
+            return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
+        }
+        DoctorSchedule docSchedule = null;
+        if(doctor!=null){
+            docSchedule = doctor.getSchedule();
+        }
+
+        String sDate1 = bookdate;
+        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(sDate1);
+
+        //creating appointment details object
+        AppointmentDetails appointmentDetails = new AppointmentDetails();
+        appointmentDetails.setDateOfAppointment(date1);
+        appointmentDetails.setAppointmentStatus(AppConstants.PENDING);
+
+        Date appointmentDate = date1;
+        Format f = new SimpleDateFormat("EEEE");        //logic to find day from a date
+        String str = f.format(appointmentDate);
+
+        appointmentDetails.setDocName(doctor.getName());
+        appointmentDetails.setDayOfAppointment(str);
+        appointmentDetails.setPatId(patient.getId());
+        appointmentDetails.setDocId(doctor.getId());
+        appointmentDetails.setPatient(patient);
+        appointmentDetails.setCheckupRoom(docSchedule.getCheckuproom());
+        AppointmentDetails app = appointmentService.saveAppoinmentDetails(appointmentDetails);
+
+        List<Date> docAvailableDate = null;
+        if(docSchedule != null){
+            docAvailableDate =  docSchedule.getAvailabledate();   //all the date    1/2/3/4  //3
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String patAppointmentDate = formatter.format(date1);
+        List<String> dateStringList = new ArrayList<>();
+        for (Date date : docAvailableDate) {                    //this for loop is used to convert list of Date to List of String
+            String dateStr = String.valueOf(date);              //Date -> String
+            dateStringList.add(dateStr);
+        }
+
+        //yyyy-MM-dd
+        if(dateStringList.contains(patAppointmentDate)){
+            dateStringList.remove(patAppointmentDate);           //doctor new available date //String
+        }
+
+        docAvailableDate = new ArrayList<>();  //
+        //String -> Date
+        for(String strDate : dateStringList){
+            DateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = (Date)formatter1.parse(strDate);
+            docAvailableDate.add(date);   //doctor new available date //Date
+        }
+        docSchedule.setAvailabledate(docAvailableDate);
+        doctor.setSchedule(docSchedule);
+        Doctor d = doctorService.saveDoctor(doctor);
+
+        //mail all the details to patient //krpi@gmail.com -> krpi@gmail.com
+        String message = "Hi "+patient.getName()+","+"\n\nYour appointment has been scheduled successfully. Find the appointment details below."+
+                "\n\nAppointment No: "+app.getId()+
+                "\n\nDoctor Name: "+app.getDocName()+
+                "\n\nAppointment Date: "+app.getDateOfAppointment()+
+                "\n\nAppointment Day: "+app.getDayOfAppointment()+
+                "\n\nCheckup Room: "+app.getCheckupRoom();
+
+        try {
+            if(patient.getEmail()==null){
+
+            }else{
+                emailService.sendEmail(patient.getEmail(), "Appointment Details",
+                        message);
+            }
+            System.out.println("email sent");
+        }catch (Exception e){
+            System.out.println("email sent failed");
+        }
+        redirectAttributes.addFlashAttribute("message", "Appointment has been scheduled. Please check your email");
+        redirectAttributes.addFlashAttribute("alertClass", "alert alert-success");
+        return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
     }
 
 }

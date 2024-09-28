@@ -56,7 +56,7 @@
                 <a th:href="@{/patient/ui/viewpatientdetails?patientId={id}(id=${patient.id})}" class="btn btn-info">
                     View Details
                 </a>
-                <a href="/patient/ui/linkdoctor/0" class="btn btn-secondary">
+                <a th:href="@{/patient/ui/linkdoctor/0?patientId={id}(id=${patient.id})}" class="btn btn-secondary">
                     Link Doctor
                 </a>
                 <a th:href="@{/patient/ui/mailform?patientId={id}(id=${patient.id})}" class="btn btn-warning">

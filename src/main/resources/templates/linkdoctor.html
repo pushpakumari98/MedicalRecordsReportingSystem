@@ -12,10 +12,21 @@
              let currentLocation = window.location;
         }
 
-    function changeColor(test1, test2){
-    alert(document.getElementById(test1).value);
-    alert(test1);
-    alert(test2);
+    function linkDoctor(patientId, doctorId){
+        var url = 'http://localhost:8081/patient/ui/linkdoctor/'+patientId+'/doctor/'+doctorId;
+        window.location.href = url;
+    }
+    function bookAppoinment(patientId, doctorId, bookingDate){
+        var date = document.getElementById(doctorId).value;
+        if(date=='NULL'){
+            alert('Please Select Date.');
+            return;
+        }
+        if(confirm("Are you sure to schedule this appointment!")){
+            var url = 'http://localhost:8081/patient/ui/bookappointment/patient/'+patientId+'/doctor/'+doctorId+'/'+date;
+            window.location.href = url;
+        }
+
     }
 </script>
 
@@ -59,7 +70,7 @@
                 <td th:text="${doctor.specialist}" style="width:120px"></td>
             <td>
                 <select class="form-select" th:id="${doctor.id}">
-                    <option value="default">Select Date</option>
+                    <option value="NULL">Select Date</option>
                     <option th:each="date : ${doctor.availableDate}" th:text="${date}">
 
                     </option>
@@ -68,8 +79,8 @@
 
             </td>
                 <td>
-                    <button th:data-parameter1="${doctor.id}"  th:data-parameter2="${doctor.specialist}"  th:onclick="changeColor(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" class="btn btn-primary">Link Doctor</button>
-
+                    <button th:data-parameter1="${doctor.patientId}"  th:data-parameter2="${doctor.id}"  th:onclick="linkDoctor(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" class="btn btn-primary">Link Doctor</button>
+                    <button th:data-parameter1="${doctor.patientId}" th:data-parameter2="${doctor.id}" th:data-parameter3="${date}"  th:onclick="bookAppoinment(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'),this.getAttribute('data-parameter3'))" class="btn btn-primary">Book Appointment</button>
                 </td>
 
         </tr>

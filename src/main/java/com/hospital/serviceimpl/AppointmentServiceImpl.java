@@ -22,7 +22,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentDetails saveAppoinmentDetails(AppointmentDetails appoinment) {
         AppointmentDetails appointmentDetails = null;
         if(appoinment!=null){
-             appointmentRepository.save(appoinment);
+            appointmentDetails = appointmentRepository.save(appoinment);
+        }else{
+            appointmentDetails = new AppointmentDetails();
         }
         return appointmentDetails;
     }
