@@ -510,7 +510,6 @@ public class PatientViewController {
             String dateStr = String.valueOf(date);              //Date -> String
             dateStringList.add(dateStr);
         }
-
         //yyyy-MM-dd
         if(dateStringList.contains(patAppointmentDate)){
             dateStringList.remove(patAppointmentDate);           //doctor new available date //String
