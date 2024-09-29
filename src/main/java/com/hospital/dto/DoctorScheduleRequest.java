@@ -20,6 +20,8 @@ public class DoctorScheduleRequest {
 
     private Long id;
 
+    private String name;
+
     private List<String> workingdays;
 
     private Integer checkuproom;

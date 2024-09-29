@@ -57,5 +57,6 @@ public class PatientServiceImpl implements PatientService {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         return patientRepository.findAll(pageable);
+
     }
 }

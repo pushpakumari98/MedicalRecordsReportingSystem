@@ -5,22 +5,36 @@
     <meta charset="ISO-8859-1">
     <title>Medical Records Reporting System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2021/07/27/17/42/stethoscope-6497490_1280.jpg'); /* replace with your desired image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* add a semi-transparent background to the container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <script th:inline="javascript">
     function isNew() {
-             let currentLocation = window.location;
-        }
+        let currentLocation = window.location;
+    }
 
-        function composeMailForm(patientId){
-                var url = 'http://localhost:8081/patient/ui/mailform?patientId='+patientId;
-                var w = 500;
-                var h = 500;
-                var title = 'Compose Mail';
-                var left = (screen.width/2)-(w/2);
-                var top = (screen.height/2)-(h/2);
-                return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-
+    function composeMailForm(patientId){
+        var url = 'http://localhost:8081/patient/ui/mailform?patientId='+patientId;
+        var w = 500;
+        var h = 500;
+        var title = 'Compose Mail';
+        var left = (screen.width/2)-(w/2);
+        var top = (screen.height/2)-(h/2);
+        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
     }
 </script>
 
@@ -58,12 +72,13 @@
             <td th:text="${patient.name}"></td>
             <td th:text="${patient.phone}"></td>
             <td th:text="${patient.addmissionDate}"></td>
-            <td> <a th:href="@{/patient/ui/updatePatientForm?patientId={id}(id=${patient.id})}" class="btn btn-primary">
-                        Update
-                    </a>
+            <td>
+                <a th:href="@{/patient/ui/updatePatientForm?patientId={id}(id=${patient.id})}" class="btn btn-primary">
+                    Update
+                </a>
                 <a th:href="@{/patient/ui/deletePatient?patientId={id}(id=${patient.id})}" class="btn btn-danger">
-                        Delete
-                    </a>
+                    Delete
+                </a>
                 <a th:href="@{/patient/ui/viewpatientdetails?patientId={id}(id=${patient.id})}" class="btn btn-info">
                     View Details
                 </a>
@@ -92,8 +107,8 @@
             </div>
             <div class="col-sm-50">
                     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-      <a th:if="${currentPage != i}" th:href="@{'/patient/ui/patientList/' + ${i}}">[[${i}]]</a>
-      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                        <a th:if="${currentPage != i}" th:href="@{'/patient/ui/patientList/' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                     </span>
             </div>
             <div class="col-sm-1">

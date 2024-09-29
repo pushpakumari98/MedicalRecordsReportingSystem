@@ -8,6 +8,10 @@ spring:
     properties.mail.smtp:
       auth: true
       starttls.enable: true
+#      thymeleaf:
+#          prefix: classpath:/templates/
+#          suffix: .html
+
   datasource:
     url: jdbc:postgresql://localhost:5432/hospital
     username: postgres

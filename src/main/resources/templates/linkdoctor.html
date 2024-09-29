@@ -72,15 +72,12 @@
                 <select th:id="${doctor.id}" class="btn btn-secondary dropdown-toggle">
                     <option value="NULL">Select Date</option>
                     <option th:each="date : ${doctor.availableDate}" th:text="${date}">
-
                     </option>
                 </select>
-
-
             </td>
                 <td>
                     <button th:data-parameter1="${doctor.patientId}"  th:data-parameter2="${doctor.id}"  th:onclick="linkDoctor(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" class="btn btn-primary">Link Doctor</button>
-                    <button th:data-parameter1="${doctor.patientId}" th:data-parameter2="${doctor.id}" th:data-parameter3="${date}"  th:onclick="bookAppoinment(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'),this.getAttribute('data-parameter3'))" class="btn btn-primary">Book Appointment</button>
+                    <button th:data-parameter1="${doctor.patientId}" th:data-parameter2="${doctor.id}" th:data-parameter3="${date}"  th:onclick="bookAppoinment(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'),this.getAttribute('data-parameter3'))" class="btn btn-secondary">Book Appointment</button>
                 </td>
 
         </tr>

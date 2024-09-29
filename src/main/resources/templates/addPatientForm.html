@@ -18,7 +18,7 @@
             /* Full height */
             height: 100%;
             /* Background image */
-            background-image: url('../templates/doctor.jpg'); /* Replace this URL with your image */
+            background-image: url('https://cdn.pixabay.com/photo/2023/04/23/20/40/lost-places-7946716_1280.jpg'); /* Replace this URL with your image */
             /* Full width */
             background-position: center center;
             background-repeat: no-repeat;
@@ -61,13 +61,13 @@
 <div class="background">
     <div class="container">
         <div class="form-container">
-            <h3>Medical Records Reporting System</h3>
+            <h3>Doctor Records Reporting System</h3>
             <hr>
             <h2>Save Patient</h2>
             <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
             <form action="#"
                   th:action="@{/patient/ui/savepatient}"
-                  th:object="${patientrequest}"
+                  th:object="${patientRequest}"
                   method="POST">
                 <input style="display:none;" type="text"
                        th:field="*{id}"
