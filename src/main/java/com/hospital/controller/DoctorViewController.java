@@ -2,6 +2,7 @@ package com.hospital.controller;
 
 import com.hospital.constants.AppConstants;
 import com.hospital.dto.DoctorRequest;
+import com.hospital.dto.DoctorScheduleRequest;
 import com.hospital.entity.Doctor;
 import com.hospital.service.DoctorService;
 import com.hospital.service.PatientService;
@@ -111,6 +112,17 @@ public class DoctorViewController {
 
         //model.addAttribute("patientRequest", new PatientRequest());
         return "/doctor/doctorlist";
+    }
+
+
+    @GetMapping("/scheduleForm")
+    public String addDoctorSchedule(Model model,
+                                    @RequestParam(value = "doctorId", required = true) Long doctorId){
+        System.out.println("doctorId: "+doctorId);
+        DoctorScheduleRequest doctorScheduleRequest = new DoctorScheduleRequest();
+        doctorScheduleRequest.setId(doctorId);
+        model.addAttribute("doctorScheduleRequest", doctorScheduleRequest);
+        return "/doctor/scheduleForm";
     }
 
 }
