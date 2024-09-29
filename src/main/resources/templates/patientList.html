@@ -11,6 +11,17 @@
     function isNew() {
              let currentLocation = window.location;
         }
+
+        function composeMailForm(patientId){
+                var url = 'http://localhost:8081/patient/ui/mailform?patientId='+patientId;
+                var w = 500;
+                var h = 500;
+                var title = 'Compose Mail';
+                var left = (screen.width/2)-(w/2);
+                var top = (screen.height/2)-(h/2);
+                return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+
+    }
 </script>
 
 <body onload="isNew();">
@@ -59,12 +70,12 @@
                 <a th:href="@{/patient/ui/linkdoctor/0?patientId={id}(id=${patient.id})}" class="btn btn-secondary">
                     Link Doctor
                 </a>
-                <a th:href="@{/patient/ui/mailform?patientId={id}(id=${patient.id})}" class="btn btn-warning">
+                <button th:data-parameter1="${patient.id}"   th:onclick="composeMailForm(this.getAttribute('data-parameter1'))" class="btn btn-warning">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
                     </svg>
-                    Send Mail
-                </a>
+                    Send Email
+                </button>
 
             </td>
         </tr>
