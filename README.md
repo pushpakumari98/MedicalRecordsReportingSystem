@@ -60,7 +60,8 @@
   <li>Navigate through the system to manage patient, doctor, and nurse records.</li>
 </ul>
 <b><h3>Screenshots</h3></b>
-https://github.com/user-attachments/assets/4a2074cc-59e4-4ccb-a8dd-6b04d8a25069
+![Screenshot 2024-10-03 063648](https://github.com/user-attachments/assets/e8efab3f-8295-4c1c-bb79-1182181df6b7)
+
 
 
 <b><h3>Contributing</h3></b>
