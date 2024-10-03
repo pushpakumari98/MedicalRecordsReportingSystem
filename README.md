@@ -66,7 +66,8 @@
 ![Screenshot 2024-10-03 063918](https://github.com/user-attachments/assets/ba5621e3-a4d8-467e-9504-3d1a1e3c56fc)
 ![Screenshot 2024-10-03 063933](https://github.com/user-attachments/assets/943c12ec-34b6-4c74-9b0e-f2bf7462d169)
 ![Screenshot 2024-10-03 063946](https://github.com/user-attachments/assets/983e9c54-40f7-4569-8525-e0031bcdbddb)
-![Screenshot 2024-10-03 064001](https://github.com/user-attachments/assets/1e71da39-8011-410c-b101-276481a2cc55)
+![Screenshot 2024-10-03 174717](https://github.com/user-attachments/assets/7289c969-adfb-4ac3-99e0-9edd5f6aa058)
+
 
 
 <b><h3>Contributing</h3></b>
