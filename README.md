@@ -61,10 +61,11 @@
 </ul>
 <b><h3>Screenshots</h3></b>
 
-![Screenshot 2024-10-03 063648](https://github.com/user-attachments/assets/2ba48268-7c74-49b4-a89b-f7420cd209fe)
 ![Screenshot 2024-10-03 063719](https://github.com/user-attachments/assets/368f802c-3798-4e27-ad26-5beae416c5f1)
 ![Screenshot 2024-10-03 063918](https://github.com/user-attachments/assets/ba5621e3-a4d8-467e-9504-3d1a1e3c56fc)
 ![Screenshot 2024-10-03 063933](https://github.com/user-attachments/assets/943c12ec-34b6-4c74-9b0e-f2bf7462d169)
+![Screenshot 2024-10-02 222257](https://github.com/user-attachments/assets/127040cb-c597-43fc-9a72-2b42d2dc1c3b)
+
 ![Screenshot 2024-10-03 063946](https://github.com/user-attachments/assets/983e9c54-40f7-4569-8525-e0031bcdbddb)
 ![Screenshot 2024-10-03 174717](https://github.com/user-attachments/assets/7289c969-adfb-4ac3-99e0-9edd5f6aa058)
 
