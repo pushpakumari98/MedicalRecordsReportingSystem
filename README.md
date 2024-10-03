@@ -68,7 +68,6 @@
 ![Screenshot 2024-10-03 064001](https://github.com/user-attachments/assets/65e74930-2a2d-4a85-8600-034f597b6756)
 ![Screenshot 2024-09-08 122332](https://github.com/user-attachments/assets/46efe151-d18f-4e8c-95aa-b6bcd46320ce)
 
-
 <b><h3>Contributing</h3></b>
 <p>Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request with your changes.</p>
 <b><h3>License</h3></b>
