@@ -1,6 +1,6 @@
 <b><h2>Medical Records Reporting System</h2></b>
 <hr>
-<p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors and nurses.</p>
+<p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors nurses and pharmacists.</p>
 <b><h3>Table of Contents</h3></b>
 <ul>
   <li>Project Overview</li>
