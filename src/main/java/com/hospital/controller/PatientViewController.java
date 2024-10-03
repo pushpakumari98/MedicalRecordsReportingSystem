@@ -313,6 +313,8 @@ public class PatientViewController {
         if(sortedList!=null && sortedList.size()>0){
             AppointmentDetails nextAppoinment = sortedList.get(0);
             model.addAttribute("nextAppoinment", nextAppoinment);
+        }else{
+            model.addAttribute("nextAppoinment", new AppointmentDetails());
         }
 
 

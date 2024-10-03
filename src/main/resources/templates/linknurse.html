@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Hospital Mgmt System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<script th:inline="javascript">
+    function isNew() {
+        let currentLocation = window.location;
+    }
+
+    function linkNurse(doctorId, nurseId){
+        var url = 'http://localhost:8081/doctor/ui/linknurse/'+doctorId+'/nurse/'+nurseId;
+        window.location.href = url;
+    }
+    function assignNurse(doctorId, nurseId){
+        if(confirm("Are you sure to assign this nurse!")){
+            var url = 'http://localhost:8081/doctor/ui/assignnurse/doctor/'+doctorId+'/nurse/'+nurseId;
+            window.location.href = url;
+        }
+
+    }
+</script>
+
+<body onload="isNew();">
+<div class="container my-2">
+    <h1>Nurse List</h1>
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <select id="filter" class="form-control"  style="width:300px;">
+                <option selected>Filter By</option>
+                <option>Name</option>
+                <option>Phone</option>
+                <option>Admitted On</option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="filterValue" class="sr-only">Filter Value</label>
+            <input type="text" class="form-control" id="filterValue" placeholder="Filter Value">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+    <br>
+    <br>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nurse : ${nurseList}">
+            <td th:text="${nurse.name}" style="width:160px"></td>
+            <td th:text="${nurse.email}" style="width:120px"></td>
+            <td th:text="${nurse.age}"></td>
+            <td th:text="${nurse.phone}" style="width:120px"></td>
+            <td th:text="${nurse.dob}" style="width:120px"></td>
+            <td>
+                <button th:data-parameter1="${nurse.doctorId}"  th:data-parameter2="${nurse.id}"  th:onclick="linkNurse(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" class="btn btn-primary">Link Nurse</button>
+                <button th:data-parameter1="${nurse.doctorId}" th:data-parameter2="${nurse.id}"  th:onclick="assignNurse(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" class="btn btn-secondary">Assign Nurse</button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-50">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div  class="col-sm-1">
+                <a th:if="${currentPage != i}" th:href="@{'/nurse/ui/nurseList/' + ${currentPage - 1}}">Previous</a>
+            </div>
+            <div class="col-sm-50">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/nurse/ui/nurseList/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/nurse/ui/nurseList/' + ${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/nurse/ui/nurseList/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div><br><br>
+    <a th:href="@{/nurse/ui/addNurseForm}" class="btn btn-primary btn-sm mb-3"> Add Nurse </a>
+    <a th:href="@{/api/export-nurse}" class="btn btn-primary btn-sm mb-3"> Export All Nurse In Excel </a>
+    <a th:href="@{/report/ui/pdf}" class="btn btn-primary btn-sm mb-3"> Export All Nurse In PDF </a>
+    <a th:href="@{/nurse/ui/home}" class="btn btn-primary btn-sm mb-3"> Nurse Home</a>
+
+</div>
+</body>
+
+</html>

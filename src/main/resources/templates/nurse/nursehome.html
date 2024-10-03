@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nurse Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-photo/hands-unrecognizable-female-doctor-writing-form-typing-laptop-keyboard_1098-20374.jpg?w=996&t=st=1727915751~exp=1727916351~hmac=05086990d9bf5afec82ef7dbdda2ea332920d2d99df5b8511b4f0bac7b97579f');
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 90vh; /* Full viewport height */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-size: cover; /* Cover the background image */
+            background-position: center; /* Center the background image */
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Add a slightly transparent white background */
+            padding: 20px; /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetic */
+            width: 300px; /* Set a fixed width */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+
+        h2 {
+            font-size: 36px; /* Reduced font size */
+            margin-bottom: 10px;
+            color: black; /* Color of the heading */
+        }
+
+        /* Style for the buttons */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0; /* Margin between buttons */
+            background-color: #4CAF50; /* Button color */
+            color: white; /* Text color */
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px; /* Border radius */
+        }
+
+        .button:hover {
+            background-color: #3e8e41; /* Adjust button color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Nurse Home</h2>
+    <b><a class="button" href="/nurse/ui/addNurseForm">Add Nurse</a></b>
+    <br>
+    <b><a class="button" href="/nurse/ui/nurseList/0">See Nurse</a></b>
+    <br>
+    <b><a class="button" href="@{/api/export-nurse}">Export Nurse</a></b>
+    <br>
+    <b><a class="button" href="/nurse/ui/home">Home</a></b>
+</div>
+
+</body>
+</html>

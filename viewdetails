@@ -15,7 +15,7 @@ AS SELECT patient.name AS patient_name,
     nurse.nurse_name
    FROM tbl_patient patient
      LEFT JOIN tbl_doctor doctor ON patient.id = doctor.patient_id
-     LEFT JOIN tbl_appoinment_details app ON doctor.id = app.doc_id
+     LEFT JOIN tbl_appointment_details app ON doctor.id = app.doc_id
      LEFT JOIN tbl_nurse nurse ON patient.id = nurse.patient_id;
 
 //property to send a mail from gmail

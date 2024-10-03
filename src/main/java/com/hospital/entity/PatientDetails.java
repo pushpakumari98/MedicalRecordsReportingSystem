@@ -12,11 +12,12 @@ import java.util.Date;
 @Table(name="vw_get_patient_doctor_details")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PatientDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "patient_id")
     private Long patient_id;
 
@@ -26,7 +27,7 @@ public class PatientDetails {
     @Column(name = "patient_age")
     private Integer patient_age;
 
-    @Column(name = "doctor_name")
+    //@Column(name = "doctor_name")
     private String doctor_name;
 
     @Column(name = "app_status")

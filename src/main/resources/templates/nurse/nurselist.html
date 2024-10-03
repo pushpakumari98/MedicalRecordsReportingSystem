@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Medical Records Reporting System - Nurse List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/surgical-lab-illustrated-background_52683-68262.jpg?w=1380&t=st=1727916642~exp=1727917242~hmac=d01d3394755fb9f5bbd131d4f056cf83b3892f1f036be4173f78eed757c4808a');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<script th:inline="javascript">
+    function isNew() {
+        let currentLocation = window.location;
+    }
+
+    function nurseScheduleForm(nurseId) {
+        var url = 'http://localhost:8081/nurse/ui/scheduleForm?nurseId=' + nurseId;
+        var w = 500;
+        var h = 500;
+        var title = 'Schedule Nurse';
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    }
+</script>
+
+<body onload="isNew();">
+<div class="container my-2">
+    <h1>Nurse List</h1>
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <select id="filter" class="form-control" style="width:300px;">
+                <option selected>Filter By</option>
+                <option>Name</option>
+                <option>Phone</option>
+                <option>Admitted On</option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="filterValue" class="sr-only">Filter Value</label>
+            <input type="text" class="form-control" id="filterValue" placeholder="Filter Value">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2" style="background-color: #FFFF00; color: black;">Search</button>
+    </form>
+    <br>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nurse : ${nurseList}">
+            <td th:text="${nurse.name}"></td>
+            <td th:text="${nurse.email}"></td>
+            <td th:text="${nurse.age}"></td>
+            <td th:text="${nurse.phone}"></td>
+            <td>
+                <a th:href="@{/nurse/ui/scheduleForm?nurseId={id}(id=${nurse.id})}" class="btn btn-primary" style="background-color: #FFFF00; color: #000000;">
+                    Add/Update Schedule
+                </a>
+                <a th:href="@{/nurse/ui/createAvaileableDate?nurseId={id}(id=${nurse.id})}" class="btn btn-primary" style="background-color: #FFFF00; color: #000000;">
+                    Create Appointment Dates
+                </a>
+                <a th:href="@{/nurse/ui/viewDetails?nurseId={id}(id=${nurse.id})}" type="button" class="btn btn-outline-primary">
+                    <b>View Details</b>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-50">
+            <div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage != i}" th:href="@{'/nurse/ui/nurseList/' + ${currentPage - 1}}">Previous</a>
+            </div>
+            <div class="col-sm-50">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/nurse/ui/nurseList/' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/nurse/ui/nurseList/' + ${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/nurse/ui/nurseList/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <a th:href="@{/nurse/ui/addNurseForm}" class="btn btn-primary btn-sm mb-3" style="background-color: #FFFF00; color: black;"> Add Nurse </a>
+    <a th:href="@{/api/export-nurse}" class="btn btn-primary btn-sm mb-3" style="background-color: #FFFF00; color: black;"> Export All Nurses In Excel </a>
+    <a th:href="@{/report/ui/pdf}" class="btn btn-primary btn-sm mb-3" style="background-color: #FFFF00; color: black;"> Export All Nurses In PDF </a>
+    <a th:href="@{/nurse/ui/home}" class="btn btn-primary btn-sm mb-3" style="background-color: #FFFF00; color: black;"> Nurse Home</a>
+</div>
+</body>
+</html>

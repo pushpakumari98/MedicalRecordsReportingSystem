@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Patient Records Reporting System</title>
+    <title>Nurse Records Reporting System</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -15,15 +15,11 @@
         }
 
         .background {
-            /* Full height */
             height: 100%;
-            /* Background image */
-            background-image: url('https://cdn.pixabay.com/photo/2023/04/23/20/40/lost-places-7946716_1280.jpg'); /* Replace this URL with your image */
-            /* Full width */
+            background-image: url('https://cdn.pixabay.com/photo/2023/04/23/20/40/lost-places-7946716_1280.jpg');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
-            /* Optional for a slight dark overlay */
             background-color: rgba(0, 0, 0, 0.5);
         }
 
@@ -36,7 +32,7 @@
 
         .form-container {
             width: 50%;
-            background-color: rgba(255, 255, 255, 0.8); /* White background with slight opacity */
+            background-color: rgba(255, 255, 255, 0.9); /* Adjusted opacity */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -48,7 +44,7 @@
         }
 
         .form-control {
-            margin-bottom: 10px; /* reduce margin bottom to 10px */
+            margin-bottom: 15px; /* Increased margin for better spacing */
         }
 
         h3, h2 {
@@ -61,24 +57,25 @@
 <div class="background">
     <div class="container">
         <div class="form-container">
-            <h3>Doctor Records Reporting System</h3>
+            <h3>Nurse Records Reporting System</h3>
             <hr>
-            <h2>Save Patient</h2>
+            <h2>Save Nurse</h2>
             <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
             <form action="#"
-                  th:action="@{/patient/ui/savepatient}"
-                  th:object="${patientRequest}"
+                  th:action="@{/nurse/ui/savenurse}"
+                  th:object="${nurseRequest}"
                   method="POST">
-                <input style="display:none;" type="text"
+                <input type="hidden"
                        th:field="*{id}"
-                       placeholder="Patient Name"
                        class="form-control">
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                    Patient Name
+
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                    Nurse Name
                 </label>
                 <input type="text"
+                       id="name"
                        th:field="*{name}"
-                       placeholder="Patient Name"
+                       placeholder="Enter Nurse Name"
                        class="form-control">
                 <p data-th-if="${#fields.hasErrors('name')}"
                    data-th-errors="*{name}"
@@ -86,25 +83,13 @@
                     Name is required
                 </p>
 
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                    Email
-                </label>
-                <input type="email"
-                       th:field="*{email}"
-                       placeholder="Email"
-                       class="form-control">
-                <p data-th-if="${#fields.hasErrors('email')}"
-                   data-th-errors="*{email}"
-                   class="alert alert-danger">
-                    Email is required
-                </p>
-
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="age" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Age
                 </label>
                 <input type="number"
+                       id="age"
                        th:field="*{age}"
-                       placeholder="Patient Age"
+                       placeholder="Enter Age"
                        class="form-control">
                 <p data-th-if="${#fields.hasErrors('age')}"
                    data-th-errors="*{age}"
@@ -112,45 +97,39 @@
                     Age is required
                 </p>
 
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Phone
                 </label>
-                <input type="text"
+                <input type="number"
+                       id="phone"
                        th:field="*{phone}"
-                       placeholder="Phone"
+                       placeholder="Enter Nurse Phone"
                        class="form-control">
+                <p data-th-if="${#fields.hasErrors('phone')}"
+                   data-th-errors="*{phone}"
+                   class="alert alert-danger">
+                    Phone is required
+                </p>
 
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                    Date Of Birth
+                <label for="dob" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                    Date of Birth
                 </label>
                 <input type="date"
+                       id="dob"
                        th:field="*{dob}"
-                       placeholder="Dob"
+                       placeholder="Enter Date of Birth"
                        class="form-control">
                 <p data-th-if="${#fields.hasErrors('dob')}"
                    data-th-errors="*{dob}"
                    class="alert alert-danger">
-                    DOB is required.
-                </p>
-
-                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                    Aadhar
-                </label>
-                <input type="text"
-                       th:field="*{aadhar}"
-                       placeholder="Aadhar"
-                       class="form-control">
-                <p data-th-if="${#fields.hasErrors('aadhar')}"
-                   data-th-errors="*{aadhar}"
-                   class="alert alert-danger">
-                    Aadhar is required
+                    DOB is required
                 </p>
 
                 <div class="button-container">
                     <button type="submit" class="btn btn-success">
-                        Save Patient
+                        Save Nurse
                     </button>
-                    <button type="reset" class="btn btn-success">
+                    <button type="reset" class="btn btn-secondary">
                         Reset
                     </button>
                 </div>
@@ -158,13 +137,14 @@
 
             <hr>
 
-            <a th:href="@{/patient/ui/patient}">Patient Home</a>
+            <a th:href="@{/nurse/ui/nurse}">Nurse Home</a>
             <br>
-            <a th:href="@{/patient/ui/home}">Home</a>
-            
+            <a th:href="@{/nurse/ui/home}">Home</a>
+
         </div>
     </div>
 </div>
 
 </body>
 </html>
+
