@@ -44,7 +44,7 @@ public class PatientDetails {
     @Column(name = "nurse_name")
     private String nurseName;
 
-    @Column(name = "pharmacist_name")
-    private String pharmacistName;
+   // @Column(name = "pharmacist_name")
+   // private String pharmacistName;
 
 }

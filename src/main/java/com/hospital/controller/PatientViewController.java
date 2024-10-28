@@ -52,6 +52,8 @@ public class PatientViewController {
     @Autowired
     private AppointmentService appointmentService;
 
+    Boolean closePopup = false;
+
     @GetMapping("/home")
     public String hello(Model model){
         return "home";
@@ -247,7 +249,7 @@ public class PatientViewController {
             redirectAttributes.addFlashAttribute("message", "Mail send failed");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
-
+        closePopup = true;
         return "redirect:/patient/ui/mailform?patientId="+composeForm.getPatientId();
     }
 
@@ -312,6 +314,8 @@ public class PatientViewController {
         if(sortedList!=null && sortedList.size()>0){
             AppointmentDetails nextAppoinment = sortedList.get(0);
             model.addAttribute("nextAppoinment", nextAppoinment);
+        }else{
+            model.addAttribute("nextAppoinment", new AppointmentDetails());
         }
 
 
@@ -550,4 +554,11 @@ public class PatientViewController {
         return "redirect:/patient/ui/linkdoctor/0?patientId="+patientId;
     }
 
+    public Boolean getClosePopup() {
+        return closePopup;
+    }
+
+    public void setClosePopup(Boolean closePopup) {
+        this.closePopup = closePopup;
+    }
 }

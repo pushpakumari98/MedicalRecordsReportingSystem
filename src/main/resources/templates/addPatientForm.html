@@ -119,7 +119,11 @@
                        th:field="*{phone}"
                        placeholder="Phone"
                        class="form-control">
+                <p data-th-if="${#fields.hasErrors('phone')}"
+                   data-th-errors="*{phone}"
+                   class="alert alert-danger">
 
+                </p>
                 <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Date Of Birth
                 </label>

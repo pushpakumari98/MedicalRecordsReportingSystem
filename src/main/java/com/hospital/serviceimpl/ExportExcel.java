@@ -72,6 +72,7 @@ public class ExportExcel {
     }
 
     private void createPatientHeaderRow(){
+        workbook = new XSSFWorkbook();
         sheet   = workbook.createSheet("Patient Information");
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();

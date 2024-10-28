@@ -29,8 +29,9 @@ public class PatientRequest {
 
     @NotNull(message = "Age is a mandatory field.")
     private Integer age;
+
     @NotBlank(message = "Phone is a mandatory field.")
-    @Size(min = 10, message = "Minimum 10 digits required")
+    @Size(min = 4, message = "Minimum 4 digits required")
     private String phone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -38,6 +39,7 @@ public class PatientRequest {
     private Date dob;
 
     @NotBlank(message ="Aadhar is a mandatory input." )
+    @Size(min = 4, message = "Minimum 4 digits required")
     private String aadhar;
 
 }

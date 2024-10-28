@@ -51,7 +51,7 @@ public class DoctorViewController {
                              HttpSession session, RedirectAttributes redirectAttributes){
         System.out.println(doctorRequest.getName());
         if (rBindingResult.hasErrors()) {
-            return "/doctor/adddoctorform";
+            return "/doctor/ui/adddoctorform";
         }
         //TODO: check the duplicate value
         Doctor doctorentity = new Doctor();
@@ -83,7 +83,7 @@ public class DoctorViewController {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");
         }
-        return "redirect:/doctor/ui/adddoctorform";
+        return "redirect:/doctor/ui/addDoctorForm";
     }
 
 
