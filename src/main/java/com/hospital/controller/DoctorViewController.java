@@ -62,11 +62,7 @@ public class DoctorViewController {
                              HttpSession session, RedirectAttributes redirectAttributes){
         System.out.println(doctorRequest.getName());
         if (rBindingResult.hasErrors()) {
-<<<<<<< HEAD
-            return "/doctor/ui/adddoctorform";
-=======
             return "redirect:/doctor/adddoctorform";
->>>>>>> b1c4721aafcaf820457581ba92c286fb1e76956f
         }
         //TODO: check the duplicate value
         Doctor doctorentity = new Doctor();
