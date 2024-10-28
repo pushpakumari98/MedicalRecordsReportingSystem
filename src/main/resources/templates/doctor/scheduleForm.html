@@ -3,58 +3,82 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Doctor Records Reporting System</title>
-</head>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-    .form-container{
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2018/07/16/13/20/stethoscope-3541909_1280.jpg'); /* Replace with the URL of your image */
+            background-size: cover; /* This makes the image cover the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Ensure the image does not repeat */
+            height: 100vh; /* Set the height to 100% of the viewport */
+        }
 
-         width: 300px;
-         margin: 0 auto;
-         margin-top: 100px;
-         float: none;
-     }
-</style>
+        .form-container {
+            width: 270px;
+            margin: 0 auto;
+            margin-top:30px;
+            float: none;
+            background-color: rgba(255, 255, 255, 0.8); /* Slight transparency for the form background */
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
 <body>
 <div class="container">
     <div class="form-container">
+
         <form action="#"
-              th:action="@{/doctor/ui/savedoctor}"
+              th:action="@{/doctor/ui/saveSchedule}"
               th:object="${doctorScheduleRequest}"
               method="POST">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                     Doctor Id
                 </label>
+                <input type="number" style="display:none;"
+                       th:field="*{id}">
                 <input type="number"
                        th:field="*{id}"
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                        id="id"
-                       placeholder="Doctor Id">
+                       placeholder="Doctor Id"
+                       disabled>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                     Doctor Name
                 </label>
+                <input style="display:none;"
+                       th:field="*{name}">
                 <input type="text"
                        th:field="*{name}"
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                        id="username"
-                       placeholder="Username">
+                       placeholder="Username"
+                       disabled>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Checkup Room
+                </label>
+                <input type="number"
+                       th:field="*{checkuproom}"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       id="checkupRoom"
+                       placeholder="checkupRoom">
             </div>
             <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Password
-                </label>
-                <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
-                <p class="text-red-500 text-xs italic">Please choose a password.</p>
+                <label><b>Working Days:</b></label>
+                <div th:each="day : ${workingdays}">
+                    <input type="checkbox" name="workingdays" th:value="${day}"/>
+                    <span th:text="${day}"></span>
+                </div>
             </div>
             <div class="flex items-center justify-between">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                    Sign In
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Create/Update Schedule
                 </button>
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                    Forgot Password?
-                </a>
             </div>
         </form>
     </div>

@@ -7,31 +7,48 @@
 
     <style>
         body {
-          font-family: Arial, sans-serif;
-          text-align: center;
-          margin: 0;
-          padding: 0;
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/18/12/23/building-2654823_1280.jpg');
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 90vh; /* Full viewport height */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-size: cover; /* Cover the background image */
+            background-position: center; /* Center the background image */
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Add a slightly transparent white background */
+            padding: 20px; /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for aesthetic */
+            width: 300px; /* Set a fixed width */
+            margin: 0 auto; /* Center the container horizontally */
         }
 
         h2 {
-          padding-top: 150px; /* Adjust vertical spacing */
-          font-size: 48px; /* Adjust font size */
+            font-size: 36px; /* Reduced font size */
+            margin-bottom: 10px;
+            color: black; /* Color of the heading */
         }
 
         /* Style for the buttons */
         .button {
-          display: inline-block;
-          padding: 15px 30px;
-          margin: 15px;
-          background-color: #4CAF50; /* Adjust button color */
-          color: black;
-          text-decoration: none;
-          font-size: 16px;
-          border-radius: 5px; /* Adjust button border radius */
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0; /* Margin between buttons */
+            background-color: #4CAF50; /* Button color */
+            color: white; /* Text color */
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px; /* Border radius */
         }
 
         .button:hover {
-          background-color: #3e8e41; /* Adjust button color on hover */
+            background-color: #3e8e41; /* Adjust button color on hover */
         }
     </style>
 </head>
@@ -39,6 +56,7 @@
 
 <body>
 
+<<<<<<< HEAD
 <nav class="bg-gray-50 dark:bg-gray-700" style="width: 100%; padding-left: 500px;">
     <div class="max-w-screen-xl px-4 py-3 mx-auto">
         <div class="flex items-center">
@@ -159,6 +177,18 @@
 <b><a class="button" th:href="@{/api/export-patient}">Export Patient</a></b>
 <br>
 <b><a class="button" href="/patient/ui/home">Home</a></b>
+=======
+<div class="container">
+    <h2>Patient Home</h2>
+    <b><a class="button" href="/patient/ui/addPatientForm">Add Patient</a></b>
+    <br>
+    <b><a class="button" href="/patient/ui/patientList/0">See Patient</a></b>
+    <br>
+    <b><a class="button" href="@{/api/export-patient}">Export Patient</a></b>
+    <br>
+    <b><a class="button" href="/patient/ui/home">Home</a></b>
+</div>
+>>>>>>> b1c4721aafcaf820457581ba92c286fb1e76956f
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>

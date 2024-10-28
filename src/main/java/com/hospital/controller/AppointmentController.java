@@ -278,6 +278,6 @@ public class AppointmentController {
             appointmentRepository.save(app);
         }
 
-        return "Appointment has been scheduled successfully";
+        return "Doctor schedule has been updated successfully";
     }
 }

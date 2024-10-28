@@ -68,9 +68,9 @@ public class PatientViewController {
     public EmailService emailService;
 
     @GetMapping("/addPatientForm")
-    public String addPatientForm(Model model){
+    public String showAddPatientForm(Model model){
         PatientRequest patientrequest = new PatientRequest();
-        model.addAttribute("patientrequest", patientrequest);
+        model.addAttribute("patientRequest", patientrequest);
         return "addPatientForm";
     }
 
@@ -187,6 +187,7 @@ public class PatientViewController {
         }
         try {
             patientList = patientService.getAllPatient(pageNo, size, sortBy, direction);
+            System.out.println("test");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Something Went wrong.");
             redirectAttributes.addFlashAttribute("alertClass", "alert alert-danger");

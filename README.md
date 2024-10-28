@@ -1,6 +1,6 @@
 <b><h2>Medical Records Reporting System</h2></b>
 <hr>
-<p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors and nurses.</p>
+<p>A comprehensive system to manage patient records, developed with a focus on healthcare providers and administrative staff. This project offers an efficient solution for maintaining, updating, and retrieving patient information, while also allowing the assignment of doctors nurses and pharmacists.</p>
 <b><h3>Table of Contents</h3></b>
 <ul>
   <li>Project Overview</li>
@@ -61,9 +61,13 @@
 </ul>
 <b><h3>Screenshots</h3></b>
 
-![Screenshot 2024-09-09 203837](https://github.com/user-attachments/assets/712136c0-582e-4993-ac8d-cc54989f0985)
+![Screenshot 2024-10-03 063719](https://github.com/user-attachments/assets/368f802c-3798-4e27-ad26-5beae416c5f1)
+![Screenshot 2024-10-03 063918](https://github.com/user-attachments/assets/ba5621e3-a4d8-467e-9504-3d1a1e3c56fc)
+![Screenshot 2024-10-02 222257](https://github.com/user-attachments/assets/127040cb-c597-43fc-9a72-2b42d2dc1c3b)
+![Screenshot 2024-10-03 063933](https://github.com/user-attachments/assets/943c12ec-34b6-4c74-9b0e-f2bf7462d169)
+![Screenshot 2024-10-03 063946](https://github.com/user-attachments/assets/983e9c54-40f7-4569-8525-e0031bcdbddb)
+![Screenshot 2024-10-03 174717](https://github.com/user-attachments/assets/7289c969-adfb-4ac3-99e0-9edd5f6aa058)
 
-![Screenshot 2024-09-08 122332](https://github.com/user-attachments/assets/46efe151-d18f-4e8c-95aa-b6bcd46320ce)
 
 
 <b><h3>Contributing</h3></b>

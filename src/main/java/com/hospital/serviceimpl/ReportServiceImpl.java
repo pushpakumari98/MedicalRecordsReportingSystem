@@ -6,6 +6,7 @@ import com.hospital.service.ReportService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -19,13 +20,17 @@ import java.util.Map;
 @Service
 public class ReportServiceImpl implements ReportService {
 
+
+    @Value("${report.dir}")
+    private String reportDir;
+
     @Autowired
     PatientDetailsRepository patientDetailsRepository;
 
     @Override
     public String exportPatientDetails(String reportFormat) throws FileNotFoundException, JRException {
 
-        String reportPath = "C:\\Users\\kmrpi\\Desktop\\report";
+        String reportPath = reportDir;
         List<PatientDetails> patientDetailsList = patientDetailsRepository.findAll();
         File file = ResourceUtils.getFile("classpath:patientdetails.jrxml");
         System.out.println(file.getAbsolutePath());
