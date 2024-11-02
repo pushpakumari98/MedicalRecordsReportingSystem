@@ -94,25 +94,25 @@ public class PatientViewController {
     }
 
     @PostMapping("/savepatient")
-    public String addPatient(@Valid @ModelAttribute("patientrequest") PatientRequest patientrequest, BindingResult rBindingResult,
-                             HttpSession session, RedirectAttributes redirectAttributes){
-        System.out.println(patientrequest.getName());
+    public String addPatient(@Valid @ModelAttribute("patientRequest") PatientRequest patientRequest, BindingResult rBindingResult,
+                             HttpSession session, RedirectAttributes redirectAttributes,Model model){
+        System.out.println(patientRequest.getName());
         if (rBindingResult.hasErrors()) {
             return "addPatientForm";
         }
         //TODO: check the duplicate value
         Patient p = new Patient();
-        p.setName(patientrequest.getName());
-        p.setEmail(patientrequest.getEmail());
-        p.setAge(patientrequest.getAge());
-        p.setPhone(patientrequest.getPhone());
-        p.setDob(patientrequest.getDob());
-        p.setAadhar(patientrequest.getAadhar());
+        p.setName(patientRequest.getName());
+        p.setEmail(patientRequest.getEmail());
+        p.setAge(patientRequest.getAge());
+        p.setPhone(patientRequest.getPhone());
+        p.setDob(patientRequest.getDob());
+        p.setAadhar(patientRequest.getAadhar());
         p.setAddmissionDate(new Date());
         Patient createdPatient = null;
 
         try {
-            Patient patient1 = patientService.findByAadhar(patientrequest.getAadhar());
+            Patient patient1 = patientService.findByAadhar(patientRequest.getAadhar());
 
             if (patient1 == null) {
                 createdPatient = patientService.savePatient(p);   //
@@ -139,7 +139,7 @@ public class PatientViewController {
                              HttpSession session, RedirectAttributes redirectAttributes){
         System.out.println(patientrequest.getName());
         if (rBindingResult.hasErrors()) {
-            return "addPatientForm";
+            return "updatePatientForm";
         }
         //TODO: check the duplicate value
         Patient p = new Patient();
