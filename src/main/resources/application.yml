@@ -2,20 +2,19 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pushpa20052002kumari@gmail.com
-    password: eawf owun xxcs gemq
+    username: kmrpiyush95@gmail.com
+    password: yeui kytd sybn suyi
     tls: true
     properties.mail.smtp:
       auth: true
       starttls.enable: true
-#      thymeleaf:
-#          prefix: classpath:/templates/
-#          suffix: .html
-
+    properties:
+      domain_name: kmrpiyush95@gmail.com
   datasource:
-    url: jdbc:postgresql://localhost:5432/hospital1
+    url: jdbc:postgresql://localhost:5432/hospital
+
     username: postgres
-    password: pushpa@9798
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -30,5 +29,4 @@ server:
   port: 8081
 
 report:
-  dir: C:\\Users\\panka\\Desktop\\report
-
+  dir: C:\\Users\\kmrpi\\Desktop\\report

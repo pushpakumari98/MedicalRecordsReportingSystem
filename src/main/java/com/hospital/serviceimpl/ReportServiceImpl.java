@@ -1,8 +1,11 @@
 package com.hospital.serviceimpl;
 
+import com.hospital.dto.PatientDetailsResponse;
 import com.hospital.entity.PatientDetails;
 import com.hospital.repository.PatientDetailsRepository;
+import com.hospital.service.PatientDetailsService;
 import com.hospital.service.ReportService;
+import jakarta.transaction.Transactional;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 @Service
 public class ReportServiceImpl implements ReportService {
 
@@ -27,11 +31,15 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     PatientDetailsRepository patientDetailsRepository;
 
+    @Autowired
+    PatientDetailsService patientDetailsService;
+
     @Override
     public String exportPatientDetails(String reportFormat) throws FileNotFoundException, JRException {
 
         String reportPath = reportDir;
-        List<PatientDetails> patientDetailsList = patientDetailsRepository.findAll();
+        //List<PatientDetails> patientDetailsList = patientDetailsRepository.findAll();
+        List<PatientDetailsResponse> patientDetailsList = patientDetailsService.getPatientDetails();
         File file = ResourceUtils.getFile("classpath:patientdetails.jrxml");
         System.out.println(file.getAbsolutePath());
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
