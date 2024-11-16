@@ -7,7 +7,7 @@
 	<field name="doctor_name" class="java.lang.String"/>
 	<field name="app_status" class="java.lang.String"/>
 	<field name="checkup_room" class="java.lang.Integer"/>
-	<field name="date_of_appointment" class="java.sql.Timestamp"/>
+	<field name="date_of_appointment" class="java.sql.Date"/>
 	<background>
 		<band/>
 	</background>

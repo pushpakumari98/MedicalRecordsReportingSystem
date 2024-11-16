@@ -146,6 +146,7 @@ public class ExportExcel {
 
     }
     private void createDoctorHeaderRow(){
+        workbook = new XSSFWorkbook();
         sheet   = workbook.createSheet("Doctor Information");
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
@@ -187,8 +188,16 @@ public class ExportExcel {
             createCell(row, columnCount++, doctor.getId().toString(), style);
             createCell(row, columnCount++, doctor.getName(), style);
             createCell(row, columnCount++, doctor.getDob().toString(), style);
-            createCell(row, columnCount++, doctor.getSpecialist().toString(), style);
-            createCell(row,columnCount++,doctor.getSchedule().toString(),style);
+            if(doctor.getSpecialist()!=null){
+                createCell(row, columnCount++, doctor.getSpecialist().toString(), style);
+            }else{
+                createCell(row, columnCount++, null, style);
+            }
+            if(doctor.getSchedule()!=null){
+                createCell(row,columnCount++,doctor.getSchedule().toString(),style);
+            }else{
+                createCell(row,columnCount++,null,style);
+            }
             createCell(row, columnCount++, doctor.getAge().toString(), style);
             createCell(row, columnCount++, doctor.getPhone().toString(), style);
 
