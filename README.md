@@ -72,5 +72,4 @@
 
 <b><h3>Contributing</h3></b>
 <p>Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request with your changes.</p>
-<b><h3>License</h3></b>
-<p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
+
